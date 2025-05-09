@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  rust-atomizer:
+    build: .
+    volumes:
+      - .:/work  # Mount the current directory
+    working_dir: /work
+    command: ${FOLDER_PATH} ${REPO_ID}

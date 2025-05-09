@@ -1,0 +1,18 @@
+[package]
+name = "rust-atomizer"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+regex = "1.10.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+scip = "0.5.2" 
+html-escape = "0.2.13"
+
+[[bin]]
+name = "write_atoms"
+path = "src/bin/write_atoms.rs"
