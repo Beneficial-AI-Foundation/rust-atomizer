@@ -1,4 +1,4 @@
-FROM rust:1.74-slim as builder
+FROM debian:bookworm-slim as builder
 
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,7 +8,14 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     build-essential \
+    pkg-config \
+    libssl-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Install the latest stable Rust toolchain
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+RUN rustup default stable && rustup update
 
 # Install rust-analyzer
 RUN curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/rust-analyzer \
