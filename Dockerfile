@@ -78,5 +78,7 @@ WORKDIR /work
 # Set environment variables
 ENV PATH="/usr/local/bin:${PATH}"
 
-# Entry point
-ENTRYPOINT ["write_atoms"]
+# Entry point - change to shell script to handle path issues
+COPY --from=builder /app/run.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/run.sh
+ENTRYPOINT ["run.sh"]
