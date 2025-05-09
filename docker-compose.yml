@@ -4,6 +4,7 @@ services:
   rust-atomizer:
     build: .
     volumes:
-      - .:/work  # Mount the current directory
+      - .:/work  # Mount the current directory for the tool itself
+      - ${SOURCE_PATH}:${CONTAINER_PATH}  # Mount the target Rust project
     working_dir: /work
-    command: ${FOLDER_PATH} ${REPO_ID}
+    command: ${CONTAINER_PATH} ${REPO_ID}
