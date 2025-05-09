@@ -9,13 +9,23 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install rust-analyzer
-RUN curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/rust-analyzer \
-    && chmod +x /usr/local/bin/rust-analyzer
+# Install rust-analyzer from GitHub releases
+RUN mkdir -p /usr/local/bin
+RUN wget -qO- https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip > /usr/local/bin/rust-analyzer
+RUN chmod +x /usr/local/bin/rust-analyzer
 
-# Install SCIP tools  
-RUN cargo install scip
+# Clone and install SCIP
+RUN env \
+    TAG="v0.5.2" \
+    OS="$(uname -s | tr '[:upper:]' '[:lower:]')" \
+    ARCH="$(uname -m | sed -e 's/x86_64/amd64/')" \
+    bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"' \
+    | tar xzf - scip \
+    && mv scip /usr/local/bin/ \
+    && chmod +x /usr/local/bin/scip
 
+# Verify installations
+RUN cargo --version && which rust-analyzer && which scip
 # Install Python dependencies
 RUN pip3 install mysql-connector-python
 
