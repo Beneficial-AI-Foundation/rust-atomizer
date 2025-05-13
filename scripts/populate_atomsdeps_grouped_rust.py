@@ -584,7 +584,7 @@ if __name__ == "__main__":
     con = mysql_connect(
         user="root",
         password=os.getenv("DB_PASSWORD"),
-        host="127.0.0.1",
+        host="host.docker.internal",  # This points to your host machine
         database="verilib",
     )
     populate_atoms_deps = PopulateAtomsDeps(con)

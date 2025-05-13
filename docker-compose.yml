@@ -1,10 +1,11 @@
-version: '3'
+version: "3.8"
 
 services:
   rust-atomizer:
     build: .
     volumes:
       - .:/work  # Mount the current directory for the tool itself
-      - ${SOURCE_PATH}:${CONTAINER_PATH}  # Mount the target Rust project
+      - "${SOURCE_PATH}:${CONTAINER_PATH}"  # Mount the target Rust project
+      - "./scripts:/work/scripts"  # Mount scripts directory
     working_dir: /work
-    command: ${CONTAINER_PATH} ${REPO_ID}
+    command: sh -c "cargo build --bin write_atoms && ./target/debug/write_atoms ${CONTAINER_PATH} ${REPO_ID}"

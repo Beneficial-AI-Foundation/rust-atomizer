@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim as builder
+FROM debian:bookworm-slim
 
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y \
@@ -21,7 +21,7 @@ RUN rustup default stable && rustup update
 RUN curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/rust-analyzer \
     && chmod +x /usr/local/bin/rust-analyzer
 
-# Clone and install SCIP
+# Install SCIP
 RUN env \
     TAG="v0.5.2" \
     OS="$(uname -s | tr '[:upper:]' '[:lower:]')" \
@@ -31,54 +31,23 @@ RUN env \
     && mv scip /usr/local/bin/ \
     && chmod +x /usr/local/bin/scip
 
+# Prepend /usr/local/bin to PATH to prioritize our custom tools
+ENV PATH="/usr/local/bin:${PATH}"
+
+# Create symbolic links
+RUN ln -sf /usr/local/bin/rust-analyzer /usr/bin/rust-analyzer && \
+    ln -sf /usr/local/bin/scip /usr/bin/scip
+
 # Verify installations
-RUN cargo --version && which rust-analyzer && which scip
+# This should now show /usr/local/bin/rust-analyzer
+RUN cargo --version && which rust-analyzer && which scip && rust-analyzer --version && scip --version
 
 # Create and activate a Python virtual environment
 RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH" 
 
-# Install Python dependencies in the virtual environment
-RUN pip3 install mysql-connector-python
-
-# Set working directory
-WORKDIR /app
-
-# Copy the project files
-COPY . .
-
-# Build the project
-RUN cargo build --release
-
-# Run stage
-FROM debian:bookworm-slim
-
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-venv \
-    libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy the virtual environment from the builder stage
-COPY --from=builder /opt/venv /opt/venv
-
-# Set environment variables to use the virtual environment
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Copy binaries from builder stage
-COPY --from=builder /usr/local/bin/rust-analyzer /usr/local/bin/
-COPY --from=builder /usr/local/bin/scip /usr/local/bin/
-COPY --from=builder /app/target/release/write_atoms /usr/local/bin/
-COPY --from=builder /app/scripts /app/scripts
-
-# Set working directory
+# Set working directory to mounted volume location
 WORKDIR /work
 
-# Set environment variables
-ENV PATH="/usr/local/bin:${PATH}"
-
-# Entry point - change to shell script to handle path issues
-COPY --from=builder /app/run.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/run.sh
-ENTRYPOINT ["run.sh"]
+# Set default command to provide a shell with tools
+CMD ["/bin/bash"]
