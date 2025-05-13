@@ -54,10 +54,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         eprintln!("Failed to write atoms JSON: {}", e);
         std::process::exit(1);
     }
-    println!("Atoms JSON written to {}", json_output_path);
+    let abs_json_output_path = std::fs::canonicalize(&json_output_path)?;
+    println!("Atoms JSON written to {}", abs_json_output_path.display());
 
     // Call the Python script with the JSON file and repo_id
-    println!("Running: populate_atomsdeps_grouped_rust.py {} {}", json_output_path, repo_id);
+    /*println!("Running: populate_atomsdeps_grouped_rust.py {} {}", json_output_path, repo_id);
     let python_status = Command::new("python3")
         .arg("scripts/populate_atomsdeps_grouped_rust.py")
         .arg(repo_id)
@@ -69,6 +70,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         std::process::exit(1);
     }
     println!("Python script completed successfully");
-
+    */
     Ok(())
 }
