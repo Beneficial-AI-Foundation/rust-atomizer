@@ -56,19 +56,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     println!("Atoms JSON written to {}", json_output_path);
 
-    // Call the Python script with the JSON file and repo_id
-    println!("Running: populate_atomsdeps_grouped_rust.py {} {}", json_output_path, repo_id);
-    let python_status = Command::new("python3")
-        .arg("scripts/populate_atomsdeps_grouped_rust.py")
-        .arg(repo_id)
-        .arg(&json_output_path)
-        .status()?;
-    
-    if !python_status.success() {
-        eprintln!("Failed to run Python script");
-        std::process::exit(1);
-    }
-    println!("Python script completed successfully");
-
     Ok(())
 }
