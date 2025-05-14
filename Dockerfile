@@ -46,6 +46,9 @@ RUN cargo --version && which rust-analyzer && which scip && rust-analyzer --vers
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH" 
 
+# Install MySQL connector for Python
+RUN /opt/venv/bin/pip install mysql-connector-python
+
 # Set working directory to mounted volume location
 WORKDIR /work
 
