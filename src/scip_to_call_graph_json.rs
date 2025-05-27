@@ -67,6 +67,7 @@ pub struct FunctionNode {
     pub symbol: String,
     pub display_name: String,
     pub file_path: String,
+    pub relative_path: String,  // Relative path from project root
     pub callers: HashSet<String>,  // Symbols that call this function
     pub callees: HashSet<String>,  // Symbols that this function calls
     pub range: Vec<i32>,  // Range of the function in the source file
@@ -81,6 +82,7 @@ pub struct Atom {
     pub body: String,
     pub display_name: String,
     pub full_path: String,
+    pub relative_path: String,
     pub file_name: String,
     pub parent_folder: String,
 }   
@@ -120,6 +122,7 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                     symbol: symbol.symbol.clone(),
                     display_name: symbol.display_name.clone().unwrap_or_else(|| "unknown".to_string()),
                     file_path: abs_path,
+                    relative_path: rel_path.to_string(),
                     callers: HashSet::new(),
                     callees: HashSet::new(),
                     range: Vec::new(),  // Will be filled in the second pass
@@ -339,6 +342,7 @@ pub fn write_call_graph_as_atoms_json<P: AsRef<std::path::Path>>(
             body: body_content,
             display_name: node.display_name.clone(),
             full_path: node.file_path.clone(),
+            relative_path: node.relative_path.clone(),
             file_name: Path::new(&node.file_path)
                 .file_name()
                 .unwrap_or_default()
@@ -355,7 +359,7 @@ pub fn write_call_graph_as_atoms_json<P: AsRef<std::path::Path>>(
 /// Check if a symbol kind represents a function-like entity
 fn is_function_like(kind: i32) -> bool {
     match kind {
-        6 | 12 | 17 | 26 | 80 => true,  // Method, Function, etc.
+        6 | 17 | 26 | 80 => true,  // Method, Function, etc.
         _ => false,
     }
 }
@@ -938,6 +942,7 @@ mod tests {
             symbol: "f1".to_string(),
             display_name: "foo".to_string(),
             file_path: "/tmp/foo.rs".to_string(),
+            relative_path: "tmp/foo.rs".to_string(),
             callers: HashSet::new(),
             callees: HashSet::new(),
             range: vec![],
