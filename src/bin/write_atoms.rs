@@ -2,6 +2,7 @@ use rust_atomizer::scip_to_call_graph_json::{parse_scip_json, build_call_graph, 
 use std::env;
 use std::process::Command;
 use std::path::Path;
+use std::fs;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
@@ -12,6 +13,38 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let folder_path = &args[1];
     let repo_id = &args[2];
+
+    // Check if Cargo.toml exists, if not create one for standalone Rust files
+    let cargo_toml_path = Path::new(folder_path).join("Cargo.toml");
+    if !cargo_toml_path.exists() {
+        // Look for .rs files in the directory
+        let entries = fs::read_dir(folder_path)?;
+        let mut rust_files = Vec::new();
+        
+        for entry in entries {
+            let entry = entry?;
+            let path = entry.path();
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("rs") {
+                if let Some(file_name) = path.file_stem().and_then(|s| s.to_str()) {
+                    rust_files.push((file_name.to_string(), path.file_name().unwrap().to_str().unwrap().to_string()));
+                }
+            }
+        }
+        
+        if !rust_files.is_empty() {
+            // Create a basic Cargo.toml
+            let package_name = rust_files[0].0.clone();
+            let mut cargo_content = format!("[package]\nname = \"{}\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n", package_name);
+            
+            for (name, file_name) in rust_files {
+                cargo_content.push_str(&format!("[[bin]]\nname = \"{}\"\npath = \"{}\"\n\n", name, file_name));
+            }
+            
+            fs::write(&cargo_toml_path, cargo_content)?;
+            println!("Created Cargo.toml for standalone Rust files");
+        }
+    }
+    
     let folder = Path::new(folder_path)
         .file_name()
         .and_then(|name| name.to_str())

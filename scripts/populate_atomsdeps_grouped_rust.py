@@ -68,7 +68,7 @@ class PopulateAtomsDeps:
             }
         return codes_dict
 
-    def populate_atoms_from_json(self, code_id, user_id, json_data, files_ids_dict):
+    def populate_atoms_from_json(self, repo_id, code_id, user_id, json_data, files_ids_dict):
         # Handle both formats: array or {"Atoms": [...]}
         data = json.loads(json_data)
         if isinstance(data, list):
@@ -91,8 +91,8 @@ class PopulateAtomsDeps:
         # Batch check which atoms already exist
         placeholders = ", ".join(["%s"] * len(identifiers))
         check_query = f"""
-            SELECT identifier FROM atoms 
-            WHERE code_id = %s AND identifier IN ({placeholders});
+            SELECT full_identifier FROM atoms 
+            WHERE code_id = %s AND full_identifier IN ({placeholders});
         """
         params = [code_id] + identifiers
         result = sql2(self.con, check_query, tuple(params))
@@ -111,14 +111,15 @@ class PopulateAtomsDeps:
         
         # If we have new atoms to insert, process them in batch
         if new_atoms:
-            self.populate_atoms_table_batch(code_id, user_id, new_atoms, files_ids_dict)
+            self.populate_atoms_table_batch(repo_id, code_id, user_id, new_atoms, files_ids_dict)
 
-    def populate_atoms_table_batch(self, code_id, user_id, atoms_list, files_ids_dict):
+    def populate_atoms_table_batch(self, repo_id, code_id, user_id, atoms_list, files_ids_dict):
         """
         Process and insert multiple atoms at once, grouping them by file name
     
         Args:
             code_id (int): The ID of the code entry
+            repo_id (int): The ID of the repository
             user_id (int): The ID of the user
             atoms_list (list): List of atom dictionaries to insert
             files_ids_dict (dict, optional): Mapping from file identifiers to their molecule IDs
@@ -134,6 +135,8 @@ class PopulateAtomsDeps:
         # Group atoms by file name
         atoms_by_file = {}
         for atom in atoms_list:
+            if atom["identifier"] == "signal_error_get_address":
+                print(f"Atom for signal_error_get_address: {atom}")
             relative_path = atom["relative_path"]
             # Normalize path for consistency with files_ids_dict keys
             normalized_path = relative_path.replace("\\", "/")
@@ -146,69 +149,79 @@ class PopulateAtomsDeps:
             molecule_id = None
             
             # First check if the file already exists in our files_ids_dict mapping
-            if file_path in files_ids_dict:
-                molecule_id = files_ids_dict[file_path]
-                print(f"Using existing file molecule: {file_path} (ID: {molecule_id})")
+            # Check if file_path is the suffix of any key in files_ids_dict
+            matching_key = next((k for k in files_ids_dict if k.endswith(file_path)), None)
+            if matching_key:
+                molecule_id = files_ids_dict[matching_key]
+                print(f"Using existing file molecule: {matching_key} (ID: {molecule_id})")
             else:
                 # Check if the molecule already exists in the database
                 check_query = """
-                    SELECT id FROM atoms WHERE identifier = %s AND code_id = %s;
+                    SELECT id FROM atoms WHERE identifier = %s AND code_id = %s AND repo_id = %s;
                 """
-                result = sql2(self.con, check_query, (file_path, code_id))
+                result = sql2(self.con, check_query, (file_path, code_id, repo_id))
                 
                 # Insert file name if it doesn't exist
                 if not result:
                     insert_query_for_file = """
-                        INSERT INTO atoms (code_id, identifier, statement_type, type, user_id, timestamp)
-                        VALUES (%s, %s, %s, %s, %s, NOW());
+                        INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, type, user_id, timestamp)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
                     """
+                    # Extract file_name as the string after the last "/" in file_path
+                    file_name = file_path.split("/")[-1]
                     sql2(
                         self.con,
                         insert_query_for_file,
                         (
+                            repo_id,
                             code_id,
+                            file_name,
                             file_path,
                             "file",
                             "molecule",
                             user_id,
                         ),
                     )
-                    print(f"Created new file molecule: {file_path} for code_id {code_id}")
+                    print(f"Created new file molecule: {file_path} with {file_name} for code_id {code_id}, repo_id {repo_id}")
                 
                 # Get the file name ID
-                result = sql2(self.con, check_query, (file_path, code_id))
+                result = sql2(self.con, check_query, (file_path, code_id, repo_id))
                 if result:
                     molecule_id = result[0]["id"]
                 else:
                     print(f"Warning: Failed to get molecule ID for {file_path}")
                     continue
-            
-            # Prepare batch insert for atoms in this file
-            insert_query = """
-                INSERT INTO atoms (code_id, identifier, statement_type, parent_id, type, text, user_id, timestamp)
-                VALUES 
-            """
-            
-            values = []
-            params = []
-            
-            for atom in file_atoms:
-                values.append("(%s, %s, %s, %s, %s, %s, %s, NOW())")
-                params.extend([
-                    code_id,
-                    atom["identifier"],
-                    atom["statement_type"],
-                    molecule_id,
-                    "atom",
-                    atom["body"],
-                    user_id,
-                ])
-            
-            # Execute batch insert if we have atoms
-            if values:
-                batch_query = insert_query + ", ".join(values)
-                sql2(self.con, batch_query, tuple(params))
-                print(f"Inserted {len(file_atoms)} atoms for file {file_path}")
+        
+        # Prepare batch insert for atoms in this file
+        insert_query = """
+            INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, parent_id, type, text, user_id, timestamp)
+            VALUES 
+        """
+        
+        values = []
+        params = []
+        
+        for atom in file_atoms:
+            if atom["identifier"] == "signal_error_get_address":
+                print(f"Adding atom for signal_error_get_address to params")
+            values.append("(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())")
+            params.extend([
+                repo_id,
+                code_id,
+                atom["display_name"],
+                atom["identifier"],
+                atom["statement_type"],
+                molecule_id,
+                "atom",
+                atom["body"],
+                user_id,
+            ])
+        
+        # Execute batch insert if we have atoms
+        if values:
+            batch_query = insert_query + ", ".join(values)
+            sql2(self.con, batch_query, tuple(params))
+            print(f"Inserted {len(file_atoms)} atoms for file {file_path}")
                 
     def populate_atoms_deps_from_json(self, code_id, user_id, json_data):
         # Handle both formats: array or {"Atoms": [...]}
@@ -240,29 +253,34 @@ class PopulateAtomsDeps:
         """
         if not dependency_pairs:
             return
-            
+        
         # First, get all the atom IDs we need in one query
         all_identifiers = set()
         for parent_id, child_id in dependency_pairs:
             all_identifiers.add(parent_id)
             all_identifiers.add(child_id)
-            
+            if ("group_cipher/group_encrypt" in parent_id and "sender_keys/impl/SenderMessageKey/cipher_key" in child_id):
+                print(f"dependency_pair: ({parent_id}, {child_id})")
         # Convert to list for SQL query
         identifier_list = list(all_identifiers)
         
         # Create a query with the right number of placeholders
         placeholders = ", ".join(["%s"] * len(identifier_list))
         id_query = f"""
-            SELECT id, identifier FROM atoms 
-            WHERE code_id = %s AND identifier IN ({placeholders});
+            SELECT id, full_identifier FROM atoms 
+            WHERE full_identifier IN ({placeholders});
         """
         
         # Execute the query to get all IDs at once
-        params = [code_id] + identifier_list
+        params = identifier_list
         result = sql2(self.con, id_query, tuple(params))
         
         # Create a mapping from identifier to ID
-        id_map = {row["identifier"]: row["id"] for row in result}
+        id_map = {row["full_identifier"]: row["id"] for row in result}
+        # Print entries containing specific substrings for debugging
+        for key in id_map:
+            if "group_cipher/group_encrypt" in key or "sender_keys/impl/SenderMessageKey/cipher_key" in key:
+                print(f"id_map entry: {key} -> {id_map[key]}")
         
         # Check which combinations already exist in the database
         existing_deps = set()
@@ -277,6 +295,17 @@ class PopulateAtomsDeps:
         
         if not valid_deps:
             print("No valid dependencies found (missing atom IDs)")
+            # Print which identifiers are missing
+            missing = []
+            for parent_identifier, child_identifier in dependency_pairs:
+                if parent_identifier not in id_map:
+                    missing.append(f"Missing parent: {parent_identifier} for child {child_identifier}")
+                if child_identifier not in id_map:
+                    missing.append(f"Missing child: {child_identifier} for parent {parent_identifier}") 
+            if missing:
+                print("Missing atom IDs:")
+            for msg in missing:
+                print(f"  {msg}")
             return
             
         # Get existing dependencies
@@ -614,7 +643,7 @@ class PopulateAtomsDeps:
             json_for_filename = json.dumps(new_atoms)
             print(f"Populating atoms for {filename} and code_id {code_id}")
             # Use the batch version instead of single-processing function
-            self.populate_atoms_from_json(code_id, user_id, json_for_filename, files_ids_dict)
+            self.populate_atoms_from_json(repo_id, code_id, user_id, json_for_filename, files_ids_dict)
 
         # Second pass to populate dependencies after all atoms are created
         for code_id, code_data in codes.items():
@@ -758,17 +787,19 @@ class PopulateAtomsDeps:
             print(f"Adding {len(new_files)} new file molecules in batch")
             # Prepare batch insert query for files with 0 for code_id and include repo_id
             insert_query = """
-                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, parent_id, type, user_id, timestamp)
+                INSERT INTO atoms (code_id, repo_id, identifier, full_identifier, statement_type, parent_id, type, user_id, timestamp)
                 VALUES 
             """
             values = []
             params = []
             
             for file_identifier, folder_id in new_files:
-                values.append("(%s, %s, %s, %s, %s, %s, %s, NOW())")
+                file_name = file_identifier.split("/")[-1]
+                values.append("(%s, %s, %s, %s, %s, %s, %s, %s, NOW())")
                 params.extend([
                     0,  # Use 0 instead of NULL for code_id
                     repo_id,
+                    file_name,
                     file_identifier,
                     "file",
                     folder_id,
@@ -785,8 +816,8 @@ class PopulateAtomsDeps:
             if new_file_identifiers:
                 placeholders = ", ".join(["%s"] * len(new_file_identifiers))
                 id_query = f"""
-                    SELECT id, identifier FROM atoms 
-                    WHERE identifier IN ({placeholders})
+                    SELECT id, full_identifier FROM atoms 
+                    WHERE full_identifier IN ({placeholders})
                     AND type = 'molecule' AND statement_type = 'file'
                     AND code_id = 0 AND repo_id = %s;
                 """
@@ -794,11 +825,86 @@ class PopulateAtomsDeps:
                 result = sql2(self.con, id_query, tuple(params))
                 
                 for row in result:
-                    identifier_to_id[row["identifier"]] = row["id"]
+                    identifier_to_id[row["full_identifier"]] = row["id"]
     
         print(f"Successfully populated {len(identifier_to_id)} folder and file molecules for repo {repo_id}")
         return identifier_to_id
     
+    def set_code_id_for_files(self, repo_id):
+        """
+        Sets the code_id for file molecules based on their child atoms.
+        For each file molecule, finds the first child atom and uses its code_id.
+        
+        Args:
+            repo_id (int): The ID of the repository
+        """
+        print(f"Setting code_id for file molecules in repo {repo_id}")
+        
+        # First, get all file molecules (with code_id = 0) for this repo
+        file_query = """
+            SELECT id FROM atoms 
+            WHERE repo_id = %s AND type = 'molecule' AND statement_type = 'file' AND code_id = 0;
+        """
+        file_result = sql2(self.con, file_query, (repo_id,))
+        
+        if not file_result:
+            print("No file molecules found with code_id = 0")
+            return
+            
+        file_ids = [row["id"] for row in file_result]
+        print(f"Found {len(file_ids)} file molecules to update")
+        
+        # Build a mapping of file_id -> code_id by finding the first child atom for each file
+        file_id_to_code_id = {}
+        
+        for file_id in file_ids:
+            # Find the first atom that has this file as parent_id
+            atom_query = """
+                SELECT code_id FROM atoms 
+                WHERE parent_id = %s AND type = 'atom' 
+                LIMIT 1;
+            """
+            atom_result = sql2(self.con, atom_query, (file_id,))
+            
+            if atom_result:
+                code_id = atom_result[0]["code_id"]
+                file_id_to_code_id[file_id] = code_id
+            else:
+                print(f"Warning: No child atoms found for file ID {file_id}")
+        
+        if not file_id_to_code_id:
+            print("No file-to-code_id mappings found")
+            return
+            
+        print(f"Found code_id mappings for {len(file_id_to_code_id)} files")
+        
+        # Update files in batch using CASE statement
+        # Build the CASE statement for batch update
+        case_conditions = []
+        file_ids_to_update = []
+        
+        for file_id, code_id in file_id_to_code_id.items():
+            case_conditions.append(f"WHEN id = %s THEN %s")
+            file_ids_to_update.extend([file_id, code_id])
+        
+        # Create the batch update query
+        case_statement = " ".join(case_conditions)
+        placeholders = ", ".join(["%s"] * len(file_id_to_code_id))
+        
+        update_query = f"""
+            UPDATE atoms 
+            SET code_id = CASE 
+                {case_statement}
+            END
+            WHERE id IN ({placeholders});
+        """
+        
+        # Prepare parameters: case conditions + file IDs for WHERE clause
+        params = file_ids_to_update + list(file_id_to_code_id.keys())
+        
+        # Execute the batch update
+        sql2(self.con, update_query, tuple(params))
+        print(f"Successfully updated code_id for {len(file_id_to_code_id)} file molecules")
 
 
 if __name__ == "__main__":
@@ -825,3 +931,6 @@ if __name__ == "__main__":
     files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
     # Example usage of populate_all_atoms
     populate_atoms_deps.populate_all_atoms_for_rust(repo_id, json_path, files_ids_dict)
+    # Set code_id for file molecules based on their child atoms
+    populate_atoms_deps.set_code_id_for_files(repo_id)
+
