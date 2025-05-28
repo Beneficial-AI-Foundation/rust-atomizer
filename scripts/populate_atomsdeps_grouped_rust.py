@@ -99,7 +99,7 @@ class PopulateAtomsDeps:
         
         # Create set of existing atom identifiers
         for row in result:
-            existing_atoms.add(row["identifier"])
+            existing_atoms.add(row["full_identifier"])
         
         # Filter atoms that don't exist yet
         for atom in atoms:
@@ -508,7 +508,7 @@ class PopulateAtomsDeps:
             
             # Ensure we have a valid folder path
             if not folder_path:
-                folder_path = "/"  # Root
+                folder_path = atom.get("parent_folder", "")
             
             # Add the file to the appropriate folder in our mapping
             if folder_path not in folders_to_files:
