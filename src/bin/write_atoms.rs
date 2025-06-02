@@ -17,6 +17,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Check if Cargo.toml exists, if not create one for standalone Rust files
     let cargo_toml_path = Path::new(folder_path).join("Cargo.toml");
     if !cargo_toml_path.exists() {
+        print!("Creating Cargo.toml for standalone Rust files in {}...\n", folder_path);
         // Look for .rs files in the directory
         let entries = fs::read_dir(folder_path)?;
         let mut rust_files = Vec::new();
@@ -55,13 +56,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Run rust-analyzer scip <path_to_folder>
     println!("Running: rust-analyzer scip {}", folder_path);
-    let status = Command::new("rust-analyzer")
+    let output = Command::new("rust-analyzer")
         .arg("scip")
         .arg(folder_path)
-        .status()?;
-    if !status.success() {
-        eprintln!("Failed to run rust-analyzer scip");
-        std::process::exit(1);
+        .output()?;
+    if !output.status.success() {
+        eprintln!("Errors while running rust-analyzer scip: {}", String::from_utf8_lossy(&output.stderr));
+        //std::process::exit(1);
     }
 
     // Run scip print --json > <folder>_scip.json
