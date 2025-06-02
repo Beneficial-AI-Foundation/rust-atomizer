@@ -28,9 +28,7 @@ def sql2(connection, command, data):
 def get_unatomized_repos(connection):
     cursor = connection.cursor(dictionary=True)
     cursor.execute(f"""SELECT * FROM repos 
-                       WHERE timestamp > (select timestamp 
-                                          from updates WHERE label='rust_atomization') 
-                       AND 'Rust' IN (SELECT name 
+                       WHERE 'Rust' IN (SELECT name 
                                       FROM codes JOIN languages ON codes.language_id = languages.id
                                       WHERE codes.repo_id = repos.id)
                        AND repos.status_id = 1""")
