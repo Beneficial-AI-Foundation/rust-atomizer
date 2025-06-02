@@ -202,8 +202,6 @@ class PopulateAtomsDeps:
         params = []
         
         for atom in file_atoms:
-            if atom["identifier"] == "signal_error_get_address":
-                print(f"Adding atom for signal_error_get_address to params")
             values.append("(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())")
             params.extend([
                 repo_id,
@@ -259,8 +257,6 @@ class PopulateAtomsDeps:
         for parent_id, child_id in dependency_pairs:
             all_identifiers.add(parent_id)
             all_identifiers.add(child_id)
-            if ("group_cipher/group_encrypt" in parent_id and "sender_keys/impl/SenderMessageKey/cipher_key" in child_id):
-                print(f"dependency_pair: ({parent_id}, {child_id})")
         # Convert to list for SQL query
         identifier_list = list(all_identifiers)
         
@@ -277,10 +273,6 @@ class PopulateAtomsDeps:
         
         # Create a mapping from identifier to ID
         id_map = {row["full_identifier"]: row["id"] for row in result}
-        # Print entries containing specific substrings for debugging
-        for key in id_map:
-            if "group_cipher/group_encrypt" in key or "sender_keys/impl/SenderMessageKey/cipher_key" in key:
-                print(f"id_map entry: {key} -> {id_map[key]}")
         
         # Check which combinations already exist in the database
         existing_deps = set()
@@ -482,16 +474,12 @@ class PopulateAtomsDeps:
         
         # Initialize the dictionary
         folders_to_files = {}
-        
         # Process each atom to extract file and folder information
         for atom in atoms_list:
-            # Skip atoms that don't have the necessary fields
-            if not all(k in atom for k in ["identifier", "file_name", "relative_path"]):
-                continue
             
             relative_path = atom.get("relative_path", "")
             file_name = atom.get("file_name", "")
-            
+
             if not relative_path or not file_name:
                 continue
             
@@ -508,7 +496,7 @@ class PopulateAtomsDeps:
             
             # Ensure we have a valid folder path
             if not folder_path:
-                folder_path = atom.get("parent_folder", "")
+                folder_path = "/"  # Root
             
             # Add the file to the appropriate folder in our mapping
             if folder_path not in folders_to_files:
@@ -570,54 +558,36 @@ class PopulateAtomsDeps:
 
         print(f"Nb of Codes: {len(codes)}")
 
-        # Try to load filename_to_atoms from cache or create new mapping
-        try:
-            if atoms_cache_path.exists():
-                with open(atoms_cache_path, "r", encoding="utf-8") as f:
-                    filename_to_atoms = json.load(f)
-            else:
-                # Parse JSON content once
-                # Parse atoms list from json_content
-                try:
-                    data = json.loads(json_content)
-                    if isinstance(data, list):
-                        atoms_list = data
-                    elif "Atoms" in data:
-                        atoms_list = data["Atoms"]
-                    else:
-                        raise ValueError("Invalid JSON structure: neither an array nor contains 'Atoms' key")
-                except json.JSONDecodeError:
-                    raise ValueError("Invalid JSON format")
+        data = json.loads(json_content)
+        if isinstance(data, list):
+            atoms_list = data
+        elif "Atoms" in data:
+            atoms_list = data["Atoms"]
+        else:
+            raise ValueError("Invalid JSON structure: neither an array nor contains 'Atoms' key")
                 
-                # Build a mapping from filename (without .rs) to atoms correctly
-                filename_to_atoms = {}
+        # Build a mapping from filename (without .rs) to atoms correctly
+        filename_to_atoms = {}
                 
-                # For each file, filter atoms where identifier contains the filename
-                for code_id, code_data in codes.items():
-                    filename = code_data["filename"]
-                    #filepath = code_data["filepath"]
-                    # Remove .rs extension if present
+        # For each file, filter atoms where identifier contains the filename
+        for code_id, code_data in codes.items():
+            filename = code_data["filename"]
+            #filepath = code_data["filepath"]
+            # Remove .rs extension if present
                     
-                    # Filter atoms for this file
-                    filtered_atoms = []
-                    for atom in atoms_list:
-                        identifier = atom.get("identifier", "")
-                        relative_path = atom.get("relative_path", "")
-                        #parent_folder = atom.get("parent_folder", "")
-                        if filename in relative_path:
-                            filtered_atoms.append(atom)
+            # Filter atoms for this file
+            filtered_atoms = []
+            for atom in atoms_list:
+                identifier = atom.get("identifier", "")
+                relative_path = atom.get("relative_path", "")
+                #parent_folder = atom.get("parent_folder", "")
+                if filename in relative_path:
+                    filtered_atoms.append(atom)
                     
-                    # Store filtered atoms for this file
-                    if filtered_atoms:
-                        filename_to_atoms[filename] = filtered_atoms
-                        #print(f"Found {len(filtered_atoms)} atoms for {filename}")
-                    
-                # Write cache file
-                with open(atoms_cache_path, "w", encoding="utf-8") as f:
-                    json.dump(filename_to_atoms, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"Failed to load/create atoms cache: {e}")
-            # Do fallback processing without caching
+                # Store filtered atoms for this file
+                if filtered_atoms:
+                    filename_to_atoms[filename] = filtered_atoms
+                    #print(f"Found {len(filtered_atoms)} atoms for {filename}")
 
         # Populate atoms and dependencies using the mapping
         for code_id, code_data in codes.items():
@@ -651,6 +621,7 @@ class PopulateAtomsDeps:
             user_id = code_data["user_id"]
             atoms_for_file = filename_to_atoms.get(filename, [])
             if not atoms_for_file:
+                print(f"No atoms found for {filename} and code_id {code_id}")
                 continue
             json_for_filename = json.dumps(atoms_for_file)
             # The populate_atoms_deps_from_json already uses batch processing
@@ -679,6 +650,9 @@ class PopulateAtomsDeps:
         # First get all existing folders to avoid unnecessary checks
         all_folder_identifiers = []
         for folder_path in folders_to_files.keys():
+            # Skip root folder
+            if folder_path == "/":
+                continue
             # Normalize folder path for identifier (ensure it has trailing slash)
             folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
             all_folder_identifiers.append(folder_identifier)
@@ -703,11 +677,11 @@ class PopulateAtomsDeps:
         new_folders = []
         for folder_path in folders_to_files.keys():
             folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
-            if folder_identifier not in identifier_to_id:
+            if folder_identifier != "/" and folder_identifier not in identifier_to_id:
                 new_folders.append(folder_identifier)
     
         if new_folders:
-            print(f"Adding {len(new_folders)} new folder molecules in batch")
+            print(f"Adding new folder molecules {new_folders} in batch")
             # Prepare batch insert query with 0 for code_id and include repo_id
             insert_query = """
                 INSERT INTO atoms (code_id, repo_id, identifier, statement_type, type, user_id, timestamp)
@@ -750,11 +724,14 @@ class PopulateAtomsDeps:
         all_file_data = []
         for folder_path, files in folders_to_files.items():
             folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
-            folder_id = identifier_to_id.get(folder_identifier)
+            if folder_identifier == "/":
+                folder_id = None
+            else:
+                folder_id = identifier_to_id.get(folder_identifier)
             
-            if not folder_id:
-                print(f"Warning: Cannot find ID for folder {folder_identifier}, skipping its files")
-                continue
+            #if not folder_id:
+            #    print(f"Warning: Cannot find ID for folder {folder_identifier}, skipping its files")
+            #    continue
             
             for file_name in files:
                 file_identifier = f"{folder_path}/{file_name}" if not folder_path.endswith("/") else f"{folder_path}{file_name}"
@@ -767,17 +744,17 @@ class PopulateAtomsDeps:
         if all_file_identifiers:
             placeholders = ", ".join(["%s"] * len(all_file_identifiers))
             check_query = f"""
-                SELECT id, identifier FROM atoms 
-                WHERE identifier IN ({placeholders})
+                SELECT id, full_identifier FROM atoms 
+                WHERE full_identifier IN ({placeholders})
                 AND type = 'molecule' AND statement_type = 'file'
-                AND code_id = 0 AND repo_id = %s;
+                AND repo_id = %s;
             """
             params = all_file_identifiers + [repo_id]
             result = sql2(self.con, check_query, tuple(params))
             
             for row in result:
-                existing_file_ids[row["identifier"]] = row["id"]
-                identifier_to_id[row["identifier"]] = row["id"]
+                existing_file_ids[row["full_identifier"]] = row["id"]
+                identifier_to_id[row["full_identifier"]] = row["id"]
     
         # Filter out files that don't exist yet
         new_files = [(file_identifier, folder_id) for file_identifier, folder_id in all_file_data 
