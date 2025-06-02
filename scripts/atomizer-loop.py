@@ -3,6 +3,28 @@ import os
 from mysql.connector import connect as mysql_connect
 import subprocess
 
+def sql2(connection, command, data):
+    attempts = 0
+    while attempts < 3:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(command, data)
+            if "UPDATE" in command or "INSERT" in command:
+                connection.commit()
+            return [x for x in cursor]
+        except Exception as e:
+            try:
+                connection.reconnect(attempts=3, delay=1)
+                cursor = connection.cursor(dictionary=True)
+                cursor.execute(command, data)
+                if "UPDATE" in command or "INSERT" in command:
+                    connection.commit()
+                return [x for x in cursor]
+            except Exception as e:
+                print(str(e))
+                attempts += 1
+    raise Exception("Couldn't reconnect to Mysql DB.")
+
 def get_unatomized_repos(connection):
     cursor = connection.cursor(dictionary=True)
     cursor.execute(f"""SELECT * FROM repos 
@@ -10,7 +32,8 @@ def get_unatomized_repos(connection):
                                           from updates WHERE label='rust_atomization') 
                        AND 'Rust' IN (SELECT name 
                                       FROM codes JOIN languages ON codes.language_id = languages.id
-                                      WHERE codes.repo_id = repos.id)""")
+                                      WHERE codes.repo_id = repos.id)
+                       AND repos.status_id = 1""")
     return cursor.fetchall()
 
 def update_rust_atomization_timestamp(connection):
@@ -68,6 +91,16 @@ def main():
 
                     print("STDOUT:", stdout.decode())
                     print("STDERR:", stderr.decode())
+                    
+                    cursor = connection.cursor()
+                    
+                    query = """
+                        UPDATE repos SET status_id = 2 WHERE id = %s;
+                    """
+                    sql2(self.con, query, (repo_id,))
+                    
+                    connection.commit()
+                    
             update_rust_atomization_timestamp(connection)
             time.sleep(5)  # Sleep 5 seconds before checking again
 
