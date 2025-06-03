@@ -1,6 +1,6 @@
 # Rust Atomizer
 
-A tool for analyzing Rust codebases and extracting code structure information (atoms and dependencies) using SCIP (Source Code Intelligence Protocol) and rust-analyzer.
+A tool for analyzing Rust codebases and extracting code structure information (atoms and dependencies) using [rust-analyzer](https://rust-analyzer.github.io/) and [scip](https://github.com/sourcegraph/scip/).
 
 ## Repository Structure
 
