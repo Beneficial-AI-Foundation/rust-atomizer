@@ -21,8 +21,8 @@ A tool for analyzing Rust codebases and extracting code structure information (a
 
 ## How It Works
 
-1. **SCIP Generation**: Uses `rust-analyzer` to generate SCIP files from Rust source code
-2. **JSON Conversion**: Converts SCIP data to a structured JSON format containing atoms (code elements) and their relationships
+1. **SCIP Generation**: Uses [rust-analyzer](https://rust-analyzer.github.io/) to generate SCIP files from Rust source code
+2. **JSON Conversion**: Converts SCIP data to a structured JSON format containing atoms (code elements) and their relationships with [scip](https://github.com/sourcegraph/scip/)
 3. **Database Population**: Stores the extracted code structure in a MySQL database 
 
 ## Prerequisites
