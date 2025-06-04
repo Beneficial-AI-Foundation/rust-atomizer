@@ -8,4 +8,4 @@ services:
       - "${SOURCE_PATH}:${CONTAINER_PATH}"  # Mount the target Rust project
       - "./scripts:/work/scripts"  # Mount scripts directory
     working_dir: /work
-    command: sh -c "cargo build --bin write_atoms && ./target/debug/write_atoms ${CONTAINER_PATH} ${REPO_ID}"
+    command: sh -c "cargo build --bin write_atoms && ./target/debug/write_atoms ${CONTAINER_PATH} ${REPO_ID} ${USER_ID}"

@@ -3,6 +3,11 @@ import json
 import sys
 from mysql.connector import connect as mysql_connect
 from pathlib import Path
+import time
+import traceback
+import logging
+from datetime import datetime
+import glob
 
 def sql2(connection, command, data):
     attempts = 0
@@ -14,7 +19,7 @@ def sql2(connection, command, data):
                 connection.commit()
             return [x for x in cursor]
         except Exception as e:
-            print(str(e))
+            print(str(e))  # Keep this as print since it's outside the class
             time.sleep(1)
             try:
                 connection.reconnect(attempts=3, delay=1)
@@ -24,13 +29,138 @@ def sql2(connection, command, data):
                     connection.commit()
                 return [x for x in cursor]
             except Exception as e:
-                print(str(e))
+                print(str(e))  # Keep this as print since it's outside the class
                 attempts += 1
     raise Exception("Couldn't reconnect to Mysql DB.")
 
+class MemoryLogHandler(logging.Handler):
+    """Custom log handler that stores logs in memory"""
+    def __init__(self):
+        super().__init__()
+        self.log_entries = []
+    
+    def emit(self, record):
+        # Format the log record and store it
+        log_entry = self.format(record)
+        self.log_entries.append(log_entry)
+    
+    def get_logs(self):
+        """Return all collected logs as a single string"""
+        return "\n".join(self.log_entries)
+    
+    def clear_logs(self):
+        """Clear the collected logs"""
+        self.log_entries.clear()
 class PopulateAtomsDeps:
-    def __init__(self, con):
+    def __init__(self, con, log_to_file, log_filename, log_level=logging.INFO):
         self.con = con
+        self.msgs = []  # Collect messages throughout execution
+
+        # Set up logger
+        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger.setLevel(log_level)
+
+        # Create console handler if not already exists
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler) 
+
+        # Create memory handler for capturing logs
+        self.memory_handler = MemoryLogHandler()
+        memory_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.memory_handler.setFormatter(memory_formatter)
+        self.logger.addHandler(self.memory_handler)
+        
+        # Add file handler if requested
+        if log_to_file:
+            file_handler = logging.FileHandler(log_filename)
+            file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            file_handler.setFormatter(file_formatter)
+            self.logger.addHandler(file_handler)
+            
+            self.logger.info(f"Logging to file: {log_filename}")
+
+    def get_captured_logs(self):
+        """Get all logs captured in memory"""
+        return self.memory_handler.get_logs()
+
+    def clear_captured_logs(self):
+        """Clear the captured logs from memory"""
+        self.memory_handler.clear_logs()
+
+    def read_atomizer_logs(self, repo_id):
+        """
+        Read the most recent atomizer log file for the given repo_id.
+        
+        Args:
+            repo_id (int): The repository ID to look for in log files
+            
+        Returns:
+            str: Content of the atomizer log file, or empty string if not found
+        """
+        try:
+            # Look for atomizer log files matching the pattern
+            log_pattern = f"logs/atomizer_{repo_id}_*.log"
+            log_files = glob.glob(log_pattern)
+            
+            if not log_files:
+                self.logger.warning(f"No atomizer log files found for repo_id {repo_id}")
+                return ""
+            
+            # Sort by modification time (most recent first)
+            log_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+            most_recent_log = log_files[0]
+            
+            self.logger.info(f"Reading atomizer log file: {most_recent_log}")
+            
+            with open(most_recent_log, 'r', encoding='utf-8') as f:
+                atomizer_content = f.read()
+            
+            self.logger.info(f"Successfully read {len(atomizer_content)} characters from atomizer log")
+            return atomizer_content
+            
+        except Exception as e:
+            self.logger.error(f"Failed to read atomizer log file: {e}")
+            return ""
+    
+    def insert_captured_logs_to_db(self, repo_id, user_id):
+        """Insert captured logs directly to database, prepending atomizer logs if available"""
+        try:
+            # Get the atomizer logs first
+            atomizer_logs = self.read_atomizer_logs(repo_id)
+            
+            # Get the Python script logs
+            python_logs = self.get_captured_logs()
+            
+            if not atomizer_logs and not python_logs.strip():
+                self.logger.info("No logs to insert")
+                return
+
+            # Combine the logs: atomizer logs first, then Python logs
+            combined_logs = ""
+            
+            if atomizer_logs:
+                combined_logs += "=== RUST ATOMIZER LOGS ===\n"
+                combined_logs += atomizer_logs
+                combined_logs += "\n=== END RUST ATOMIZER LOGS ===\n\n"
+            
+            if python_logs.strip():
+                combined_logs += "=== PYTHON POPULATE SCRIPT LOGS ===\n"
+                combined_logs += python_logs
+                combined_logs += "\n=== END PYTHON POPULATE SCRIPT LOGS ===\n"
+
+            insert_query = """
+                INSERT INTO atomizerlogs (repo_id, user_id, text, timestamp)
+                VALUES (%s, %s, %s, NOW());
+            """
+            sql2(self.con, insert_query, (repo_id, user_id, combined_logs))
+            self.logger.info(f"Inserted combined logs to atomizerlogs table for repo_id {repo_id}")
+            
+        except Exception as e:
+            self.logger.error(f"Failed to insert captured logs: {e}")
+    
 
     def get_codes_ids(self, repo_id):
         # First, get all codes for the repo
@@ -69,49 +199,54 @@ class PopulateAtomsDeps:
         return codes_dict
 
     def populate_atoms_from_json(self, repo_id, code_id, user_id, json_data, files_ids_dict):
-        # Handle both formats: array or {"Atoms": [...]}
-        data = json.loads(json_data)
-        if isinstance(data, list):
-            atoms = data
-        elif "Atoms" in data:
-            atoms = data["Atoms"]
-        else:
-            raise ValueError("Invalid JSON format: neither an array nor contains 'Atoms' key")
-
-        if not atoms:
-            return
-            
-        # First, filter out atoms that already exist in the database
-        existing_atoms = set()
-        new_atoms = []
-        
-        # Get all identifiers
-        identifiers = [atom["identifier"] for atom in atoms]
-        
-        # Batch check which atoms already exist
-        placeholders = ", ".join(["%s"] * len(identifiers))
-        check_query = f"""
-            SELECT full_identifier FROM atoms 
-            WHERE code_id = %s AND full_identifier IN ({placeholders});
-        """
-        params = [code_id] + identifiers
-        result = sql2(self.con, check_query, tuple(params))
-        
-        # Create set of existing atom identifiers
-        for row in result:
-            existing_atoms.add(row["full_identifier"])
-        
-        # Filter atoms that don't exist yet
-        for atom in atoms:
-            if atom["identifier"] not in existing_atoms:
-                new_atoms.append(atom)
-                print(f"Adding atom: {atom['identifier']}")
+        try:
+            # Handle both formats: array or {"Atoms": [...]}
+            data = json.loads(json_data)
+            if isinstance(data, list):
+                atoms = data
+            elif "Atoms" in data:
+                atoms = data["Atoms"]
             else:
-                print(f"Atom already exists: {atom['identifier']}")
+                raise ValueError("Invalid JSON format: neither an array nor contains 'Atoms' key")
+
+            if not atoms:
+                return
+                
+            # First, filter out atoms that already exist in the database
+            existing_atoms = set()
+            new_atoms = []
+            
+            # Get all identifiers
+            identifiers = [atom["identifier"] for atom in atoms]
+            
+            # Batch check which atoms already exist
+            placeholders = ", ".join(["%s"] * len(identifiers))
+            check_query = f"""
+                SELECT full_identifier FROM atoms 
+                WHERE code_id = %s AND full_identifier IN ({placeholders});
+            """
+            params = [code_id] + identifiers
+            result = sql2(self.con, check_query, tuple(params))
+            
+            # Create set of existing atom identifiers
+            for row in result:
+                existing_atoms.add(row["full_identifier"])
+            
+            # Filter atoms that don't exist yet
+            for atom in atoms:
+                if atom["identifier"] not in existing_atoms:
+                    new_atoms.append(atom)
+                    self.logger.debug(f"Adding atom: {atom['identifier']}")
+                else:
+                    self.logger.debug(f"Atom already exists: {atom['identifier']}")
+            
+            # If we have new atoms to insert, process them in batch
+            if new_atoms:
+                self.populate_atoms_table_batch(repo_id, code_id, user_id, new_atoms, files_ids_dict)
         
-        # If we have new atoms to insert, process them in batch
-        if new_atoms:
-            self.populate_atoms_table_batch(repo_id, code_id, user_id, new_atoms, files_ids_dict)
+        except Exception as e:
+            error_msg = f"Error in populate_atoms_from_json: {str(e)}\n{traceback.format_exc()}"
+            self.log_msg(error_msg, f"repo_id={repo_id}, code_id={code_id}")
 
     def populate_atoms_table_batch(self, repo_id, code_id, user_id, atoms_list, files_ids_dict):
         """
@@ -135,9 +270,7 @@ class PopulateAtomsDeps:
         # Group atoms by file name
         atoms_by_file = {}
         for atom in atoms_list:
-            if atom["identifier"] == "signal_error_get_address":
-                print(f"Atom for signal_error_get_address: {atom}")
-            relative_path = atom["relative_path"]
+            relative_path = atom.get("relative_path")
             # Normalize path for consistency with files_ids_dict keys
             normalized_path = relative_path.replace("\\", "/")
             if normalized_path not in atoms_by_file:
@@ -153,7 +286,7 @@ class PopulateAtomsDeps:
             matching_key = next((k for k in files_ids_dict if k.endswith(file_path)), None)
             if matching_key:
                 molecule_id = files_ids_dict[matching_key]
-                print(f"Using existing file molecule: {matching_key} (ID: {molecule_id})")
+                self.logger.debug(f"Using existing file molecule: {matching_key} (ID: {molecule_id})")
             else:
                 # Check if the molecule already exists in the database
                 check_query = """
@@ -182,14 +315,14 @@ class PopulateAtomsDeps:
                             user_id,
                         ),
                     )
-                    print(f"Created new file molecule: {file_path} with {file_name} for code_id {code_id}, repo_id {repo_id}")
+                    self.logger.debug(f"Created new file molecule: {file_path} with {file_name} for code_id {code_id}, repo_id {repo_id}")
                 
                 # Get the file name ID
                 result = sql2(self.con, check_query, (file_path, code_id, repo_id))
                 if result:
                     molecule_id = result[0]["id"]
                 else:
-                    print(f"Warning: Failed to get molecule ID for {file_path}")
+                    self.logger.warning(f"Failed to get molecule ID for {file_path}")
                     continue
         
         # Prepare batch insert for atoms in this file
@@ -206,12 +339,12 @@ class PopulateAtomsDeps:
             params.extend([
                 repo_id,
                 code_id,
-                atom["display_name"],
-                atom["identifier"],
-                atom["statement_type"],
+                atom.get("display_name"),
+                atom.get("identifier"),
+                atom.get("statement_type"),
                 molecule_id,
                 "atom",
-                atom["body"],
+                atom.get("body"),
                 user_id,
             ])
         
@@ -219,7 +352,7 @@ class PopulateAtomsDeps:
         if values:
             batch_query = insert_query + ", ".join(values)
             sql2(self.con, batch_query, tuple(params))
-            print(f"Inserted {len(file_atoms)} atoms for file {file_path}")
+            self.logger.info(f"Inserted {len(file_atoms)} atoms for file {file_path}")
                 
     def populate_atoms_deps_from_json(self, code_id, user_id, json_data):
         # Handle both formats: array or {"Atoms": [...]}
@@ -227,7 +360,7 @@ class PopulateAtomsDeps:
         if isinstance(data, list):
             atoms = data
         elif "Atoms" in data:
-            atoms = data["Atoms"]
+            atoms = data.get("Atoms")
         else:
             raise ValueError("Invalid JSON format: neither an array nor contains 'Atoms' key")
 
@@ -241,7 +374,7 @@ class PopulateAtomsDeps:
         if not all_deps:
             return
             
-        print(f"Processing {len(all_deps)} dependencies in batch")
+        self.logger.info(f"Processing {len(all_deps)} dependencies in batch")
         self.populate_dependencies_table_batch(code_id, user_id, all_deps)
     
     def populate_dependencies_table_batch(self, code_id, user_id, dependency_pairs):
@@ -286,7 +419,7 @@ class PopulateAtomsDeps:
                 valid_deps.append((parent_id, child_id))
         
         if not valid_deps:
-            print("No valid dependencies found (missing atom IDs)")
+            self.logger.debug("No valid dependencies found (missing atom IDs)")
             # Print which identifiers are missing
             missing = []
             for parent_identifier, child_identifier in dependency_pairs:
@@ -295,9 +428,9 @@ class PopulateAtomsDeps:
                 if child_identifier not in id_map:
                     missing.append(f"Missing child: {child_identifier} for parent {parent_identifier}") 
             if missing:
-                print("Missing atom IDs:")
+                self.logger.debug("Missing atom IDs:")
             for msg in missing:
-                print(f"  {msg}")
+                self.logger.debug(f"  {msg}")
             return
             
         # Get existing dependencies
@@ -323,10 +456,10 @@ class PopulateAtomsDeps:
                 new_deps.append((parent_id, child_id))
                 
         if not new_deps:
-            print("All dependencies already exist in the database")
+            self.logger.info("All dependencies already exist in the database")
             return
             
-        print(f"Inserting {len(new_deps)} new dependencies")
+        self.logger.info(f"Inserting {len(new_deps)} new dependencies")
         
         # Prepare the batch insert query for dependencies
         insert_query = """
@@ -351,9 +484,9 @@ class PopulateAtomsDeps:
         id_query = "SELECT id FROM atoms WHERE code_id = %s AND identifier = %s;"
         # Retrieve the ids for the parent and child identifiers
         parent_id = sql2(self.con, id_query, (code_id, parent_identifier))[0]["id"]
-        print(f"Parent identifier: {parent_id}")
+        self.logger.debug(f"Parent identifier: {parent_id}")
         child_id = sql2(self.con, id_query, (code_id, child_identifier))[0]["id"]
-        print(f"Child identifier: {child_id}")
+        self.logger.debug(f"Child identifier: {child_id}")
         # Check if the dependency already exists
         check_query = """
             SELECT COUNT(*) as count FROM atomsdependencies WHERE parentatom_id = %s AND childatom_id = %s;
@@ -367,32 +500,6 @@ class PopulateAtomsDeps:
             """
             sql2(self.con, insert_query, (parent_id, child_id, user_id))
             
-    def delete_todays_entries(self):
-        """
-        Delete all entries from atoms and atomsdependencies tables that have today's date or a future date as timestamp.
-        """
-        print("Deleting today's and future entries from atoms and atomsdependencies tables...")
-        
-        # Delete from atomsdependencies first to maintain referential integrity
-        delete_deps_query = """
-            DELETE FROM atomsdependencies 
-            WHERE DATE(timestamp) >= CURDATE();
-        """
-        deps_count = sql2(self.con, "SELECT COUNT(*) as count FROM atomsdependencies WHERE DATE(timestamp) >= CURDATE();", ())[0]["count"]
-        sql2(self.con, delete_deps_query, ())
-        print(f"Deleted {deps_count} entries from atomsdependencies table")
-        
-        # Delete from atoms
-        delete_atoms_query = """
-            DELETE FROM atoms 
-            WHERE DATE(timestamp) >= CURDATE();
-        """
-        atoms_count = sql2(self.con, "SELECT COUNT(*) as count FROM atoms WHERE DATE(timestamp) >= CURDATE();", ())[0]["count"]
-        sql2(self.con, delete_atoms_query, ())
-        print(f"Deleted {atoms_count} entries from atoms table")
-        
-        return atoms_count, deps_count
-
     def filter_json_by_filename(self, json_content, filename):
         """
         Filter the JSON content to keep only nodes where identifier contains the filename.
@@ -416,8 +523,8 @@ class PopulateAtomsDeps:
                 raise ValueError("Invalid JSON structure: neither an array nor contains 'Atoms' key")
             
             # Print debugging info
-            print(f"Filtering for filename: {filename}")
-            print(f"Total atoms before filtering: {len(atoms_list)}")
+            self.logger.debug(f"Filtering for filename: {filename}")
+            self.logger.debug(f"Total atoms before filtering: {len(atoms_list)}")
             
             # Filter atoms where the identifier contains the filename
             filtered_atoms = []
@@ -428,7 +535,7 @@ class PopulateAtomsDeps:
                     filtered_atoms.append(atom)
                     seen_identifiers.add(identifier)
             
-            print(f"Total atoms after filtering: {len(filtered_atoms)}")
+            self.logger.debug(f"Total atoms after filtering: {len(filtered_atoms)}")
             
             # Return the filtered list as JSON
             return json.dumps(filtered_atoms)
@@ -505,7 +612,7 @@ class PopulateAtomsDeps:
             if file_name not in folders_to_files[folder_path]:
                 folders_to_files[folder_path].append(file_name)
         
-        print(f"Identified {len(folders_to_files)} folders containing Rust files")
+        self.logger.info(f"Identified {len(folders_to_files)} folders containing Rust files")
         return folders_to_files
 
     def populate_all_atoms_for_rust(self, repo_id, json_path, files_ids_dict):
@@ -524,8 +631,7 @@ class PopulateAtomsDeps:
         cache_dir = Path(".cache_populate_atomsdeps")
         cache_dir.mkdir(exist_ok=True)
         codes_cache_path = cache_dir / f"codes_{repo_id}.json"
-        atoms_cache_path = cache_dir / f"filename_to_atoms_{repo_id}_{json_path.stem}.json"
-
+        
         # Try to load codes from cache or create new cache
         try:
             if codes_cache_path.exists():
@@ -546,7 +652,7 @@ class PopulateAtomsDeps:
                 with open(codes_cache_path, "w", encoding="utf-8") as f:
                     json.dump(codes, f, ensure_ascii=False, indent=2)
         except Exception as e:
-            print(f"Failed to load/create codes cache: {e}")
+            self.logger.warning(f"Failed to load/create codes cache: {e}")
             # Fallback to fresh data without caching
             codes = {code_id: code_data for code_id, code_data in self.get_codes_ids(repo_id).items() 
                      if code_data["filename"].endswith(".rs")}
@@ -556,7 +662,7 @@ class PopulateAtomsDeps:
                 if isinstance(code_data["text"], bytes):
                     code_data["text"] = code_data["text"].decode('utf-8', errors='replace')
 
-        print(f"Nb of Codes: {len(codes)}")
+        self.logger.info(f"Nb of Codes: {len(codes)}")
 
         data = json.loads(json_content)
         if isinstance(data, list):
@@ -587,7 +693,7 @@ class PopulateAtomsDeps:
                 # Store filtered atoms for this file
                 if filtered_atoms:
                     filename_to_atoms[filename] = filtered_atoms
-                    #print(f"Found {len(filtered_atoms)} atoms for {filename}")
+                    #self.logger.debug(f"Found {len(filtered_atoms)} atoms for {filename}")
 
         # Populate atoms and dependencies using the mapping
         for code_id, code_data in codes.items():
@@ -607,11 +713,11 @@ class PopulateAtomsDeps:
                     processed_atom_identifiers.add(identifier)
             
             if not new_atoms:
-                print(f"No new atoms to process for {filename} and code_id {code_id}")
+                self.logger.debug(f"No new atoms to process for {filename} and code_id {code_id}")
                 continue
                 
             json_for_filename = json.dumps(new_atoms)
-            print(f"Populating atoms for {filename} and code_id {code_id}")
+            self.logger.info(f"Populating atoms for {filename} and code_id {code_id}")
             # Use the batch version instead of single-processing function
             self.populate_atoms_from_json(repo_id, code_id, user_id, json_for_filename, files_ids_dict)
 
@@ -621,7 +727,7 @@ class PopulateAtomsDeps:
             user_id = code_data["user_id"]
             atoms_for_file = filename_to_atoms.get(filename, [])
             if not atoms_for_file:
-                print(f"No atoms found for {filename} and code_id {code_id}")
+                self.logger.debug(f"No atoms found for {filename} and code_id {code_id}")
                 continue
             json_for_filename = json.dumps(atoms_for_file)
             # The populate_atoms_deps_from_json already uses batch processing
@@ -642,7 +748,7 @@ class PopulateAtomsDeps:
         Returns:
             dict: Mapping of identifiers to their database IDs
         """
-        print(f"Populating folder structure with {len(folders_to_files)} folders as molecules for repo {repo_id}")
+        self.logger.info(f"Populating folder structure with {len(folders_to_files)} folders as molecules for repo {repo_id}")
         
         # Dictionary to track the ID of each inserted folder/file
         identifier_to_id = {}
@@ -681,7 +787,7 @@ class PopulateAtomsDeps:
                 new_folders.append(folder_identifier)
     
         if new_folders:
-            print(f"Adding new folder molecules {new_folders} in batch")
+            self.logger.info(f"Adding new folder molecules {new_folders} in batch")
             # Prepare batch insert query with 0 for code_id and include repo_id
             insert_query = """
                 INSERT INTO atoms (code_id, repo_id, identifier, statement_type, type, user_id, timestamp)
@@ -729,10 +835,6 @@ class PopulateAtomsDeps:
             else:
                 folder_id = identifier_to_id.get(folder_identifier)
             
-            #if not folder_id:
-            #    print(f"Warning: Cannot find ID for folder {folder_identifier}, skipping its files")
-            #    continue
-            
             for file_name in files:
                 file_identifier = f"{folder_path}/{file_name}" if not folder_path.endswith("/") else f"{folder_path}{file_name}"
                 all_file_data.append((file_identifier, folder_id))
@@ -761,7 +863,7 @@ class PopulateAtomsDeps:
                     if file_identifier not in existing_file_ids]
         
         if new_files:
-            print(f"Adding {len(new_files)} new file molecules in batch")
+            self.logger.info(f"Adding {len(new_files)} new file molecules in batch")
             # Prepare batch insert query for files with 0 for code_id and include repo_id
             insert_query = """
                 INSERT INTO atoms (code_id, repo_id, identifier, full_identifier, statement_type, parent_id, type, user_id, timestamp)
@@ -804,7 +906,7 @@ class PopulateAtomsDeps:
                 for row in result:
                     identifier_to_id[row["full_identifier"]] = row["id"]
     
-        print(f"Successfully populated {len(identifier_to_id)} folder and file molecules for repo {repo_id}")
+        self.logger.info(f"Successfully populated {len(identifier_to_id)} folder and file molecules for repo {repo_id}")
         return identifier_to_id
     
     def set_code_id_for_files(self, repo_id):
@@ -815,7 +917,7 @@ class PopulateAtomsDeps:
         Args:
             repo_id (int): The ID of the repository
         """
-        print(f"Setting code_id for file molecules in repo {repo_id}")
+        self.logger.info(f"Setting code_id for file molecules in repo {repo_id}")
         
         # First, get all file molecules (with code_id = 0) for this repo
         file_query = """
@@ -825,11 +927,11 @@ class PopulateAtomsDeps:
         file_result = sql2(self.con, file_query, (repo_id,))
         
         if not file_result:
-            print("No file molecules found with code_id = 0")
+            self.logger.info("No file molecules found with code_id = 0")
             return
             
         file_ids = [row["id"] for row in file_result]
-        print(f"Found {len(file_ids)} file molecules to update")
+        self.logger.info(f"Found {len(file_ids)} file molecules to update")
         
         # Build a mapping of file_id -> code_id by finding the first child atom for each file
         file_id_to_code_id = {}
@@ -847,13 +949,13 @@ class PopulateAtomsDeps:
                 code_id = atom_result[0]["code_id"]
                 file_id_to_code_id[file_id] = code_id
             else:
-                print(f"Warning: No child atoms found for file ID {file_id}")
+                self.logger.warning(f"No child atoms found for file ID {file_id}")
         
         if not file_id_to_code_id:
-            print("No file-to-code_id mappings found")
+            self.logger.info("No file-to-code_id mappings found")
             return
             
-        print(f"Found code_id mappings for {len(file_id_to_code_id)} files")
+        self.logger.info(f"Found code_id mappings for {len(file_id_to_code_id)} files")
         
         # Update files in batch using CASE statement
         # Build the CASE statement for batch update
@@ -881,16 +983,17 @@ class PopulateAtomsDeps:
         
         # Execute the batch update
         sql2(self.con, update_query, tuple(params))
-        print(f"Successfully updated code_id for {len(file_id_to_code_id)} file molecules")
+        self.logger.info(f"Successfully updated code_id for {len(file_id_to_code_id)} file molecules")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python populate_atomsdeps_table_rust.py <repo_id> <json_path>")
+    if len(sys.argv) not in [3, 4]:
+        print("Usage: python populate_atomsdeps_table_rust.py <repo_id> <json_path> [user_id]")
         sys.exit(1)
 
     repo_id = int(sys.argv[1])
     json_path = Path(sys.argv[2])
+    user_id = int(sys.argv[3]) if len(sys.argv) > 3 else 460176
 
     con = mysql_connect(
         user="root",
@@ -898,9 +1001,19 @@ if __name__ == "__main__":
         host="127.0.0.1",
         database="verilib",
     )
-    populate_atoms_deps = PopulateAtomsDeps(con)
-    #atoms_count, deps_count = populate_atoms_deps.delete_todays_entries()
 
+    debug_mode = os.getenv("DEBUG", "false").lower() == "true"
+    log_level = logging.DEBUG if debug_mode else logging.INFO
+    
+    # Create logs directory if it doesn't exist
+    log_dir = "logs"
+    os.makedirs(log_dir, exist_ok=True)
+    # Create timestamped log filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_filename = os.path.join(log_dir, f"populate_atoms_{timestamp}.log")
+            
+    populate_atoms_deps = PopulateAtomsDeps(con, log_to_file=True, log_filename=log_filename, log_level=log_level)
+    
     output_dir = Path(".")
 
     folders_to_files = populate_atoms_deps.build_folders_to_files_mapping(json_path)
@@ -911,3 +1024,5 @@ if __name__ == "__main__":
     # Set code_id for file molecules based on their child atoms
     populate_atoms_deps.set_code_id_for_files(repo_id)
 
+    # Insert captured logs directly from memory
+    populate_atoms_deps.insert_captured_logs_to_db(repo_id, user_id)
