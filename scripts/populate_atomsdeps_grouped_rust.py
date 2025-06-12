@@ -779,53 +779,71 @@ class PopulateAtomsDeps:
             for row in result:
                 identifier_to_id[row["identifier"]] = row["id"]
         
-        # Prepare batch insert for new folders
-        new_folders = []
+        # Sort folders by depth (shortest paths first) to ensure parents are created before children
+        sorted_folders = sorted(folders_to_files.keys(), key=lambda x: x.count('/'))
+        self.logger.debug(f"Sorted folders by depth: {sorted_folders}")
+
+        # First, collect all unique folder paths that need to exist (including intermediate ones)
+        all_required_folders = set()
         for folder_path in folders_to_files.keys():
+            if folder_path == "/":
+                continue
+            
+            # Add the folder itself
+            all_required_folders.add(folder_path)
+            
+            # Add all parent folders
+            parts = folder_path.rstrip("/").split("/")
+            for i in range(1, len(parts)):
+                parent_path = "/".join(parts[:i])
+                if parent_path:
+                    all_required_folders.add(parent_path)
+
+        # Sort all required folders by depth
+        all_sorted_folders = sorted(all_required_folders, key=lambda x: x.count('/'))
+        self.logger.info(f"All folders to create (including parents): {all_sorted_folders}")
+
+        # Process folders in depth order to establish parent-child relationships
+        for folder_path in all_sorted_folders:
+            if folder_path == "/":
+                continue
+            
             folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
-            if folder_identifier != "/" and folder_identifier not in identifier_to_id:
-                new_folders.append(folder_identifier)
-    
-        if new_folders:
-            self.logger.info(f"Adding new folder molecules {new_folders} in batch")
-            # Prepare batch insert query with 0 for code_id and include repo_id
-            insert_query = """
-                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, type, user_id, timestamp)
-                VALUES 
-            """
-            values = []
-            params = []
             
-            for folder_identifier in new_folders:
-                values.append("(%s, %s, %s, %s, %s, %s, NOW())")
-                params.extend([
-                    0,  # Use 0 instead of NULL for code_id
-                    repo_id,
-                    folder_identifier,
-                    "folder",
-                    "molecule",
-                    user_id
-                ])
+            # Skip if folder already exists
+            if folder_identifier in identifier_to_id:
+                continue
             
-            # Execute batch insert
-            batch_query = insert_query + ", ".join(values)
-            sql2(self.con, batch_query, tuple(params))
-            
-            # Get the IDs of the newly inserted folders
-            if new_folders:
-                placeholders = ", ".join(["%s"] * len(new_folders))
-                id_query = f"""
-                    SELECT id, identifier FROM atoms 
-                    WHERE identifier IN ({placeholders})
-                    AND type = 'molecule' AND statement_type = 'folder'
-                    AND code_id = 0 AND repo_id = %s;
-                """
-                params = new_folders + [repo_id]
-                result = sql2(self.con, id_query, tuple(params))
+            # Determine parent folder
+            parent_id = None
+            if folder_path != "/" and "/" in folder_path:
+                # Get parent folder path
+                parent_folder_path = "/".join(folder_path.rstrip("/").split("/")[:-1])
+                if not parent_folder_path:
+                    parent_folder_path = "/"
                 
-                for row in result:
-                    identifier_to_id[row["identifier"]] = row["id"]
-    
+                if parent_folder_path != "/":
+                    parent_folder_identifier = parent_folder_path if parent_folder_path.endswith("/") else f"{parent_folder_path}/"
+                    parent_id = identifier_to_id.get(parent_folder_identifier)
+
+            # Insert the folder with its parent_id
+            insert_query = """
+                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, parent_id, type, user_id, timestamp)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
+            """
+            sql2(self.con, insert_query, (0, repo_id, folder_identifier, "folder", parent_id, "molecule", user_id))
+            
+            # Get the ID of the newly inserted folder
+            id_query = """
+                SELECT id FROM atoms 
+                WHERE identifier = %s AND type = 'molecule' AND statement_type = 'folder'
+                AND code_id = 0 AND repo_id = %s;
+            """
+            result = sql2(self.con, id_query, (folder_identifier, repo_id))
+            if result:
+                identifier_to_id[folder_identifier] = result[0]["id"]
+                self.logger.debug(f"Added folder {folder_identifier} with parent_id {parent_id}")
+
         # Now collect all files that need to be inserted
         all_file_data = []
         for folder_path, files in folders_to_files.items():
@@ -838,7 +856,7 @@ class PopulateAtomsDeps:
             for file_name in files:
                 file_identifier = f"{folder_path}/{file_name}" if not folder_path.endswith("/") else f"{folder_path}{file_name}"
                 all_file_data.append((file_identifier, folder_id))
-    
+
         # Check which files already exist
         all_file_identifiers = [file_data[0] for file_data in all_file_data]
         existing_file_ids = {}
@@ -857,7 +875,7 @@ class PopulateAtomsDeps:
             for row in result:
                 existing_file_ids[row["full_identifier"]] = row["id"]
                 identifier_to_id[row["full_identifier"]] = row["id"]
-    
+
         # Filter out files that don't exist yet
         new_files = [(file_identifier, folder_id) for file_identifier, folder_id in all_file_data 
                     if file_identifier not in existing_file_ids]
@@ -905,10 +923,10 @@ class PopulateAtomsDeps:
                 
                 for row in result:
                     identifier_to_id[row["full_identifier"]] = row["id"]
-    
+
         self.logger.info(f"Successfully populated {len(identifier_to_id)} folder and file molecules for repo {repo_id}")
         return identifier_to_id
-    
+        
     def set_code_id_for_files(self, repo_id):
         """
         Sets the code_id for file molecules based on their child atoms.
