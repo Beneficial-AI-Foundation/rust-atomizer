@@ -312,10 +312,9 @@ class PopulateAtomsDeps:
             molecule_id = None
             
             # First check if the file already exists in our files_ids_dict mapping
-            # Check if file_path is the suffix of any key in files_ids_dict
-            matching_key = next((k for k in files_ids_dict if k.endswith(file_path)), None)
-            if matching_key:
-                molecule_id = files_ids_dict[matching_key]
+            # Use exact matching to prevent cross-contamination between files
+            if file_path in files_ids_dict:
+                molecule_id = files_ids_dict[file_path]
             else:
                 # Second, check if a file molecule exists with code_id = 0 (repository-level)
                 check_query_repo_level = """
@@ -746,37 +745,11 @@ class PopulateAtomsDeps:
                 identifier = atom.get("identifier", "")
                 relative_path = atom.get("relative_path", "")
                 
-                # More precise matching: exact match or filename is at the end of relative_path
-                if relative_path == filename or relative_path.endswith("/" + filename):
+                # Use strict exact matching to prevent cross-contamination between files
+                # Only match if the relative_path exactly equals the filename
+                if relative_path == filename:
                     filtered_atoms.append(atom)
-                    self.logger.debug(f"Matched atom {identifier} to filename {filename} via relative_path {relative_path}")
-                # Additional check: if filename has path separators, try matching the basename
-                elif "/" in filename:
-                    filename_basename = filename.split("/")[-1]
-                    if relative_path.endswith("/" + filename_basename) or relative_path == filename_basename:
-                        # Double-check this is the right match by ensuring paths are compatible
-                        if filename in relative_path or relative_path in filename:
-                            filtered_atoms.append(atom)
-                            self.logger.debug(f"Matched atom {identifier} to filename {filename} via basename matching (relative_path: {relative_path})")
-                # Handle reverse case: JSON has full path, DB has partial path
-                elif "/" in relative_path and not "/" in filename:
-                    if relative_path.endswith("/" + filename):
-                        filtered_atoms.append(atom)
-                        self.logger.debug(f"Matched atom {identifier} to filename {filename} via reverse path matching (relative_path: {relative_path})")
-                # Handle case where DB has src/lib.rs but JSON has sm2/src/lib.rs  
-                elif "/" in relative_path and "/" in filename:
-                    # Check if filename is a suffix of relative_path
-                    if relative_path.endswith(filename):
-                        filtered_atoms.append(atom)
-                        self.logger.debug(f"Matched atom {identifier} to filename {filename} via suffix matching (relative_path: {relative_path})")
-                    # Check if they share the same ending path components
-                    filename_parts = filename.split("/")
-                    relative_parts = relative_path.split("/")
-                    # Check if the last N parts of relative_path match the filename parts
-                    if len(filename_parts) <= len(relative_parts):
-                        if filename_parts == relative_parts[-len(filename_parts):]:
-                            filtered_atoms.append(atom)
-                            self.logger.debug(f"Matched atom {identifier} to filename {filename} via path components matching (relative_path: {relative_path})")
+                    self.logger.debug(f"Matched atom {identifier} to filename {filename} via exact path match")
                     
             # Store filtered atoms for this file
             if filtered_atoms:
