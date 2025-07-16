@@ -171,24 +171,51 @@ class PopulateAtomsDeps:
 
         # Collect all unique folder_ids
         folder_ids = set(row["folder_id"] for row in result if row.get("folder_id") is not None)
-        folder_id_to_name = {}
-
+        
+        # Get all folder information needed to build complete paths
+        folder_id_to_info = {}
         if folder_ids:
-            # Query all folder names in one go
-            placeholders = ", ".join(["%s"] * len(folder_ids))
-            folder_query = f"SELECT id, name FROM reposfolders WHERE id IN ({placeholders});"
-            folder_results = sql2(self.con, folder_query, tuple(folder_ids))
-            folder_id_to_name = {row["id"]: row["name"] for row in folder_results}
+            # Get all folders that we might need (including parent folders)
+            all_folder_query = """
+                SELECT id, name, parent_id FROM reposfolders;
+            """
+            all_folder_results = sql2(self.con, all_folder_query, ())
+            folder_id_to_info = {row["id"]: {"name": row["name"], "parent_id": row["parent_id"]} for row in all_folder_results}
+
+        def build_folder_path(folder_id):
+            """Recursively build the complete folder path by following parent_id chain"""
+            if not folder_id or folder_id not in folder_id_to_info:
+                return ""
+            
+            folder_info = folder_id_to_info[folder_id]
+            folder_name = folder_info["name"]
+            parent_id = folder_info["parent_id"]
+            
+            if parent_id is None:
+                # This is the root folder
+                return folder_name
+            else:
+                # Recursively get parent path and append current folder
+                parent_path = build_folder_path(parent_id)
+                if parent_path:
+                    return f"{parent_path}/{folder_name}"
+                else:
+                    return folder_name
 
         codes_dict = {}
         for row in result:
             folder_id = row.get("folder_id")
-            folder_name = folder_id_to_name.get(folder_id, "") if folder_id else ""
-            # Prefix folder name if available and not empty
-            if folder_name:
-                prefixed_filename = f"{folder_name}/{row['filename']}"
+            
+            # Build complete folder path
+            if folder_id:
+                folder_path = build_folder_path(folder_id)
+                if folder_path:
+                    prefixed_filename = f"{folder_path}/{row['filename']}"
+                else:
+                    prefixed_filename = row["filename"]
             else:
                 prefixed_filename = row["filename"]
+            
             codes_dict[row["id"]] = {
                 "text": row["text"],
                 "filename": prefixed_filename,
@@ -196,6 +223,9 @@ class PopulateAtomsDeps:
                 "folder_id": folder_id,
                 "user_id": row["user_id"],
             }
+            self.logger.info(f"!!!!!Code ID {row['id']}: filename='{prefixed_filename}', folder_id={folder_id}, folder_path='{folder_path if folder_id else 'None'}'")
+        
+        self.logger.info(f"Retrieved {len(codes_dict)} codes from database")
         return codes_dict
 
     def populate_atoms_from_json(self, repo_id, code_id, user_id, json_data, files_ids_dict):
@@ -246,7 +276,7 @@ class PopulateAtomsDeps:
         
         except Exception as e:
             error_msg = f"Error in populate_atoms_from_json: {str(e)}\n{traceback.format_exc()}"
-            self.log_msg(error_msg, f"repo_id={repo_id}, code_id={code_id}")
+            self.logger.error(f"{error_msg} - repo_id={repo_id}, code_id={code_id}")
 
     def populate_atoms_table_batch(self, repo_id, code_id, user_id, atoms_list, files_ids_dict):
         """
@@ -262,7 +292,7 @@ class PopulateAtomsDeps:
         """
         if not atoms_list:
             return
-            
+        
         # If files_ids_dict is None, initialize an empty dict
         if files_ids_dict is None:
             files_ids_dict = {}
@@ -282,77 +312,86 @@ class PopulateAtomsDeps:
             molecule_id = None
             
             # First check if the file already exists in our files_ids_dict mapping
-            # Check if file_path is the suffix of any key in files_ids_dict
-            matching_key = next((k for k in files_ids_dict if k.endswith(file_path)), None)
-            if matching_key:
-                molecule_id = files_ids_dict[matching_key]
-                self.logger.debug(f"Using existing file molecule: {matching_key} (ID: {molecule_id})")
+            # Use exact matching to prevent cross-contamination between files
+            if file_path in files_ids_dict:
+                molecule_id = files_ids_dict[file_path]
             else:
-                # Check if the molecule already exists in the database
-                check_query = """
-                    SELECT id FROM atoms WHERE identifier = %s AND code_id = %s AND repo_id = %s;
+                # Second, check if a file molecule exists with code_id = 0 (repository-level)
+                check_query_repo_level = """
+                    SELECT id FROM atoms WHERE full_identifier = %s AND code_id = 0 AND repo_id = %s AND type = 'molecule';
                 """
-                result = sql2(self.con, check_query, (file_path, code_id, repo_id))
+                result = sql2(self.con, check_query_repo_level, (file_path, repo_id))
                 
-                # Insert file name if it doesn't exist
-                if not result:
-                    insert_query_for_file = """
-                        INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, type, user_id, timestamp)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
-                    """
-                    # Extract file_name as the string after the last "/" in file_path
-                    file_name = file_path.split("/")[-1]
-                    sql2(
-                        self.con,
-                        insert_query_for_file,
-                        (
-                            repo_id,
-                            code_id,
-                            file_name,
-                            file_path,
-                            "file",
-                            "molecule",
-                            user_id,
-                        ),
-                    )
-                    self.logger.debug(f"Created new file molecule: {file_path} with {file_name} for code_id {code_id}, repo_id {repo_id}")
-                
-                # Get the file name ID
-                result = sql2(self.con, check_query, (file_path, code_id, repo_id))
                 if result:
                     molecule_id = result[0]["id"]
                 else:
-                    self.logger.warning(f"Failed to get molecule ID for {file_path}")
-                    continue
-        
-        # Prepare batch insert for atoms in this file
-        insert_query = """
-            INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, parent_id, type, text, user_id, timestamp)
-            VALUES 
-        """
-        
-        values = []
-        params = []
-        
-        for atom in file_atoms:
-            values.append("(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())")
-            params.extend([
-                repo_id,
-                code_id,
-                atom.get("display_name"),
-                atom.get("identifier"),
-                atom.get("statement_type"),
-                molecule_id,
-                "atom",
-                atom.get("body"),
-                user_id,
-            ])
-        
-        # Execute batch insert if we have atoms
-        if values:
-            batch_query = insert_query + ", ".join(values)
-            sql2(self.con, batch_query, tuple(params))
-            self.logger.info(f"Inserted {len(file_atoms)} atoms for file {file_path}")
+                    
+                    # Check if the molecule already exists in the database with specific code_id
+                    check_query = """
+                        SELECT id FROM atoms WHERE full_identifier = %s AND code_id = %s AND repo_id = %s;
+                    """
+                    result = sql2(self.con, check_query, (file_path, code_id, repo_id))
+                    
+                    # Insert file name if it doesn't exist
+                    if not result:
+                        insert_query_for_file = """
+                            INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, type, user_id, timestamp)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
+                        """
+                        # Extract file_name as the string after the last "/" in file_path
+                        file_name = file_path.split("/")[-1]
+                        sql2(
+                            self.con,
+                            insert_query_for_file,
+                            (
+                                repo_id,
+                                code_id,
+                                file_name,
+                                file_path,
+                                "file",
+                                "molecule",
+                                user_id,
+                            ),
+                        )
+                    
+                    # Get the file name ID
+                    result = sql2(self.con, check_query, (file_path, code_id, repo_id))
+                    if result:
+                        molecule_id = result[0]["id"]
+                    else:
+                        self.logger.warning(f"Failed to get molecule ID for {file_path}")
+                        continue
+            
+            # Prepare batch insert for atoms in this file
+            insert_query = """
+                INSERT INTO atoms (repo_id, code_id, identifier, full_identifier, statement_type, parent_id, type, text, user_id, timestamp)
+                VALUES 
+            """
+            
+            values = []
+            params = []
+            
+            for atom in file_atoms:
+                values.append("(%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())")
+                params.extend([
+                    repo_id,
+                    code_id,
+                    atom.get("display_name"),
+                    atom.get("identifier"),
+                    atom.get("statement_type"),
+                    molecule_id,
+                    "atom",
+                    atom.get("body"),
+                    user_id,
+                ])
+            
+            # Execute batch insert if we have atoms
+            if values:
+                batch_query = insert_query + ", ".join(values)
+                sql2(self.con, batch_query, tuple(params))
+                self.logger.info(f"Inserted {len(file_atoms)} atoms for file {file_path}")
+            else:
+                self.logger.warning(f"No atoms to insert for file {file_path}")
                 
     def populate_atoms_deps_from_json(self, code_id, user_id, json_data):
         # Handle both formats: array or {"Atoms": [...]}
@@ -616,8 +655,9 @@ class PopulateAtomsDeps:
         return folders_to_files
 
     def populate_all_atoms_for_rust(self, repo_id, json_path, files_ids_dict):
-        # Keep a set of atom identifiers that have already been processed
-        # This will help avoid duplicate inserts across different code_ids
+        # Keep a set of atom identifiers that have already been processed for each code_id
+        # This will help avoid duplicate inserts within the same code_id while allowing
+        # the same atom to be associated with multiple code_ids
         processed_atom_identifiers = set()
         
         if not json_path.exists():
@@ -663,7 +703,12 @@ class PopulateAtomsDeps:
                     code_data["text"] = code_data["text"].decode('utf-8', errors='replace')
 
         self.logger.info(f"Nb of Codes: {len(codes)}")
-
+        
+        # Debug: Show all filenames from codes
+        self.logger.debug("=== ALL FILENAMES FROM CODES DATABASE ===")
+        for code_id, code_data in codes.items():
+            self.logger.debug(f"Code ID {code_id}: {code_data['filename']}")
+        
         data = json.loads(json_content)
         if isinstance(data, list):
             atoms_list = data
@@ -671,6 +716,20 @@ class PopulateAtomsDeps:
             atoms_list = data["Atoms"]
         else:
             raise ValueError("Invalid JSON structure: neither an array nor contains 'Atoms' key")
+        
+        # Debug: Show all unique relative_paths from JSON atoms
+        self.logger.debug("=== ALL UNIQUE RELATIVE_PATHS FROM JSON ===")
+        unique_paths = set()
+        for atom in atoms_list:
+            rp = atom.get("relative_path", "")
+            if rp:
+                unique_paths.add(rp)
+        
+        for path in sorted(unique_paths):
+            self.logger.debug(f"JSON relative_path: {path}")
+        
+        # Debug: Check specifically for sm2/src/lib.rs
+        self.logger.debug(f"Found {len([atom for atom in atoms_list if atom.get('relative_path', '') == 'sm2/src/lib.rs'])} atoms for sm2/src/lib.rs in JSON")
                 
         # Build a mapping from filename (without .rs) to atoms correctly
         filename_to_atoms = {}
@@ -678,22 +737,42 @@ class PopulateAtomsDeps:
         # For each file, filter atoms where identifier contains the filename
         for code_id, code_data in codes.items():
             filename = code_data["filename"]
-            #filepath = code_data["filepath"]
-            # Remove .rs extension if present
-                    
+            self.logger.debug(f"Processing code_id {code_id} with filename: {filename}")
+            
             # Filter atoms for this file
             filtered_atoms = []
             for atom in atoms_list:
                 identifier = atom.get("identifier", "")
                 relative_path = atom.get("relative_path", "")
-                #parent_folder = atom.get("parent_folder", "")
-                if filename in relative_path:
+                
+                # Use strict exact matching to prevent cross-contamination between files
+                # Only match if the relative_path exactly equals the filename
+                if relative_path == filename:
                     filtered_atoms.append(atom)
+                    self.logger.debug(f"Matched atom {identifier} to filename {filename} via exact path match")
                     
-                # Store filtered atoms for this file
-                if filtered_atoms:
-                    filename_to_atoms[filename] = filtered_atoms
-                    #self.logger.debug(f"Found {len(filtered_atoms)} atoms for {filename}")
+            # Store filtered atoms for this file
+            if filtered_atoms:
+                filename_to_atoms[filename] = filtered_atoms
+                self.logger.info(f"Found {len(filtered_atoms)} atoms for {filename}")
+            else:
+                self.logger.warning(f"No atoms found for filename: {filename}")
+                # Additional debugging: show what relative_paths are available that might be similar
+                similar_paths = []
+                filename_base = filename.split("/")[-1] if "/" in filename else filename
+                for atom in atoms_list[:100]:  # Check first 100 atoms to avoid spam
+                    rp = atom.get("relative_path", "")
+                    if filename_base in rp or any(part in rp for part in filename.split("/")[-2:]):
+                        similar_paths.append(rp)
+                
+                if similar_paths:
+                    unique_similar = list(set(similar_paths))[:5]  # Show up to 5 unique similar paths
+                    self.logger.debug(f"Similar paths found: {unique_similar}")
+
+        # Debug: Show summary of filename_to_atoms mapping
+        self.logger.info(f"Summary: Found atoms for {len(filename_to_atoms)} out of {len(codes)} files")
+        for filename, atoms in filename_to_atoms.items():
+            self.logger.debug(f"  {filename}: {len(atoms)} atoms")
 
         # Populate atoms and dependencies using the mapping
         for code_id, code_data in codes.items():
@@ -704,13 +783,16 @@ class PopulateAtomsDeps:
             if not atoms_for_file:
                 continue
             
-            # Filter out atoms that have already been processed
+            # Filter out atoms that have already been processed for this specific code_id
+            # Create a unique key combining code_id and identifier
             new_atoms = []
             for atom in atoms_for_file:
                 identifier = atom.get("identifier", "")
-                if identifier and identifier not in processed_atom_identifiers:
-                    new_atoms.append(atom)
-                    processed_atom_identifiers.add(identifier)
+                if identifier:
+                    code_atom_key = f"{code_id}:{identifier}"
+                    if code_atom_key not in processed_atom_identifiers:
+                        new_atoms.append(atom)
+                        processed_atom_identifiers.add(code_atom_key)
             
             if not new_atoms:
                 self.logger.debug(f"No new atoms to process for {filename} and code_id {code_id}")
@@ -718,6 +800,7 @@ class PopulateAtomsDeps:
                 
             json_for_filename = json.dumps(new_atoms)
             self.logger.info(f"Populating atoms for {filename} and code_id {code_id}")
+            
             # Use the batch version instead of single-processing function
             self.populate_atoms_from_json(repo_id, code_id, user_id, json_for_filename, files_ids_dict)
 
@@ -759,8 +842,8 @@ class PopulateAtomsDeps:
             # Skip root folder
             if folder_path == "/":
                 continue
-            # Normalize folder path for identifier (ensure it has trailing slash)
-            folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
+            # Normalize folder path for identifier (remove trailing slash)
+            folder_identifier = folder_path.rstrip("/")
             all_folder_identifiers.append(folder_identifier)
         
         # Create a query with the right number of placeholders for existing folder check
@@ -779,66 +862,84 @@ class PopulateAtomsDeps:
             for row in result:
                 identifier_to_id[row["identifier"]] = row["id"]
         
-        # Prepare batch insert for new folders
-        new_folders = []
+        # Sort folders by depth (shortest paths first) to ensure parents are created before children
+        sorted_folders = sorted(folders_to_files.keys(), key=lambda x: x.count('/'))
+        self.logger.debug(f"Sorted folders by depth: {sorted_folders}")
+
+        # First, collect all unique folder paths that need to exist (including intermediate ones)
+        all_required_folders = set()
         for folder_path in folders_to_files.keys():
-            folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
-            if folder_identifier != "/" and folder_identifier not in identifier_to_id:
-                new_folders.append(folder_identifier)
-    
-        if new_folders:
-            self.logger.info(f"Adding new folder molecules {new_folders} in batch")
-            # Prepare batch insert query with 0 for code_id and include repo_id
-            insert_query = """
-                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, type, user_id, timestamp)
-                VALUES 
-            """
-            values = []
-            params = []
+            if folder_path == "/":
+                continue
             
-            for folder_identifier in new_folders:
-                values.append("(%s, %s, %s, %s, %s, %s, NOW())")
-                params.extend([
-                    0,  # Use 0 instead of NULL for code_id
-                    repo_id,
-                    folder_identifier,
-                    "folder",
-                    "molecule",
-                    user_id
-                ])
+            # Add the folder itself
+            all_required_folders.add(folder_path)
             
-            # Execute batch insert
-            batch_query = insert_query + ", ".join(values)
-            sql2(self.con, batch_query, tuple(params))
+            # Add all parent folders
+            parts = folder_path.rstrip("/").split("/")
+            for i in range(1, len(parts)):
+                parent_path = "/".join(parts[:i])
+                if parent_path:
+                    all_required_folders.add(parent_path)
+
+        # Sort all required folders by depth
+        all_sorted_folders = sorted(all_required_folders, key=lambda x: x.count('/'))
+        self.logger.info(f"All folders to create (including parents): {all_sorted_folders}")
+
+        # Process folders in depth order to establish parent-child relationships
+        for folder_path in all_sorted_folders:
+            if folder_path == "/":
+                continue
             
-            # Get the IDs of the newly inserted folders
-            if new_folders:
-                placeholders = ", ".join(["%s"] * len(new_folders))
-                id_query = f"""
-                    SELECT id, identifier FROM atoms 
-                    WHERE identifier IN ({placeholders})
-                    AND type = 'molecule' AND statement_type = 'folder'
-                    AND code_id = 0 AND repo_id = %s;
-                """
-                params = new_folders + [repo_id]
-                result = sql2(self.con, id_query, tuple(params))
+            folder_identifier = folder_path.rstrip("/")
+            
+            # Skip if folder already exists
+            if folder_identifier in identifier_to_id:
+                continue
+            
+            # Determine parent folder
+            parent_id = None
+            if folder_path != "/" and "/" in folder_path:
+                # Get parent folder path
+                parent_folder_path = "/".join(folder_path.rstrip("/").split("/")[:-1])
+                if not parent_folder_path:
+                    parent_folder_path = "/"
                 
-                for row in result:
-                    identifier_to_id[row["identifier"]] = row["id"]
-    
+                if parent_folder_path != "/":
+                    parent_folder_identifier = parent_folder_path.rstrip("/")
+                    parent_id = identifier_to_id.get(parent_folder_identifier)
+
+            # Insert the folder with its parent_id
+            insert_query = """
+                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, parent_id, type, user_id, timestamp)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
+            """
+            sql2(self.con, insert_query, (0, repo_id, folder_identifier, "folder", parent_id, "molecule", user_id))
+            
+            # Get the ID of the newly inserted folder
+            id_query = """
+                SELECT id FROM atoms 
+                WHERE identifier = %s AND type = 'molecule' AND statement_type = 'folder'
+                AND code_id = 0 AND repo_id = %s;
+            """
+            result = sql2(self.con, id_query, (folder_identifier, repo_id))
+            if result:
+                identifier_to_id[folder_identifier] = result[0]["id"]
+                self.logger.debug(f"Added folder {folder_identifier} with parent_id {parent_id}")
+
         # Now collect all files that need to be inserted
         all_file_data = []
         for folder_path, files in folders_to_files.items():
-            folder_identifier = folder_path if folder_path.endswith("/") else f"{folder_path}/"
+            folder_identifier = folder_path.rstrip("/") if folder_path != "/" else "/"
             if folder_identifier == "/":
                 folder_id = None
             else:
                 folder_id = identifier_to_id.get(folder_identifier)
             
             for file_name in files:
-                file_identifier = f"{folder_path}/{file_name}" if not folder_path.endswith("/") else f"{folder_path}{file_name}"
+                file_identifier = f"{folder_path}/{file_name}" if folder_path != "/" else file_name
                 all_file_data.append((file_identifier, folder_id))
-    
+
         # Check which files already exist
         all_file_identifiers = [file_data[0] for file_data in all_file_data]
         existing_file_ids = {}
@@ -857,7 +958,7 @@ class PopulateAtomsDeps:
             for row in result:
                 existing_file_ids[row["full_identifier"]] = row["id"]
                 identifier_to_id[row["full_identifier"]] = row["id"]
-    
+
         # Filter out files that don't exist yet
         new_files = [(file_identifier, folder_id) for file_identifier, folder_id in all_file_data 
                     if file_identifier not in existing_file_ids]
@@ -905,10 +1006,10 @@ class PopulateAtomsDeps:
                 
                 for row in result:
                     identifier_to_id[row["full_identifier"]] = row["id"]
-    
+
         self.logger.info(f"Successfully populated {len(identifier_to_id)} folder and file molecules for repo {repo_id}")
         return identifier_to_id
-    
+        
     def set_code_id_for_files(self, repo_id):
         """
         Sets the code_id for file molecules based on their child atoms.
@@ -919,24 +1020,38 @@ class PopulateAtomsDeps:
         """
         self.logger.info(f"Setting code_id for file molecules in repo {repo_id}")
         
-        # First, get all file molecules (with code_id = 0) for this repo
+        # First, get all file molecules for this repo (both code_id = 0 and specific code_ids)
         file_query = """
-            SELECT id FROM atoms 
-            WHERE repo_id = %s AND type = 'molecule' AND statement_type = 'file' AND code_id = 0;
+            SELECT id, code_id, full_identifier FROM atoms 
+            WHERE repo_id = %s AND type = 'molecule' AND statement_type = 'file';
         """
         file_result = sql2(self.con, file_query, (repo_id,))
         
         if not file_result:
-            self.logger.info("No file molecules found with code_id = 0")
+            self.logger.info("No file molecules found")
             return
             
-        file_ids = [row["id"] for row in file_result]
-        self.logger.info(f"Found {len(file_ids)} file molecules to update")
+        # Separate files that need code_id updates (code_id = 0) from those that don't
+        files_needing_update = [row for row in file_result if row["code_id"] == 0]
+        files_with_code_id = [row for row in file_result if row["code_id"] != 0]
+        
+        self.logger.info(f"Found {len(files_needing_update)} file molecules with code_id=0 to update")
+        self.logger.info(f"Found {len(files_with_code_id)} file molecules with specific code_ids")
+        
+        if not files_needing_update:
+            self.logger.info("No file molecules with code_id = 0 found to update")
+            return
+            
+        file_ids = [row["id"] for row in files_needing_update]
         
         # Build a mapping of file_id -> code_id by finding the first child atom for each file
         file_id_to_code_id = {}
         
         for file_id in file_ids:
+            # Get the file identifier from our already-fetched data
+            file_info = next((row for row in files_needing_update if row["id"] == file_id), None)
+            file_identifier = file_info["full_identifier"] if file_info else f"ID_{file_id}"
+            
             # Find the first atom that has this file as parent_id
             atom_query = """
                 SELECT code_id FROM atoms 
@@ -948,8 +1063,20 @@ class PopulateAtomsDeps:
             if atom_result:
                 code_id = atom_result[0]["code_id"]
                 file_id_to_code_id[file_id] = code_id
+                self.logger.debug(f"Found code_id {code_id} for file {file_identifier}")
             else:
-                self.logger.warning(f"No child atoms found for file ID {file_id}")
+                self.logger.warning(f"No child atoms found for file ID {file_id} (file: {file_identifier})")
+                
+                # Additional debugging: check if there are atoms for files with specific code_ids
+                specific_file_query = """
+                    SELECT COUNT(*) as count FROM atoms a1
+                    JOIN atoms a2 ON a1.parent_id = a2.id
+                    WHERE a2.full_identifier = %s AND a2.type = 'molecule' AND a2.statement_type = 'file'
+                    AND a1.type = 'atom' AND a2.repo_id = %s;
+                """
+                count_result = sql2(self.con, specific_file_query, (file_identifier, repo_id))
+                if count_result and count_result[0]["count"] > 0:
+                    self.logger.info(f"  ℹ️  Found {count_result[0]['count']} atoms for {file_identifier} in files with specific code_ids")
         
         if not file_id_to_code_id:
             self.logger.info("No file-to-code_id mappings found")
@@ -1014,6 +1141,16 @@ if __name__ == "__main__":
             
     populate_atoms_deps = PopulateAtomsDeps(con, log_to_file=True, log_filename=log_filename, log_level=log_level)
     
+    # Log the input parameters and JSON file being processed
+    populate_atoms_deps.logger.info(f"Starting populate_atomsdeps_grouped_rust.py with parameters:")
+    populate_atoms_deps.logger.info(f"  repo_id: {repo_id}")
+    populate_atoms_deps.logger.info(f"  json_path: {json_path}")
+    populate_atoms_deps.logger.info(f"  user_id: {user_id}")
+    populate_atoms_deps.logger.info(f"  JSON file exists: {json_path.exists()}")
+    if json_path.exists():
+        populate_atoms_deps.logger.info(f"  JSON file size: {json_path.stat().st_size} bytes")
+        populate_atoms_deps.logger.info(f"  JSON file modified: {datetime.fromtimestamp(json_path.stat().st_mtime)}")
+    
     output_dir = Path(".")
 
     folders_to_files = populate_atoms_deps.build_folders_to_files_mapping(json_path)
@@ -1026,3 +1163,7 @@ if __name__ == "__main__":
 
     # Insert captured logs directly from memory
     populate_atoms_deps.insert_captured_logs_to_db(repo_id, user_id)
+    
+    # Log completion
+    populate_atoms_deps.logger.info(f"Successfully completed populate_atomsdeps_grouped_rust.py for repo_id {repo_id}")
+    populate_atoms_deps.logger.info(f"Processing completed for JSON file: {json_path}")
