@@ -837,30 +837,30 @@ class PopulateAtomsDeps:
         identifier_to_id = {}
         
         # First get all existing folders to avoid unnecessary checks
-        all_folder_identifiers = []
+        all_folder_full_identifiers = []
         for folder_path in folders_to_files.keys():
             # Skip root folder
             if folder_path == "/":
                 continue
-            # Normalize folder path for identifier (remove trailing slash)
-            folder_identifier = folder_path.rstrip("/")
-            all_folder_identifiers.append(folder_identifier)
+            # Normalize folder path for full_identifier (remove trailing slash)
+            folder_full_identifier = folder_path.rstrip("/")
+            all_folder_full_identifiers.append(folder_full_identifier)
         
         # Create a query with the right number of placeholders for existing folder check
-        if all_folder_identifiers:
-            placeholders = ", ".join(["%s"] * len(all_folder_identifiers))
+        if all_folder_full_identifiers:
+            placeholders = ", ".join(["%s"] * len(all_folder_full_identifiers))
             check_query = f"""
-                SELECT id, identifier FROM atoms 
-                WHERE identifier IN ({placeholders})
+                SELECT id, full_identifier FROM atoms 
+                WHERE full_identifier IN ({placeholders})
                 AND type = 'molecule' AND statement_type = 'folder'
                 AND code_id = 0 AND repo_id = %s;
             """
-            params = all_folder_identifiers + [repo_id]
+            params = all_folder_full_identifiers + [repo_id]
             result = sql2(self.con, check_query, tuple(params))
             
             # Store existing folder IDs
             for row in result:
-                identifier_to_id[row["identifier"]] = row["id"]
+                identifier_to_id[row["full_identifier"]] = row["id"]
         
         # Sort folders by depth (shortest paths first) to ensure parents are created before children
         sorted_folders = sorted(folders_to_files.keys(), key=lambda x: x.count('/'))
@@ -891,11 +891,14 @@ class PopulateAtomsDeps:
             if folder_path == "/":
                 continue
             
-            folder_identifier = folder_path.rstrip("/")
+            folder_full_identifier = folder_path.rstrip("/")
             
             # Skip if folder already exists
-            if folder_identifier in identifier_to_id:
+            if folder_full_identifier in identifier_to_id:
                 continue
+            
+            # Extract just the folder name from the full path
+            folder_name = folder_full_identifier.split("/")[-1]
             
             # Determine parent folder
             parent_id = None
@@ -906,35 +909,35 @@ class PopulateAtomsDeps:
                     parent_folder_path = "/"
                 
                 if parent_folder_path != "/":
-                    parent_folder_identifier = parent_folder_path.rstrip("/")
-                    parent_id = identifier_to_id.get(parent_folder_identifier)
+                    parent_folder_full_identifier = parent_folder_path.rstrip("/")
+                    parent_id = identifier_to_id.get(parent_folder_full_identifier)
 
             # Insert the folder with its parent_id
             insert_query = """
-                INSERT INTO atoms (code_id, repo_id, identifier, statement_type, parent_id, type, user_id, timestamp)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, NOW());
+                INSERT INTO atoms (code_id, repo_id, identifier, full_identifier, statement_type, parent_id, type, user_id, timestamp)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, NOW());
             """
-            sql2(self.con, insert_query, (0, repo_id, folder_identifier, "folder", parent_id, "molecule", user_id))
+            sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
             
             # Get the ID of the newly inserted folder
             id_query = """
                 SELECT id FROM atoms 
-                WHERE identifier = %s AND type = 'molecule' AND statement_type = 'folder'
+                WHERE full_identifier = %s AND type = 'molecule' AND statement_type = 'folder'
                 AND code_id = 0 AND repo_id = %s;
             """
-            result = sql2(self.con, id_query, (folder_identifier, repo_id))
+            result = sql2(self.con, id_query, (folder_full_identifier, repo_id))
             if result:
-                identifier_to_id[folder_identifier] = result[0]["id"]
-                self.logger.debug(f"Added folder {folder_identifier} with parent_id {parent_id}")
+                identifier_to_id[folder_full_identifier] = result[0]["id"]
+                self.logger.debug(f"Added folder {folder_name} (full_identifier: {folder_full_identifier}) with parent_id {parent_id}")
 
         # Now collect all files that need to be inserted
         all_file_data = []
         for folder_path, files in folders_to_files.items():
-            folder_identifier = folder_path.rstrip("/") if folder_path != "/" else "/"
-            if folder_identifier == "/":
+            folder_full_identifier = folder_path.rstrip("/") if folder_path != "/" else "/"
+            if folder_full_identifier == "/":
                 folder_id = None
             else:
-                folder_id = identifier_to_id.get(folder_identifier)
+                folder_id = identifier_to_id.get(folder_full_identifier)
             
             for file_name in files:
                 file_identifier = f"{folder_path}/{file_name}" if folder_path != "/" else file_name
