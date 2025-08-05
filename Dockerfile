@@ -17,9 +17,9 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN rustup default stable && rustup update
 
-# Install rust-analyzer
-RUN curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/rust-analyzer \
-    && chmod +x /usr/local/bin/rust-analyzer
+# Install verus-analyzer
+RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer \
+    && chmod +x /usr/local/bin/verus-analyzer
 
 # Install SCIP
 RUN env \
@@ -35,12 +35,12 @@ RUN env \
 ENV PATH="/usr/local/bin:${PATH}"
 
 # Create symbolic links
-RUN ln -sf /usr/local/bin/rust-analyzer /usr/bin/rust-analyzer && \
+RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer && \
     ln -sf /usr/local/bin/scip /usr/bin/scip
 
 # Verify installations
-# This should now show /usr/local/bin/rust-analyzer
-RUN cargo --version && which rust-analyzer && which scip && rust-analyzer --version && scip --version
+# This should now show /usr/local/bin/verus-analyzer
+RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
 
 # Create and activate a Python virtual environment
 RUN python3 -m venv /opt/venv
