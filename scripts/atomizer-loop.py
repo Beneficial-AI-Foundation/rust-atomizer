@@ -64,6 +64,7 @@ def main():
 
     try:
         while True:
+            connection.commit()
             repos = get_unatomized_repos(connection)
             if repos:
                 print(f"Found {len(repos)} repos that are unatomized")
@@ -94,6 +95,40 @@ def main():
                     
                     query = """
                         UPDATE repos SET status_id = 2 WHERE id = %s;
+                    """
+                    sql2(connection, query, (repo_id,))
+                    
+                    query = """
+                        UPDATE atoms AS a
+                        JOIN atomsbup AS b
+                        ON a.full_identifier = b.full_identifier
+                        AND a.identifier    = b.identifier
+                        AND a.repo_id = %s
+                        AND b.repo_id = %s
+                        SET
+                        a.specified = b.specified,
+                        a.status_id = b.status_id;
+                    """
+                    sql2(connection, query, (repo_id,repo_id,))
+                    
+                    
+                    query = """
+                    UPDATE atomlayouts AS al
+                    INNER JOIN atomsbup AS b
+                    ON al.parent_id       = b.id
+                    AND b.repo_id          = %s
+                    INNER JOIN atoms AS a
+                    ON a.full_identifier  = b.full_identifier
+                    AND a.identifier       = b.identifier
+                    AND a.repo_id          = %s
+                    SET
+                    al.parent_id = a.id;
+                    """
+                    sql2(connection, query, (repo_id,repo_id,))
+                    
+                    
+                    query = """
+                        DELETE FROM atomsbup WHERE repo_id = %s
                     """
                     sql2(connection, query, (repo_id,))
                     
