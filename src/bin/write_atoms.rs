@@ -138,14 +138,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let scip_file = "index.scip";
     let scip_json_file = "index_scip.json";
 
-    // Run rust-analyzer scip <path_to_folder>
-    logger.info(&format!("Running: rust-analyzer scip {}", folder_path));
-    let output = Command::new("rust-analyzer")
+    // Run verus-analyzer scip <path_to_folder>
+    logger.info(&format!("Running: verus-analyzer scip {}", folder_path));
+    let output = Command::new("verus-analyzer")
         .arg("scip")
         .arg(folder_path)
         .output()?;
     if !output.status.success() {
-        logger.warn(&format!("Errors while running rust-analyzer scip: {}", String::from_utf8_lossy(&output.stderr)));
+        logger.warn(&format!("Errors while running verus-analyzer scip: {}", String::from_utf8_lossy(&output.stderr)));
     }
 
     // Run scip print --json > <folder>_scip.json
