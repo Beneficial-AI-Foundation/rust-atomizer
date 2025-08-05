@@ -30,6 +30,7 @@ pub struct Document {
     pub language: String,
     pub relative_path: String,
     pub occurrences: Vec<Occurrence>,
+    #[serde(default)]
     pub symbols: Vec<Symbol>,
     pub position_encoding: i32,
 }
@@ -436,7 +437,7 @@ pub fn generate_file_subgraph_dot(
     file_path: &str, 
     output_path: &str
 ) -> std::io::Result<()> {
-    use std::collections::{BTreeMap, HashSet};
+    use std::collections::HashSet;
     let mut dot = String::from("digraph file_subgraph {\n");
     dot.push_str("  rankdir=LR;\n");
     dot.push_str("  node [shape=box, style=filled, fontname=Helvetica];\n");
@@ -876,8 +877,8 @@ pub fn generate_call_graph_svg(call_graph: &HashMap<String, FunctionNode>, outpu
 
     // Use a force-directed layout instead of circular
     // This is a simple implementation - for complex graphs, use a dot file with Graphviz
-    let mut nodes: Vec<_> = call_graph.values().collect();
-    let n = nodes.len();
+    let nodes: Vec<_> = call_graph.values().collect();
+    let _n = nodes.len();
     
     // Initial random positions
     let mut positions = HashMap::new();
