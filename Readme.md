@@ -1,6 +1,6 @@
 # Rust Atomizer
 
-A tool for analyzing Rust codebases and extracting code structure information (atoms and dependencies) using [rust-analyzer](https://rust-analyzer.github.io/) and [scip](https://github.com/sourcegraph/scip/).
+A tool for analyzing Rust codebases and extracting code structure information (atoms and dependencies) using [verus-analyzer](https://github.com/verus-lang/verus-analyzer) and [scip](https://github.com/sourcegraph/scip/).
 
 ## Repository Structure
 
@@ -24,7 +24,7 @@ A tool for analyzing Rust codebases and extracting code structure information (a
 
 ## How It Works
 
-1. **SCIP Generation**: Uses [rust-analyzer](https://rust-analyzer.github.io/) to generate SCIP files from Rust source code
+1. **SCIP Generation**: Uses [verus-analyzer](https://github.com/verus-lang/verus-analyzer) to generate SCIP files from Rust source code
 2. **JSON Conversion**: Converts SCIP data to a structured JSON format containing atoms (code elements) and their relationships with [scip](https://github.com/sourcegraph/scip/)
 3. **Logging**: Both Rust and Python components generate detailed logs for debugging and auditing
 4. **Database Population**: Stores the extracted code structure in a MySQL database 
@@ -61,9 +61,9 @@ Run the analysis on a Rust repository:
 
 ## What Happens During Execution
 
-1. **Docker Build**: Builds the analysis container with Rust toolchain, rust-analyzer, and SCIP tools
+1. **Docker Build**: Builds the analysis container with Rust toolchain, verus-analyzer, and SCIP tools
 2. **SCIP Analysis**: 
-   - Runs `rust-analyzer scip` on the target repository
+   - Runs `verus-analyzer scip` on the target repository
    - Converts SCIP output to JSON format using the `write_atoms` binary
    - Generates timestamped log files in `logs/atomizer_{repo_id}_{timestamp}.log`
 3. **Database Population**:
@@ -127,7 +127,7 @@ timestamp - component - level - message
 ### Docker Container
 - Debian bookworm-slim base
 - Rust toolchain (latest stable)
-- rust-analyzer
+- verus-analyzer
 - SCIP v0.5.2
 - Python 3 with mysql-connector-python
 - chrono crate for Rust timestamping
