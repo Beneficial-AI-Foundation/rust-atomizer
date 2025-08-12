@@ -105,12 +105,71 @@ def main():
                         AND a.identifier    = b.identifier
                         AND a.repo_id = %s
                         AND b.repo_id = %s
+                        AND a.statement_type != 'molecule' 
+                        AND b.statement_type != 'molecule' 
                         SET
                         a.specified = b.specified,
                         a.status_id = b.status_id;
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
+                    # query = """
+                    #     UPDATE atomsbup AS a
+                    #     JOIN atomsbup AS b
+                    #     ON a.full_identifier = b.full_identifier
+                    #     AND a.identifier    = b.identifier
+                    #     AND a.repo_id = %s
+                    #     AND b.repo_id = %s
+                    #     AND a.statement_type != 'molecule' 
+                    #     SET
+                    #     a.specified = b.specified,
+                    #     a.status_id = b.status_id;
+                    # """
+                    
+                    
+                    query = """UPDATE atoms AS a
+                            JOIN atomsbup AS b
+                            ON a.full_identifier = b.full_identifier
+                            AND a.identifier = b.identifier
+                            AND a.repo_id = %s
+                            AND b.repo_id = %s
+                            AND a.statement_type != 'molecule'
+                            SET a.parent_id = b.parent_id
+                            WHERE b.parent_id IN (
+                                SELECT id
+                                FROM (
+                                    SELECT id
+                                    FROM atoms
+                                    WHERE statement_type = 'molecule'
+                                ) AS sub
+                            );
+                    """
+                    sql2(connection, query, (repo_id,repo_id,))
+                    
+                    query = """
+                    UPDATE atoms AS a
+                        JOIN atomsbup AS b
+                        ON a.identifier = b.identifier
+                        AND (a.full_identifier <=> b.full_identifier) 
+                        AND a.repo_id = %s
+                        AND b.repo_id = %s
+                        LEFT JOIN atomsbup AS pb
+                        ON pb.id = b.parent_id
+                        AND pb.repo_id = %s
+                        LEFT JOIN atoms AS p
+                        ON p.identifier = pb.identifier
+                        AND (p.full_identifier <=> pb.full_identifier)  
+                        AND p.repo_id = a.repo_id
+                        SET a.parent_id = p.id
+                        WHERE a.statement_type = 'molecule'
+                        AND p.id IS NOT NULL        
+                        AND p.id <> a.id;          
+                    """
+                    sql2(connection, query, (repo_id, repo_id,repo_id,))
+
+                    # SELECT * FROM `atoms` WHERE `repo_id` = 3192 and parent_id IS NULL ORDER BY `type` ASC;
+
+                    # sql2(connection, query, (repo_id,repo_id,))
                     
                     query = """
                     UPDATE atomlayouts AS al
@@ -125,7 +184,6 @@ def main():
                     al.parent_id = a.id;
                     """
                     sql2(connection, query, (repo_id,repo_id,))
-                    
                     
                     query = """
                         DELETE FROM atomsbup WHERE repo_id = %s
