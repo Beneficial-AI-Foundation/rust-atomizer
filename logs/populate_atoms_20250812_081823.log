@@ -1,0 +1,83 @@
+2025-08-12 08:18:23,577 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250812_081823.log
+2025-08-12 08:18:23,577 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-08-12 08:18:23,577 - PopulateAtomsDeps - INFO -   repo_id: 3202
+2025-08-12 08:18:23,578 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3202.json
+2025-08-12 08:18:23,578 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-08-12 08:18:23,578 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-08-12 08:18:23,578 - PopulateAtomsDeps - INFO -   JSON file size: 522021 bytes
+2025-08-12 08:18:23,578 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-12 08:18:22.975196
+2025-08-12 08:18:23,584 - PopulateAtomsDeps - INFO - Identified 19 folders containing Rust files
+2025-08-12 08:18:23,585 - PopulateAtomsDeps - INFO - Populating folder structure with 19 folders as molecules for repo 3202
+2025-08-12 08:18:23,601 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['ed25519-dalek', 'curve25519-dalek-derive', 'x25519-dalek', 'curve25519-dalek', 'ed25519-dalek/benches', 'curve25519-dalek/src', 'curve25519-dalek-derive/tests', 'x25519-dalek/benches', 'x25519-dalek/tests', 'ed25519-dalek/src', 'x25519-dalek/src', 'curve25519-dalek/benches', 'ed25519-dalek/tests', 'curve25519-dalek-derive/src', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend/vector', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/vector/scalar_mul', 'curve25519-dalek/src/backend/serial/curve_models', 'curve25519-dalek/src/backend/serial/scalar_mul', 'curve25519-dalek/src/backend/vector/avx2', 'curve25519-dalek/src/backend/serial/u64']
+2025-08-12 08:18:23,769 - PopulateAtomsDeps - INFO - Adding 50 new file molecules in batch
+2025-08-12 08:18:23,789 - PopulateAtomsDeps - INFO - Successfully populated 73 folder and file molecules for repo 3202
+2025-08-12 08:18:24,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 64255: filename='README.md', folder_id=None, folder_path='None'
+2025-08-12 08:18:24,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 64256: filename='src/scalar_verus.rs', folder_id=16025, folder_path='src'
+2025-08-12 08:18:24,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 64257: filename='src/field_verus.rs', folder_id=16025, folder_path='src'
+2025-08-12 08:18:24,113 - PopulateAtomsDeps - INFO - !!!!!Code ID 64258: filename='src/lib.rs', folder_id=16025, folder_path='src'
+2025-08-12 08:18:24,114 - PopulateAtomsDeps - INFO - !!!!!Code ID 64259: filename='Cargo.toml', folder_id=None, folder_path='None'
+2025-08-12 08:18:24,114 - PopulateAtomsDeps - INFO - Retrieved 5 codes from database
+2025-08-12 08:18:24,120 - PopulateAtomsDeps - INFO - Nb of Codes: 3
+2025-08-12 08:18:24,125 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/scalar_verus.rs
+2025-08-12 08:18:24,127 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/field_verus.rs
+2025-08-12 08:18:24,130 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/lib.rs
+2025-08-12 08:18:24,130 - PopulateAtomsDeps - INFO - Summary: Found atoms for 0 out of 3 files
+2025-08-12 08:18:24,131 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3202
+2025-08-12 08:18:24,134 - PopulateAtomsDeps - INFO - Found 50 file molecules with code_id=0 to update
+2025-08-12 08:18:24,135 - PopulateAtomsDeps - INFO - Found 0 file molecules with specific code_ids
+2025-08-12 08:18:24,137 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347839 (file: x25519-dalek/src/x25519.rs)
+2025-08-12 08:18:24,142 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347840 (file: curve25519-dalek/src/backend/serial/u64/field_lemmas.rs)
+2025-08-12 08:18:24,144 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347841 (file: curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs)
+2025-08-12 08:18:24,147 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347842 (file: curve25519-dalek/src/backend/serial/u64/common_verus.rs)
+2025-08-12 08:18:24,149 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347843 (file: curve25519-dalek/src/backend/serial/u64/field.rs)
+2025-08-12 08:18:24,151 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347844 (file: curve25519-dalek/src/backend/serial/u64/scalar_specs.rs)
+2025-08-12 08:18:24,152 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347845 (file: curve25519-dalek/src/backend/serial/u64/field_verus.rs)
+2025-08-12 08:18:24,154 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347846 (file: curve25519-dalek/src/backend/serial/u64/scalar.rs)
+2025-08-12 08:18:24,155 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347847 (file: curve25519-dalek/src/backend/serial/u64/vstd_u128.rs)
+2025-08-12 08:18:24,157 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347848 (file: curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs)
+2025-08-12 08:18:24,158 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347849 (file: curve25519-dalek/src/ristretto.rs)
+2025-08-12 08:18:24,160 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347850 (file: curve25519-dalek/src/edwards.rs)
+2025-08-12 08:18:24,162 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347851 (file: curve25519-dalek/src/scalar.rs)
+2025-08-12 08:18:24,163 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347852 (file: curve25519-dalek/src/constants.rs)
+2025-08-12 08:18:24,166 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347853 (file: curve25519-dalek/src/field.rs)
+2025-08-12 08:18:24,167 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347854 (file: curve25519-dalek/src/montgomery.rs)
+2025-08-12 08:18:24,169 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347855 (file: curve25519-dalek/src/traits.rs)
+2025-08-12 08:18:24,170 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347856 (file: curve25519-dalek/src/window.rs)
+2025-08-12 08:18:24,172 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347857 (file: curve25519-dalek/src/backend/mod.rs)
+2025-08-12 08:18:24,173 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347858 (file: curve25519-dalek/benches/dalek_benchmarks.rs)
+2025-08-12 08:18:24,175 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347859 (file: curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs)
+2025-08-12 08:18:24,176 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347860 (file: curve25519-dalek/src/backend/serial/scalar_mul/straus.rs)
+2025-08-12 08:18:24,178 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347861 (file: curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs)
+2025-08-12 08:18:24,179 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347862 (file: curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs)
+2025-08-12 08:18:24,181 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347863 (file: curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs)
+2025-08-12 08:18:24,182 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347864 (file: curve25519-dalek/src/backend/vector/avx2/field.rs)
+2025-08-12 08:18:24,184 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347865 (file: curve25519-dalek/src/backend/vector/avx2/edwards.rs)
+2025-08-12 08:18:24,186 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347866 (file: curve25519-dalek/src/backend/vector/avx2/constants.rs)
+2025-08-12 08:18:24,187 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347867 (file: ed25519-dalek/src/hazmat.rs)
+2025-08-12 08:18:24,189 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347868 (file: ed25519-dalek/src/signing.rs)
+2025-08-12 08:18:24,190 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347869 (file: ed25519-dalek/src/signature.rs)
+2025-08-12 08:18:24,192 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347870 (file: ed25519-dalek/src/verifying.rs)
+2025-08-12 08:18:24,198 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347871 (file: ed25519-dalek/src/errors.rs)
+2025-08-12 08:18:24,201 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347872 (file: curve25519-dalek/src/backend/vector/packed_simd.rs)
+2025-08-12 08:18:24,206 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347873 (file: curve25519-dalek-derive/src/lib.rs)
+2025-08-12 08:18:24,211 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347874 (file: ed25519-dalek/tests/validation_criteria.rs)
+2025-08-12 08:18:24,219 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347875 (file: ed25519-dalek/tests/ed25519.rs)
+2025-08-12 08:18:24,227 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347876 (file: ed25519-dalek/tests/x25519.rs)
+2025-08-12 08:18:24,229 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347877 (file: curve25519-dalek/src/backend/vector/scalar_mul/straus.rs)
+2025-08-12 08:18:24,230 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347878 (file: curve25519-dalek/src/backend/vector/scalar_mul/precomputed_straus.rs)
+2025-08-12 08:18:24,232 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347879 (file: curve25519-dalek/src/backend/vector/scalar_mul/vartime_double_base.rs)
+2025-08-12 08:18:24,234 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347880 (file: curve25519-dalek/src/backend/vector/scalar_mul/pippenger.rs)
+2025-08-12 08:18:24,235 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347881 (file: curve25519-dalek/src/backend/vector/scalar_mul/variable_base.rs)
+2025-08-12 08:18:24,237 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347882 (file: curve25519-dalek/build.rs)
+2025-08-12 08:18:24,238 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347883 (file: curve25519-dalek/src/edwards/affine.rs)
+2025-08-12 08:18:24,240 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347884 (file: curve25519-dalek-derive/tests/tests.rs)
+2025-08-12 08:18:24,241 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347885 (file: ed25519-dalek/benches/ed25519_benchmarks.rs)
+2025-08-12 08:18:24,243 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347886 (file: x25519-dalek/tests/x25519_tests.rs)
+2025-08-12 08:18:24,244 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347887 (file: x25519-dalek/benches/x25519.rs)
+2025-08-12 08:18:24,246 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 347888 (file: curve25519-dalek/src/backend/serial/curve_models/mod.rs)
+2025-08-12 08:18:24,247 - PopulateAtomsDeps - INFO - No file-to-code_id mappings found
+2025-08-12 08:18:24,248 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3202_20250812_081809.log
+2025-08-12 08:18:24,248 - PopulateAtomsDeps - INFO - Successfully read 2178 characters from atomizer log
+2025-08-12 08:18:24,259 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3202
+2025-08-12 08:18:24,259 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3202
+2025-08-12 08:18:24,259 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3202.json

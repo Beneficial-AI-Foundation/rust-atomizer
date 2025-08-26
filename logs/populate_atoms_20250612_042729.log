@@ -1,0 +1,38 @@
+2025-06-12 04:27:29,202 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250612_042729.log
+2025-06-12 04:27:29,203 - PopulateAtomsDeps - INFO - Identified 2 folders containing Rust files
+2025-06-12 04:27:29,203 - PopulateAtomsDeps - INFO - Populating folder structure with 2 folders as molecules for repo 3001
+2025-06-12 04:27:29,208 - PopulateAtomsDeps - INFO - Adding new folder molecules ['src/bn/', 'src/'] in batch
+2025-06-12 04:27:29,218 - PopulateAtomsDeps - INFO - Adding 6 new file molecules in batch
+2025-06-12 04:27:29,228 - PopulateAtomsDeps - INFO - Successfully populated 8 folder and file molecules for repo 3001
+2025-06-12 04:27:29,231 - PopulateAtomsDeps - INFO - Nb of Codes: 7
+2025-06-12 04:27:29,232 - PopulateAtomsDeps - INFO - Populating atoms for bn/bn.rs and code_id 32536
+2025-06-12 04:27:29,241 - PopulateAtomsDeps - INFO - Inserted 16 atoms for file src/bn/bn.rs
+2025-06-12 04:27:29,241 - PopulateAtomsDeps - INFO - Populating atoms for bn/addition.rs and code_id 32537
+2025-06-12 04:27:29,249 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/bn/addition.rs
+2025-06-12 04:27:29,249 - PopulateAtomsDeps - INFO - Populating atoms for bn/division.rs and code_id 32538
+2025-06-12 04:27:29,257 - PopulateAtomsDeps - INFO - Inserted 10 atoms for file src/bn/division.rs
+2025-06-12 04:27:29,258 - PopulateAtomsDeps - INFO - Populating atoms for bn/subtraction.rs and code_id 32539
+2025-06-12 04:27:29,266 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file src/bn/subtraction.rs
+2025-06-12 04:27:29,267 - PopulateAtomsDeps - INFO - Populating atoms for bn/multiplication.rs and code_id 32540
+2025-06-12 04:27:29,274 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file src/bn/multiplication.rs
+2025-06-12 04:27:29,275 - PopulateAtomsDeps - INFO - Populating atoms for src/main.rs and code_id 32542
+2025-06-12 04:27:29,281 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file src/main.rs
+2025-06-12 04:27:29,281 - PopulateAtomsDeps - INFO - Processing 20 dependencies in batch
+2025-06-12 04:27:29,298 - PopulateAtomsDeps - INFO - Inserting 20 new dependencies
+2025-06-12 04:27:29,306 - PopulateAtomsDeps - INFO - Processing 10 dependencies in batch
+2025-06-12 04:27:29,319 - PopulateAtomsDeps - INFO - Inserting 10 new dependencies
+2025-06-12 04:27:29,325 - PopulateAtomsDeps - INFO - Processing 31 dependencies in batch
+2025-06-12 04:27:29,339 - PopulateAtomsDeps - INFO - Inserting 31 new dependencies
+2025-06-12 04:27:29,347 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-06-12 04:27:29,359 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-06-12 04:27:29,364 - PopulateAtomsDeps - INFO - Processing 18 dependencies in batch
+2025-06-12 04:27:29,377 - PopulateAtomsDeps - INFO - Inserting 18 new dependencies
+2025-06-12 04:27:29,388 - PopulateAtomsDeps - INFO - Processing 12 dependencies in batch
+2025-06-12 04:27:29,401 - PopulateAtomsDeps - INFO - Inserting 12 new dependencies
+2025-06-12 04:27:29,407 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3001
+2025-06-12 04:27:29,409 - PopulateAtomsDeps - INFO - Found 6 file molecules to update
+2025-06-12 04:27:29,419 - PopulateAtomsDeps - INFO - Found code_id mappings for 6 files
+2025-06-12 04:27:29,423 - PopulateAtomsDeps - INFO - Successfully updated code_id for 6 file molecules
+2025-06-12 04:27:29,426 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3001_20250612_042714.log
+2025-06-12 04:27:29,426 - PopulateAtomsDeps - INFO - Successfully read 600 characters from atomizer log
+2025-06-12 04:27:29,434 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3001

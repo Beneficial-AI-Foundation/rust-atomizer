@@ -1,0 +1,41 @@
+2025-07-25 16:20:05,581 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250725_162005.log
+2025-07-25 16:20:05,581 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-07-25 16:20:05,581 - PopulateAtomsDeps - INFO -   repo_id: 3146
+2025-07-25 16:20:05,581 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3146.json
+2025-07-25 16:20:05,582 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-07-25 16:20:05,582 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-07-25 16:20:05,582 - PopulateAtomsDeps - INFO -   JSON file size: 54078 bytes
+2025-07-25 16:20:05,582 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-07-25 16:20:04.525363
+2025-07-25 16:20:05,584 - PopulateAtomsDeps - INFO - Identified 1 folders containing Rust files
+2025-07-25 16:20:05,584 - PopulateAtomsDeps - INFO - Populating folder structure with 1 folders as molecules for repo 3146
+2025-07-25 16:20:05,586 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['src']
+2025-07-25 16:20:05,594 - PopulateAtomsDeps - INFO - Adding 2 new file molecules in batch
+2025-07-25 16:20:05,602 - PopulateAtomsDeps - INFO - Successfully populated 3 folder and file molecules for repo 3146
+2025-07-25 16:20:06,352 - PopulateAtomsDeps - INFO - !!!!!Code ID 51778: filename='src/scalar_verus.rs', folder_id=12260, folder_path='src'
+2025-07-25 16:20:06,353 - PopulateAtomsDeps - INFO - !!!!!Code ID 51779: filename='src/field_verus.rs', folder_id=12260, folder_path='src'
+2025-07-25 16:20:06,361 - PopulateAtomsDeps - INFO - !!!!!Code ID 51780: filename='src/lib.rs', folder_id=12260, folder_path='src'
+2025-07-25 16:20:06,362 - PopulateAtomsDeps - INFO - !!!!!Code ID 51781: filename='Cargo.toml', folder_id=None, folder_path='None'
+2025-07-25 16:20:06,362 - PopulateAtomsDeps - INFO - Retrieved 4 codes from database
+2025-07-25 16:20:06,365 - PopulateAtomsDeps - INFO - Nb of Codes: 3
+2025-07-25 16:20:06,366 - PopulateAtomsDeps - INFO - Found 20 atoms for src/scalar_verus.rs
+2025-07-25 16:20:06,366 - PopulateAtomsDeps - INFO - Found 11 atoms for src/field_verus.rs
+2025-07-25 16:20:06,366 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/lib.rs
+2025-07-25 16:20:06,366 - PopulateAtomsDeps - INFO - Summary: Found atoms for 2 out of 3 files
+2025-07-25 16:20:06,367 - PopulateAtomsDeps - INFO - Populating atoms for src/scalar_verus.rs and code_id 51778
+2025-07-25 16:20:06,380 - PopulateAtomsDeps - INFO - Inserted 20 atoms for file src/scalar_verus.rs
+2025-07-25 16:20:06,381 - PopulateAtomsDeps - INFO - Populating atoms for src/field_verus.rs and code_id 51779
+2025-07-25 16:20:06,390 - PopulateAtomsDeps - INFO - Inserted 11 atoms for file src/field_verus.rs
+2025-07-25 16:20:06,391 - PopulateAtomsDeps - INFO - Processing 22 dependencies in batch
+2025-07-25 16:20:06,500 - PopulateAtomsDeps - INFO - Inserting 22 new dependencies
+2025-07-25 16:20:06,513 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-25 16:20:06,705 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-25 16:20:06,726 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3146
+2025-07-25 16:20:06,734 - PopulateAtomsDeps - INFO - Found 2 file molecules with code_id=0 to update
+2025-07-25 16:20:06,734 - PopulateAtomsDeps - INFO - Found 0 file molecules with specific code_ids
+2025-07-25 16:20:06,743 - PopulateAtomsDeps - INFO - Found code_id mappings for 2 files
+2025-07-25 16:20:06,750 - PopulateAtomsDeps - INFO - Successfully updated code_id for 2 file molecules
+2025-07-25 16:20:06,754 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3146_20250725_161920.log
+2025-07-25 16:20:06,756 - PopulateAtomsDeps - INFO - Successfully read 600 characters from atomizer log
+2025-07-25 16:20:06,766 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3146
+2025-07-25 16:20:06,768 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3146
+2025-07-25 16:20:06,769 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3146.json

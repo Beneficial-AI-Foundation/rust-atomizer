@@ -1,0 +1,188 @@
+[
+  {
+    "file_path": "/work/curve25519-dalek/build.rs",
+    "relative_path": "build.rs",
+    "symbol_count": 56,
+    "function_count": 13
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/lib.rs",
+    "relative_path": "src/lib.rs",
+    "symbol_count": 16,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/field.rs",
+    "relative_path": "src/field.rs",
+    "symbol_count": 105,
+    "function_count": 29
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/ristretto.rs",
+    "relative_path": "src/ristretto.rs",
+    "symbol_count": 381,
+    "function_count": 94
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/scalar.rs",
+    "relative_path": "src/scalar.rs",
+    "symbol_count": 244,
+    "function_count": 71
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/window.rs",
+    "relative_path": "src/window.rs",
+    "symbol_count": 66,
+    "function_count": 12
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/macros.rs",
+    "relative_path": "src/macros.rs",
+    "symbol_count": 0,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/mod.rs",
+    "relative_path": "src/backend/mod.rs",
+    "symbol_count": 59,
+    "function_count": 15
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/mod.rs",
+    "relative_path": "src/backend/serial/mod.rs",
+    "symbol_count": 0,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/mod.rs",
+    "relative_path": "src/backend/serial/scalar_mul/mod.rs",
+    "symbol_count": 0,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/straus.rs",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "symbol_count": 42,
+    "function_count": 6
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs",
+    "relative_path": "src/backend/serial/scalar_mul/precomputed_straus.rs",
+    "symbol_count": 34,
+    "function_count": 2
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs",
+    "relative_path": "src/backend/serial/scalar_mul/variable_base.rs",
+    "symbol_count": 10,
+    "function_count": 2
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "symbol_count": 41,
+    "function_count": 6
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs",
+    "relative_path": "src/backend/serial/scalar_mul/vartime_double_base.rs",
+    "symbol_count": 14,
+    "function_count": 1
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/mod.rs",
+    "relative_path": "src/backend/serial/u64/mod.rs",
+    "symbol_count": 7,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "symbol_count": 177,
+    "function_count": 53
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/field.rs",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "symbol_count": 115,
+    "function_count": 20
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/scalar.rs",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "symbol_count": 116,
+    "function_count": 18
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs",
+    "relative_path": "src/backend/serial/u64/subtle_assumes.rs",
+    "symbol_count": 9,
+    "function_count": 1
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/field_lemmas.rs",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "symbol_count": 123,
+    "function_count": 45
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/constants.rs",
+    "relative_path": "src/backend/serial/u64/constants.rs",
+    "symbol_count": 10,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/scalar_specs.rs",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "symbol_count": 35,
+    "function_count": 5
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/common_verus.rs",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "symbol_count": 141,
+    "function_count": 42
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/u64/field_verus.rs",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "symbol_count": 138,
+    "function_count": 24
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/backend/serial/curve_models/mod.rs",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "symbol_count": 114,
+    "function_count": 20
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/constants.rs",
+    "relative_path": "src/constants.rs",
+    "symbol_count": 4,
+    "function_count": 0
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/edwards.rs",
+    "relative_path": "src/edwards.rs",
+    "symbol_count": 232,
+    "function_count": 50
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/edwards/affine.rs",
+    "relative_path": "src/edwards/affine.rs",
+    "symbol_count": 30,
+    "function_count": 9
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/traits.rs",
+    "relative_path": "src/traits.rs",
+    "symbol_count": 73,
+    "function_count": 11
+  },
+  {
+    "file_path": "/work/curve25519-dalek/src/montgomery.rs",
+    "relative_path": "src/montgomery.rs",
+    "symbol_count": 118,
+    "function_count": 27
+  }
+]

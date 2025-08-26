@@ -1015,6 +1015,70 @@ class PopulateAtomsDeps:
         
     def set_code_id_for_files(self, repo_id):
         """
+        Sets the code_id for file molecules (where code_id=0) in a single batch update.
+        It finds a corresponding code_id from one of its child atoms.
+        """
+        self.logger.info(f"Optimized: Setting code_id for file molecules in repo {repo_id}")
+
+        # --- OPTIMIZATION: Use a single JOIN query to find the mapping ---
+        # This query finds all file molecules with code_id=0 and joins them with their
+        # child atoms to find a valid code_id to assign.
+        # We use GROUP_CONCAT to pick one valid code_id if there are multiple.
+        mapping_query = """
+            SELECT
+                file.id AS file_id,
+                SUBSTRING_INDEX(GROUP_CONCAT(child_atom.code_id), ',', 1) AS new_code_id
+            FROM
+                atoms AS file
+            JOIN
+                atoms AS child_atom ON file.id = child_atom.parent_id
+            WHERE
+                file.repo_id = %s
+                AND file.code_id = 0
+                AND file.type = 'molecule'
+                AND file.statement_type = 'file'
+                AND child_atom.type = 'atom'
+            GROUP BY
+                file.id;
+        """
+
+        mappings = sql2(self.con, mapping_query, (repo_id,))
+
+        if not mappings:
+            self.logger.info("No file molecules with code_id=0 need updating.")
+            return
+
+        self.logger.info(f"Found code_id mappings for {len(mappings)} files.")
+
+        # --- OPTIMIZATION: Use a single batch UPDATE with a CASE statement ---
+        case_conditions = []
+        update_params = []
+        file_ids_to_update = []
+
+        for mapping in mappings:
+            file_id = mapping['file_id']
+            new_code_id = mapping['new_code_id']
+            case_conditions.append("WHEN id = %s THEN %s")
+            update_params.extend([file_id, new_code_id])
+            file_ids_to_update.append(file_id)
+
+        case_statement = " ".join(case_conditions)
+        id_placeholders = ", ".join(["%s"] * len(file_ids_to_update))
+
+        update_query = f"""
+            UPDATE atoms
+            SET code_id = CASE {case_statement} END
+            WHERE id IN ({id_placeholders});
+        """
+
+        # Final parameters list for the query
+        final_params = tuple(update_params + file_ids_to_update)
+
+        sql2(self.con, update_query, final_params)
+        self.logger.info(f"Successfully batch-updated code_id for {len(mappings)} file molecules.")
+
+    def set_code_id_for_files_old(self, repo_id):
+        """
         Sets the code_id for file molecules based on their child atoms.
         For each file molecule, finds the first child atom and uses its code_id.
         

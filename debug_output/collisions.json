@@ -1,0 +1,981 @@
+[
+  {
+    "symbol": "local 53",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/mul().(self)",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 traits/is_identity().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/neg().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 50",
+    "count": 6,
+    "files": []
+  },
+  {
+    "symbol": "local 67",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_assign().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/fmt().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/add().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/from().(A)",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 20",
+    "count": 13,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/Mul#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 6",
+    "count": 20,
+    "files": []
+  },
+  {
+    "symbol": "local 12",
+    "count": 16,
+    "files": []
+  },
+  {
+    "symbol": "local 21",
+    "count": 12,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo core https://github.com/rust-lang/rust/library/core num/to_le_bytes().",
+    "count": 4,
+    "files": [
+      "src/scalar.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/double_and_compress_batch().(state)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/VartimeRistrettoPrecomputation#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 83",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/ct_eq().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/add().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 35",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/eq().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/Mul#mul().",
+    "count": 2,
+    "files": [
+      "src/edwards.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/fmt().(f)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_select().(b)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 10",
+    "count": 18,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/eq().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 76",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/select().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/mul().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 precomputed_straus/scalar_mul/serial/backend/optional_mixed_multiscalar_mul().(c)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/mul().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 72",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/neg().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 13",
+    "count": 16,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/sub().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Sub#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/sub().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/CompressedEdwardsY#",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 29",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "local 39",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 62",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 affine/edwards/Scalar#Mul#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/ct_eq().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 56",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/from().(x)",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/Scalar#From#from().",
+    "count": 5,
+    "files": [
+      "src/scalar.rs"
+    ]
+  },
+  {
+    "symbol": "local 23",
+    "count": 12,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 affine/edwards/mul().(rhs)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/NafLookupTable5#",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 2",
+    "count": 21,
+    "files": []
+  },
+  {
+    "symbol": "local 47",
+    "count": 7,
+    "files": []
+  },
+  {
+    "symbol": "local 74",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo subtle 2.6.1 ConditionallySelectable#conditional_swap().",
+    "count": 2,
+    "files": [
+      "src/montgomery.rs",
+      "src/backend/serial/u64/field.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 m().(x)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 86",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/fmt().(f)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 1",
+    "count": 21,
+    "files": []
+  },
+  {
+    "symbol": "local 66",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/ct_eq().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 backend/VartimePrecomputedStraus#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 85",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 37",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 60",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 24",
+    "count": 11,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/VartimeEdwardsPrecomputation#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 84",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 59",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 32",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "local 54",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 27",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/NafLookupTable5#From#from().",
+    "count": 2,
+    "files": [
+      "src/window.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar_lemmas/u64/serial/backend/lemma_seq_u64_to_nat_subrange_extend().(x)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/mul().(scalar)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 26",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "local 8",
+    "count": 18,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/Mul#mul().",
+    "count": 2,
+    "files": [
+      "src/montgomery.rs"
+    ]
+  },
+  {
+    "symbol": "local 11",
+    "count": 17,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 affine/edwards/Scalar#Mul#mul().",
+    "count": 2,
+    "files": [
+      "src/edwards/affine.rs"
+    ]
+  },
+  {
+    "symbol": "local 38",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 82",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 33",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 88",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 45",
+    "count": 8,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/Mul#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 affine/edwards/mul().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 63",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 43",
+    "count": 8,
+    "files": []
+  },
+  {
+    "symbol": "local 80",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_select().(a)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/AffineNielsPoint#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/fmt().(self)",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 89",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 18",
+    "count": 13,
+    "files": []
+  },
+  {
+    "symbol": "local 14",
+    "count": 16,
+    "files": []
+  },
+  {
+    "symbol": "local 36",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/u64/serial/backend/Scalar52#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 49",
+    "count": 6,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Neg#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 65",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/conditional_select().(b)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 field_verus/u64/serial/backend/lemma_reduce().(i)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 m().",
+    "count": 2,
+    "files": [
+      "src/backend/serial/u64/field.rs"
+    ]
+  },
+  {
+    "symbol": "local 0",
+    "count": 22,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/compress_batch().(input)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 58",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 4",
+    "count": 19,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/CompressedRistretto#",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 19",
+    "count": 12,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 pippenger/scalar_mul/serial/backend/optional_multiscalar_mul().(p)",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 m().(y)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/ct_eq().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 41",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 71",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/invert().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 22",
+    "count": 11,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/Scalar#",
+    "count": 7,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo subtle 2.6.1 ConstantTimeEq#ct_eq().",
+    "count": 3,
+    "files": [
+      "src/scalar.rs",
+      "src/field.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Sub#sub().",
+    "count": 2,
+    "files": [
+      "src/backend/serial/curve_models/mod.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/neg().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/fmt().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/eq().(other)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_assign().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/ProjectiveNielsPoint#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 55",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 81",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 61",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 30",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "local 57",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 68",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/eq().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/Mul#mul().",
+    "count": 4,
+    "files": [
+      "src/ristretto.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/conditional_select().(a)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar_lemmas/u64/serial/backend/lemma_general_bound().(x)",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar/neg().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 3",
+    "count": 19,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo subtle 2.6.1 ConditionallySelectable#conditional_select().",
+    "count": 3,
+    "files": [
+      "src/montgomery.rs",
+      "src/scalar.rs",
+      "src/backend/serial/u64/field.rs"
+    ]
+  },
+  {
+    "symbol": "local 5",
+    "count": 19,
+    "files": []
+  },
+  {
+    "symbol": "local 42",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 64",
+    "count": 5,
+    "files": []
+  },
+  {
+    "symbol": "local 48",
+    "count": 6,
+    "files": []
+  },
+  {
+    "symbol": "local 46",
+    "count": 7,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus#",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/Mul#[Output]",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 28",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 34",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_assign().(choice)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/NafLookupTable8#",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Add#[Output]",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 15",
+    "count": 16,
+    "files": []
+  },
+  {
+    "symbol": "local 79",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Neg#neg().",
+    "count": 2,
+    "files": [
+      "src/backend/serial/curve_models/mod.rs"
+    ]
+  },
+  {
+    "symbol": "local 51",
+    "count": 6,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/fmt().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 9",
+    "count": 18,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/NafLookupTable8#From#from().",
+    "count": 2,
+    "files": [
+      "src/window.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 traits/IsIdentity#is_identity().",
+    "count": 2,
+    "files": [
+      "src/edwards.rs"
+    ]
+  },
+  {
+    "symbol": "local 25",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "local 73",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/fmt().(f)",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/conditional_select().(choice)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/as_extended().(self)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar_lemmas/u64/serial/backend/lemma_seq_u64_to_nat_subrange_extend().(i)",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 ristretto/RistrettoPoint#",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 69",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 pippenger/scalar_mul/serial/backend/optional_multiscalar_mul().(s)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 17",
+    "count": 14,
+    "files": []
+  },
+  {
+    "symbol": "local 75",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 scalar_lemmas/u64/serial/backend/lemma_general_bound().(i)",
+    "count": 7,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 affine/edwards/AffinePoint#",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 52",
+    "count": 6,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/fmt().(f)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo core https://github.com/rust-lang/rust/library/core num/wrapping_sub().",
+    "count": 2,
+    "files": [
+      "src/backend/serial/u64/scalar.rs",
+      "src/scalar.rs"
+    ]
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 edwards/EdwardsPoint#",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "local 31",
+    "count": 10,
+    "files": []
+  },
+  {
+    "symbol": "local 7",
+    "count": 19,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 montgomery/MontgomeryPoint#",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 40",
+    "count": 9,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 LOW_51_BIT_MASK.",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 70",
+    "count": 4,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 window/select().(x)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "local 44",
+    "count": 7,
+    "files": []
+  },
+  {
+    "symbol": "local 16",
+    "count": 14,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/conditional_select().(choice)",
+    "count": 2,
+    "files": []
+  },
+  {
+    "symbol": "rust-analyzer cargo curve25519-dalek 5.0.0-pre.0 curve_models/serial/backend/Add#add().",
+    "count": 2,
+    "files": [
+      "src/backend/serial/curve_models/mod.rs"
+    ]
+  },
+  {
+    "symbol": "local 77",
+    "count": 3,
+    "files": []
+  },
+  {
+    "symbol": "local 78",
+    "count": 3,
+    "files": []
+  }
+]

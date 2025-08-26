@@ -1,0 +1,77 @@
+2025-06-04 11:21:15,950 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250604_112115.log
+2025-06-04 11:21:15,952 - PopulateAtomsDeps - INFO - Identified 3 folders containing Rust files
+2025-06-04 11:21:15,952 - PopulateAtomsDeps - INFO - Populating folder structure with 3 folders as molecules for repo 2988
+2025-06-04 11:21:15,965 - PopulateAtomsDeps - INFO - Successfully populated 26 folder and file molecules for repo 2988
+2025-06-04 11:21:15,969 - PopulateAtomsDeps - INFO - Nb of Codes: 24
+2025-06-04 11:21:15,972 - PopulateAtomsDeps - INFO - Populating atoms for benches/sort_benchmark.rs and code_id 32148
+2025-06-04 11:21:15,973 - PopulateAtomsDeps - INFO - Populating atoms for src/smooth_sort.rs and code_id 32149
+2025-06-04 11:21:15,975 - PopulateAtomsDeps - INFO - Populating atoms for src/nheap_sort.rs and code_id 32150
+2025-06-04 11:21:15,976 - PopulateAtomsDeps - INFO - Populating atoms for src/shell_sort.rs and code_id 32151
+2025-06-04 11:21:15,977 - PopulateAtomsDeps - INFO - Populating atoms for bin/powers_of_two.rs and code_id 32152
+2025-06-04 11:21:15,978 - PopulateAtomsDeps - INFO - Populating atoms for bin/leonardo_numbers.rs and code_id 32153
+2025-06-04 11:21:15,981 - PopulateAtomsDeps - INFO - Populating atoms for src/insertion_sort.rs and code_id 32154
+2025-06-04 11:21:15,982 - PopulateAtomsDeps - INFO - Populating atoms for src/cocktail_sort.rs and code_id 32155
+2025-06-04 11:21:15,983 - PopulateAtomsDeps - INFO - Populating atoms for src/slow_sort.rs and code_id 32156
+2025-06-04 11:21:15,985 - PopulateAtomsDeps - INFO - Populating atoms for src/quick_sort.rs and code_id 32157
+2025-06-04 11:21:15,986 - PopulateAtomsDeps - INFO - Populating atoms for src/gnome_sort.rs and code_id 32158
+2025-06-04 11:21:15,987 - PopulateAtomsDeps - INFO - Populating atoms for src/ksort.rs and code_id 32159
+2025-06-04 11:21:15,988 - PopulateAtomsDeps - INFO - Populating atoms for src/stooge_sort.rs and code_id 32160
+2025-06-04 11:21:15,990 - PopulateAtomsDeps - INFO - Populating atoms for src/pancake_sort.rs and code_id 32161
+2025-06-04 11:21:15,991 - PopulateAtomsDeps - INFO - Populating atoms for src/merge_sort.rs and code_id 32162
+2025-06-04 11:21:15,992 - PopulateAtomsDeps - INFO - Populating atoms for src/bitonic_sort.rs and code_id 32163
+2025-06-04 11:21:15,994 - PopulateAtomsDeps - INFO - Populating atoms for src/comb_sort.rs and code_id 32164
+2025-06-04 11:21:15,995 - PopulateAtomsDeps - INFO - Populating atoms for src/oddeven_sort.rs and code_id 32165
+2025-06-04 11:21:15,996 - PopulateAtomsDeps - INFO - Populating atoms for src/heap_sort.rs and code_id 32166
+2025-06-04 11:21:15,998 - PopulateAtomsDeps - INFO - Populating atoms for src/bubble_sort.rs and code_id 32167
+2025-06-04 11:21:15,999 - PopulateAtomsDeps - INFO - Populating atoms for src/selection_sort.rs and code_id 32169
+2025-06-04 11:21:16,000 - PopulateAtomsDeps - INFO - Populating atoms for src/bingo_sort.rs and code_id 32170
+2025-06-04 11:21:16,001 - PopulateAtomsDeps - INFO - Populating atoms for src/cycle_sort.rs and code_id 32171
+2025-06-04 11:21:16,002 - PopulateAtomsDeps - INFO - Processing 25 dependencies in batch
+2025-06-04 11:21:16,024 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,024 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-06-04 11:21:16,041 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,041 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-06-04 11:21:16,056 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,062 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-06-04 11:21:16,088 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,088 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-06-04 11:21:16,103 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-06-04 11:21:16,117 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-06-04 11:21:16,133 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,133 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-06-04 11:21:16,148 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,148 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-06-04 11:21:16,164 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,165 - PopulateAtomsDeps - INFO - Processing 10 dependencies in batch
+2025-06-04 11:21:16,181 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,182 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-06-04 11:21:16,197 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,198 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-06-04 11:21:16,214 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,214 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-06-04 11:21:16,229 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,230 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-06-04 11:21:16,245 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,246 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-06-04 11:21:16,274 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,275 - PopulateAtomsDeps - INFO - Processing 9 dependencies in batch
+2025-06-04 11:21:16,292 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,293 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-06-04 11:21:16,307 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,307 - PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+2025-06-04 11:21:16,324 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,325 - PopulateAtomsDeps - INFO - Processing 16 dependencies in batch
+2025-06-04 11:21:16,345 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,346 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-06-04 11:21:16,360 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,361 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-06-04 11:21:16,377 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,377 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-06-04 11:21:16,391 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,392 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-06-04 11:21:16,409 - PopulateAtomsDeps - INFO - All dependencies already exist in the database
+2025-06-04 11:21:16,410 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 2988
+2025-06-04 11:21:16,411 - PopulateAtomsDeps - INFO - No file molecules found with code_id = 0
+2025-06-04 11:21:16,412 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_2988_20250604_112057.log
+2025-06-04 11:21:16,412 - PopulateAtomsDeps - INFO - Successfully read 600 characters from atomizer log
+2025-06-04 11:21:16,418 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 2988

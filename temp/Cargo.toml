@@ -1,0 +1,9 @@
+[package]
+name = "scalar"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "scalar"
+path = "scalar.rs"
+

@@ -1,0 +1,26 @@
+[
+  {
+    "identifier": "add_one",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn add_one(x: i32) -> i32 {\n    x + 1\n}",
+    "display_name": "add_one",
+    "full_path": "file:///work/2990/rust.rs",
+    "relative_path": "rust.rs",
+    "file_name": "rust.rs",
+    "parent_folder": "2990"
+  },
+  {
+    "identifier": "main",
+    "statement_type": "function",
+    "deps": [
+      "add_one"
+    ],
+    "body": "fn main() {\n    let y = add_one(5);\n    println!(\"Result: {}\", y);\n}",
+    "display_name": "main",
+    "full_path": "file:///work/2990/rust.rs",
+    "relative_path": "rust.rs",
+    "file_name": "rust.rs",
+    "parent_folder": "2990"
+  }
+]

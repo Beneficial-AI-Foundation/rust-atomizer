@@ -1,0 +1,15 @@
+=== Atomizer Log Session ===
+Repo ID: 3251
+User ID: 460176
+Session Start: 2025-08-25 13:49:06 UTC
+================================
+
+[2025-08-25 13:47:50 UTC] [INFO] Starting atomizer for repo_id: 3251, user_id: 460176
+[2025-08-25 13:47:50 UTC] [INFO] Running: verus-analyzer scip /work/3251
+[2025-08-25 13:49:00 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+[2025-08-25 13:49:01 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+[2025-08-25 13:49:01 UTC] [INFO] Building call graph...
+[2025-08-25 13:49:06 UTC] [INFO] Atoms JSON written to 3251.json
+
+=== End of Session ===
+

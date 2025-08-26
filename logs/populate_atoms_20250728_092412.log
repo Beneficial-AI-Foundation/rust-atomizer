@@ -1,0 +1,166 @@
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250728_092412.log
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   repo_id: 3149
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3149.json
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   JSON file size: 95902 bytes
+2025-07-28 09:24:12,005 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-07-28 09:24:11.415926
+2025-07-28 09:24:12,007 - PopulateAtomsDeps - INFO - Identified 3 folders containing Rust files
+2025-07-28 09:24:12,007 - PopulateAtomsDeps - INFO - Populating folder structure with 3 folders as molecules for repo 3149
+2025-07-28 09:24:12,026 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['benches', 'src', 'src/bin']
+2025-07-28 09:24:12,055 - PopulateAtomsDeps - INFO - Adding 23 new file molecules in batch
+2025-07-28 09:24:12,074 - PopulateAtomsDeps - INFO - Successfully populated 26 folder and file molecules for repo 3149
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51790: filename='LICENSE', folder_id=None, folder_path='None'
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51791: filename='benches/sort_benchmark.rs', folder_id=12263, folder_path='benches'
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51792: filename='src/smooth_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51793: filename='src/nheap_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51794: filename='src/shell_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,286 - PopulateAtomsDeps - INFO - !!!!!Code ID 51795: filename='src/bin/powers_of_two.rs', folder_id=12265, folder_path='src/bin'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51796: filename='src/bin/leonardo_numbers.rs', folder_id=12265, folder_path='src/bin'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51797: filename='src/insertion_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51798: filename='src/cocktail_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51799: filename='src/slow_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51800: filename='src/quick_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51801: filename='src/gnome_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51802: filename='src/ksort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51803: filename='src/stooge_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51804: filename='src/pancake_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51805: filename='src/merge_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51806: filename='src/bitonic_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51807: filename='src/comb_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51808: filename='src/oddeven_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51809: filename='src/heap_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,287 - PopulateAtomsDeps - INFO - !!!!!Code ID 51810: filename='src/bubble_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - !!!!!Code ID 51811: filename='src/lib.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - !!!!!Code ID 51812: filename='src/selection_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - !!!!!Code ID 51813: filename='src/bingo_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - !!!!!Code ID 51814: filename='src/cycle_sort.rs', folder_id=12264, folder_path='src'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - !!!!!Code ID 51815: filename='Cargo.toml', folder_id=None, folder_path='None'
+2025-07-28 09:24:12,288 - PopulateAtomsDeps - INFO - Retrieved 26 codes from database
+2025-07-28 09:24:12,293 - PopulateAtomsDeps - INFO - Nb of Codes: 24
+2025-07-28 09:24:12,294 - PopulateAtomsDeps - INFO - Found 3 atoms for benches/sort_benchmark.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 7 atoms for src/smooth_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 6 atoms for src/nheap_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 7 atoms for src/shell_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 1 atoms for src/bin/powers_of_two.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 4 atoms for src/bin/leonardo_numbers.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 4 atoms for src/insertion_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 4 atoms for src/cocktail_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 5 atoms for src/slow_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 12 atoms for src/quick_sort.rs
+2025-07-28 09:24:12,295 - PopulateAtomsDeps - INFO - Found 8 atoms for src/gnome_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 6 atoms for src/ksort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 5 atoms for src/stooge_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 6 atoms for src/pancake_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 9 atoms for src/merge_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 10 atoms for src/bitonic_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 4 atoms for src/comb_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 10 atoms for src/oddeven_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 19 atoms for src/heap_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 4 atoms for src/bubble_sort.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/lib.rs
+2025-07-28 09:24:12,296 - PopulateAtomsDeps - INFO - Found 8 atoms for src/selection_sort.rs
+2025-07-28 09:24:12,297 - PopulateAtomsDeps - INFO - Found 5 atoms for src/bingo_sort.rs
+2025-07-28 09:24:12,297 - PopulateAtomsDeps - INFO - Found 4 atoms for src/cycle_sort.rs
+2025-07-28 09:24:12,297 - PopulateAtomsDeps - INFO - Summary: Found atoms for 23 out of 24 files
+2025-07-28 09:24:12,297 - PopulateAtomsDeps - INFO - Populating atoms for benches/sort_benchmark.rs and code_id 51791
+2025-07-28 09:24:12,305 - PopulateAtomsDeps - INFO - Inserted 3 atoms for file benches/sort_benchmark.rs
+2025-07-28 09:24:12,306 - PopulateAtomsDeps - INFO - Populating atoms for src/smooth_sort.rs and code_id 51792
+2025-07-28 09:24:12,312 - PopulateAtomsDeps - INFO - Inserted 7 atoms for file src/smooth_sort.rs
+2025-07-28 09:24:12,313 - PopulateAtomsDeps - INFO - Populating atoms for src/nheap_sort.rs and code_id 51793
+2025-07-28 09:24:12,320 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file src/nheap_sort.rs
+2025-07-28 09:24:12,320 - PopulateAtomsDeps - INFO - Populating atoms for src/shell_sort.rs and code_id 51794
+2025-07-28 09:24:12,331 - PopulateAtomsDeps - INFO - Inserted 7 atoms for file src/shell_sort.rs
+2025-07-28 09:24:12,331 - PopulateAtomsDeps - INFO - Populating atoms for src/bin/powers_of_two.rs and code_id 51795
+2025-07-28 09:24:12,337 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file src/bin/powers_of_two.rs
+2025-07-28 09:24:12,338 - PopulateAtomsDeps - INFO - Populating atoms for src/bin/leonardo_numbers.rs and code_id 51796
+2025-07-28 09:24:12,345 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/bin/leonardo_numbers.rs
+2025-07-28 09:24:12,345 - PopulateAtomsDeps - INFO - Populating atoms for src/insertion_sort.rs and code_id 51797
+2025-07-28 09:24:12,352 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/insertion_sort.rs
+2025-07-28 09:24:12,352 - PopulateAtomsDeps - INFO - Populating atoms for src/cocktail_sort.rs and code_id 51798
+2025-07-28 09:24:12,361 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/cocktail_sort.rs
+2025-07-28 09:24:12,362 - PopulateAtomsDeps - INFO - Populating atoms for src/slow_sort.rs and code_id 51799
+2025-07-28 09:24:12,368 - PopulateAtomsDeps - INFO - Inserted 5 atoms for file src/slow_sort.rs
+2025-07-28 09:24:12,368 - PopulateAtomsDeps - INFO - Populating atoms for src/quick_sort.rs and code_id 51800
+2025-07-28 09:24:12,376 - PopulateAtomsDeps - INFO - Inserted 12 atoms for file src/quick_sort.rs
+2025-07-28 09:24:12,377 - PopulateAtomsDeps - INFO - Populating atoms for src/gnome_sort.rs and code_id 51801
+2025-07-28 09:24:12,386 - PopulateAtomsDeps - INFO - Inserted 8 atoms for file src/gnome_sort.rs
+2025-07-28 09:24:12,386 - PopulateAtomsDeps - INFO - Populating atoms for src/ksort.rs and code_id 51802
+2025-07-28 09:24:12,394 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file src/ksort.rs
+2025-07-28 09:24:12,394 - PopulateAtomsDeps - INFO - Populating atoms for src/stooge_sort.rs and code_id 51803
+2025-07-28 09:24:12,401 - PopulateAtomsDeps - INFO - Inserted 5 atoms for file src/stooge_sort.rs
+2025-07-28 09:24:12,401 - PopulateAtomsDeps - INFO - Populating atoms for src/pancake_sort.rs and code_id 51804
+2025-07-28 09:24:12,410 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file src/pancake_sort.rs
+2025-07-28 09:24:12,411 - PopulateAtomsDeps - INFO - Populating atoms for src/merge_sort.rs and code_id 51805
+2025-07-28 09:24:12,420 - PopulateAtomsDeps - INFO - Inserted 9 atoms for file src/merge_sort.rs
+2025-07-28 09:24:12,420 - PopulateAtomsDeps - INFO - Populating atoms for src/bitonic_sort.rs and code_id 51806
+2025-07-28 09:24:12,430 - PopulateAtomsDeps - INFO - Inserted 10 atoms for file src/bitonic_sort.rs
+2025-07-28 09:24:12,430 - PopulateAtomsDeps - INFO - Populating atoms for src/comb_sort.rs and code_id 51807
+2025-07-28 09:24:12,437 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/comb_sort.rs
+2025-07-28 09:24:12,438 - PopulateAtomsDeps - INFO - Populating atoms for src/oddeven_sort.rs and code_id 51808
+2025-07-28 09:24:12,455 - PopulateAtomsDeps - INFO - Inserted 10 atoms for file src/oddeven_sort.rs
+2025-07-28 09:24:12,455 - PopulateAtomsDeps - INFO - Populating atoms for src/heap_sort.rs and code_id 51809
+2025-07-28 09:24:12,466 - PopulateAtomsDeps - INFO - Inserted 19 atoms for file src/heap_sort.rs
+2025-07-28 09:24:12,467 - PopulateAtomsDeps - INFO - Populating atoms for src/bubble_sort.rs and code_id 51810
+2025-07-28 09:24:12,473 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/bubble_sort.rs
+2025-07-28 09:24:12,473 - PopulateAtomsDeps - INFO - Populating atoms for src/selection_sort.rs and code_id 51812
+2025-07-28 09:24:12,482 - PopulateAtomsDeps - INFO - Inserted 8 atoms for file src/selection_sort.rs
+2025-07-28 09:24:12,482 - PopulateAtomsDeps - INFO - Populating atoms for src/bingo_sort.rs and code_id 51813
+2025-07-28 09:24:12,488 - PopulateAtomsDeps - INFO - Inserted 5 atoms for file src/bingo_sort.rs
+2025-07-28 09:24:12,488 - PopulateAtomsDeps - INFO - Populating atoms for src/cycle_sort.rs and code_id 51814
+2025-07-28 09:24:12,495 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file src/cycle_sort.rs
+2025-07-28 09:24:12,495 - PopulateAtomsDeps - INFO - Processing 25 dependencies in batch
+2025-07-28 09:24:12,560 - PopulateAtomsDeps - INFO - Inserting 25 new dependencies
+2025-07-28 09:24:12,567 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-07-28 09:24:12,617 - PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+2025-07-28 09:24:12,622 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-28 09:24:12,678 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-28 09:24:12,683 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-28 09:24:12,733 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-28 09:24:12,738 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-28 09:24:12,790 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-28 09:24:12,796 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-28 09:24:12,846 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-28 09:24:12,851 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-28 09:24:12,935 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-28 09:24:12,940 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-28 09:24:12,993 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-28 09:24:12,998 - PopulateAtomsDeps - INFO - Processing 10 dependencies in batch
+2025-07-28 09:24:13,058 - PopulateAtomsDeps - INFO - Inserting 10 new dependencies
+2025-07-28 09:24:13,064 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-28 09:24:13,119 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-28 09:24:13,125 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-28 09:24:13,218 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-28 09:24:13,223 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-28 09:24:13,359 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-28 09:24:13,367 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-28 09:24:13,477 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-28 09:24:13,481 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-07-28 09:24:13,572 - PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+2025-07-28 09:24:13,576 - PopulateAtomsDeps - INFO - Processing 9 dependencies in batch
+2025-07-28 09:24:13,628 - PopulateAtomsDeps - INFO - Inserting 9 new dependencies
+2025-07-28 09:24:13,633 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-28 09:24:13,687 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-28 09:24:13,692 - PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+2025-07-28 09:24:13,746 - PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+2025-07-28 09:24:13,752 - PopulateAtomsDeps - INFO - Processing 16 dependencies in batch
+2025-07-28 09:24:13,808 - PopulateAtomsDeps - INFO - Inserting 16 new dependencies
+2025-07-28 09:24:13,812 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-28 09:24:13,883 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-28 09:24:13,888 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-28 09:24:13,941 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-28 09:24:13,950 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-28 09:24:14,001 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-28 09:24:14,006 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-28 09:24:14,057 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-28 09:24:14,062 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3149
+2025-07-28 09:24:14,064 - PopulateAtomsDeps - INFO - Found 23 file molecules with code_id=0 to update
+2025-07-28 09:24:14,064 - PopulateAtomsDeps - INFO - Found 0 file molecules with specific code_ids
+2025-07-28 09:24:14,076 - PopulateAtomsDeps - INFO - Found code_id mappings for 23 files
+2025-07-28 09:24:14,082 - PopulateAtomsDeps - INFO - Successfully updated code_id for 23 file molecules
+2025-07-28 09:24:14,082 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3149_20250728_092336.log
+2025-07-28 09:24:14,083 - PopulateAtomsDeps - INFO - Successfully read 600 characters from atomizer log
+2025-07-28 09:24:14,093 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3149
+2025-07-28 09:24:14,094 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3149
+2025-07-28 09:24:14,094 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3149.json
