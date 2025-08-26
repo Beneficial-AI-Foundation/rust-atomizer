@@ -1,0 +1,390 @@
+[
+  {
+    "identifier": "field_verus/impl/FieldElement51/pow2k",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/m"
+    ],
+    "body": "    pub fn pow2k(&self, mut k: u32) -> (r: FieldElement51)\n        ensures\n            true\n    {\n        // DISABLED DUE TO NO VERUS SUPPORT FOR PANICS\n        // debug_assert!( k > 0 );\n\n\n        let mut a: [u64; 5] = self.limbs;\n\n        loop\n            invariant\n                true\n            decreases k\n        {\n            proof {\n                assume(false);\n            }\n            // Precondition: assume input limbs a[i] are bounded as\n            //\n            // a[i] < 2^(51 + b)\n            //\n            // where b is a real parameter measuring the \"bit excess\" of the limbs.\n\n            // Precomputation: 64-bit multiply by 19.\n            //\n            // This fits into a u64 whenever 51 + b + lg(19) < 64.\n            //\n            // Since 51 + b + lg(19) < 51 + 4.25 + b\n            //                       = 55.25 + b,\n            // this fits if b < 8.75.\n            let a3_19 = 19 * a[3];\n            let a4_19 = 19 * a[4];\n\n            // Multiply to get 128-bit coefficients of output.\n            //\n            // The 128-bit multiplications by 2 turn into 1 slr + 1 slrd each,\n            // which doesn't seem any better or worse than doing them as precomputations\n            // on the 64-bit inputs.\n            let     c0: u128 = m(a[0],  a[0]) + 2*( m(a[1], a4_19) + m(a[2], a3_19) );\n            let mut c1: u128 = m(a[3], a3_19) + 2*( m(a[0],  a[1]) + m(a[2], a4_19) );\n            let mut c2: u128 = m(a[1],  a[1]) + 2*( m(a[0],  a[2]) + m(a[4], a3_19) );\n            let mut c3: u128 = m(a[4], a4_19) + 2*( m(a[0],  a[3]) + m(a[1],  a[2]) );\n            let mut c4: u128 = m(a[2],  a[2]) + 2*( m(a[0],  a[4]) + m(a[1],  a[3]) );\n\n            // Same bound as in multiply:\n            //    c[i] < 2^(102 + 2*b) * (1+i + (4-i)*19)\n            //         < 2^(102 + lg(1 + 4*19) + 2*b)\n            //         < 2^(108.27 + 2*b)\n            //\n            // The carry (c[i] >> 51) fits into a u64 when\n            //    108.27 + 2*b - 51 < 64\n            //    2*b < 6.73\n            //    b < 3.365.\n            //\n            // So we require b < 3 to ensure this fits.\n            // DISABLED DUE TO NO VERUS SUPPORT FOR PANICS\n            // debug_assert!(a[0] < (1 << 54));\n            // debug_assert!(a[1] < (1 << 54));\n            // debug_assert!(a[2] < (1 << 54));\n            // debug_assert!(a[3] < (1 << 54));\n            // debug_assert!(a[4] < (1 << 54));\n\n            // const LOW_51_BIT_MASK: u64 = (1u64 << 51) - 1; // already defined\n\n            // Casting to u64 and back tells the compiler that the carry is bounded by 2^64, so\n            // that the addition is a u128 + u64 rather than u128 + u128.\n            c1 += ((c0 >> 51) as u64) as u128;\n            a[0] = (c0 as u64) & LOW_51_BIT_MASK;\n\n            c2 += ((c1 >> 51) as u64) as u128;\n            a[1] = (c1 as u64) & LOW_51_BIT_MASK;\n\n            c3 += ((c2 >> 51) as u64) as u128;\n            a[2] = (c2 as u64) & LOW_51_BIT_MASK;\n\n            c4 += ((c3 >> 51) as u64) as u128;\n            a[3] = (c3 as u64) & LOW_51_BIT_MASK;\n\n            let carry: u64 = (c4 >> 51) as u64;\n            a[4] = (c4 as u64) & LOW_51_BIT_MASK;\n\n            // To see that this does not overflow, we need a[0] + carry * 19 < 2^64.\n            //\n            // c4 < a2^2 + 2*a0*a4 + 2*a1*a3 + (carry from c3)\n            //    < 2^(102 + 2*b + lg(5)) + 2^64.\n            //\n            // When b < 3 we get\n            //\n            // c4 < 2^110.33  so that carry < 2^59.33\n            //\n            // so that\n            //\n            // a[0] + carry * 19 < 2^51 + 19 * 2^59.33 < 2^63.58\n            //\n            // and there is no overflow.\n            a[0] += carry * 19;\n\n            // Now a[1] < 2^51 + 2^(64 -51) = 2^51 + 2^13 < 2^(51 + epsilon).\n            a[1] += a[0] >> 51;\n            a[0] &= LOW_51_BIT_MASK;\n\n            // Now all a[i] < 2^(51 + epsilon) and a = self^(2^k).\n\n            k -= 1;\n            if k == 0 {\n                break;\n            }\n        }\n\n        // ADAPTED CODE LINE: limbs is now a named field\n        FieldElement51{limbs: a}\n    }",
+    "display_name": "pow2k",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/square_internal",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/m"
+    ],
+    "body": "    pub (crate) fn square_internal(a: &Scalar52) -> (z: [u128; 9])\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n    ensures\n        slice128_to_nat(&z) == to_nat(&a.limbs) * to_nat(&a.limbs),\n    {\n        let mut z = [0u128; 9];\n\n        z[0] = m(a.limbs[0], a.limbs[0]);\n\n        proof {\n            // m() ensures its result is < 2^104\n            // Since m_result < 2^104, we have m_result * 2 < 2^105\n            // and 2^105 is well within u128 bounds\n            assert((1u128 << 104) * 2 == (1u128 << 105)) by (bit_vector);\n        }\n        z[1] = m(a.limbs[0], a.limbs[1]) * 2;\n\n        proof {\n            // Each m() result is < 2^104\n            // m_term1 * 2 < 2^105\n\n            // Sum: 2^105 + 2^104 = 3 * 2^104 < 2^106 < 2^128\n            assert((1u128 << 105) + (1u128 << 104) < (1u128 << 106)) by (bit_vector);\n        }\n        z[2] = m(a.limbs[0], a.limbs[2]) * 2 + m(a.limbs[1], a.limbs[1]);\n\n        proof {\n            // Each m() result is < 2^104\n            // Each * 2 gives < 2^105\n\n            // Sum: 2^105 + 2^105 = 2^106 < 2^128\n            assert((1u128 << 105) + (1u128 << 105) == (1u128 << 106)) by (bit_vector);\n        }\n        z[3] = m(a.limbs[0], a.limbs[3]) * 2 + m(a.limbs[1], a.limbs[2]) * 2;\n\n        proof {\n            // Each m() result is < 2^104\n            // First two terms * 2 give < 2^105\n\n            // Sum: 2^105 + 2^105 + 2^104 = 2^106 + 2^104 < 2^107 < 2^128\n            assert((1u128 << 106) + (1u128 << 104) < (1u128 << 107)) by (bit_vector);\n        }\n        z[4] = m(a.limbs[0], a.limbs[4]) * 2 + m(a.limbs[1], a.limbs[3]) * 2 + m(a.limbs[2], a.limbs[2]);\n        z[5] =                 m(a.limbs[1], a.limbs[4]) * 2 + m(a.limbs[2], a.limbs[3]) * 2;\n        z[6] =                                 m(a.limbs[2], a.limbs[4]) * 2 + m(a.limbs[3], a.limbs[3]);\n        z[7] =                                                 m(a.limbs[3], a.limbs[4]) * 2;\n        z[8] =                                                                 m(a.limbs[4], a.limbs[4]);\n\n        proof {\n\n            assert(five_limbs_to_nat_aux(a.limbs) * five_limbs_to_nat_aux(a.limbs) == nine_limbs_to_nat_aux(&z)) by {\n                broadcast use group_mul_is_commutative_and_distributive;\n                broadcast use lemma_mul_is_associative;\n\n                lemma_pow2_adds(52, 52);\n                lemma_pow2_adds(52, 104);\n                lemma_pow2_adds(52, 156);\n                lemma_pow2_adds(52, 208);\n                lemma_pow2_adds(104, 104);\n                lemma_pow2_adds(104, 156);\n                lemma_pow2_adds(104, 208);\n                lemma_pow2_adds(156, 156);\n                lemma_pow2_adds(156, 208);\n                lemma_pow2_adds(208, 208);\n            };\n            lemma_nine_limbs_equals_slice128_to_nat(&z);\n            lemma_five_limbs_equals_to_nat(&a.limbs);\n        }\n\n        z\n    }",
+    "display_name": "square_internal",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/to_bytes",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/impl/FieldElement51/reduce"
+    ],
+    "body": "    pub fn to_bytes(self) -> (r: [u8; 32])\n        ensures\n            true // No overflow\n            // TODO:\n            // as_nat(self.limbs) =?= as_nat_32_u8(r),\n            // canonical encoding\n            // forall|i: int| 0 <= i < 5 ==> r[i] < (1u64 << 51)\n    {\n        proof {\n            let l = spec_reduce(self.limbs);\n            lemma_reduce(self.limbs);\n\n            let q0 = (l[0] + 19) as u64 >> 51;\n            let q1 = (l[1] + q0) as u64 >> 51;\n            let q2 = (l[2] + q1) as u64 >> 51;\n            let q3 = (l[3] + q2) as u64 >> 51;\n            let q4 = (l[4] + q3) as u64 >> 51;\n\n            assert(19 < (1u64 << 52)) by (bit_vector);\n            lemma_add_then_shift(l[0], 19);\n            lemma_add_then_shift(l[1], q0);\n            lemma_add_then_shift(l[2], q1);\n            lemma_add_then_shift(l[3], q2);\n            lemma_add_then_shift(l[4], q3);\n\n            let l0 = (l[0] + 19 * q4) as u64;\n            let l1 = (l[1] + (l0 >> 51)) as u64;\n            let l2 = (l[2] + (l1 >> 51)) as u64;\n            let l3 = (l[3] + (l2 >> 51)) as u64;\n            let l4 = (l[3] + (l3 >> 51)) as u64;\n\n            assert( 19 * q4 < 1u64 << 7) by {\n                // Explicit values for pow2(k) for k < 64\n                lemma2_to64();\n                shift_is_pow2(5); // now we know 19 < 1u64 << 5 for free\n                shift_is_pow2(2);\n                shift_is_pow2(7);\n                lemma_pow2_adds(5, 2);\n            }\n            assert(((1u64 << 7)) + (1u64 << 52) < (1u64 << 53)) by (bit_vector);\n            assert(((1u64 << 13)) + (1u64 << 52) < (1u64 << 53)) by (bit_vector);\n            shifted_lt(l0);\n            shifted_lt(l1);\n            shifted_lt(l2);\n            shifted_lt(l3);\n\n            l51_bit_mask_lt();\n\n            // TODO\n            // let rr = [\n            //     l0 & LOW_51_BIT_MASK,\n            //     l1 & LOW_51_BIT_MASK,\n            //     l2 & LOW_51_BIT_MASK,\n            //     l3 & LOW_51_BIT_MASK,\n            //     l4 & LOW_51_BIT_MASK\n            // ];\n\n            // let r = [\n            //     rr[0]                           as u8,\n            //     (rr[0] >>  8)                    as u8,\n            //     (rr[0] >> 16)                    as u8,\n            //     (rr[0] >> 24)                    as u8,\n            //     (rr[0] >> 32)                    as u8,\n            //     (rr[0] >> 40)                    as u8,\n            //     ((rr[0] >> 48) | (rr[1] << 3)) as u8,\n            //     (rr[1] >>  5)                    as u8,\n            //     (rr[1] >> 13)                    as u8,\n            //     (rr[1] >> 21)                    as u8,\n            //     (rr[1] >> 29)                    as u8,\n            //     (rr[1] >> 37)                    as u8,\n            //     ((rr[1] >> 45) | (rr[2] << 6)) as u8,\n            //     (rr[2] >>  2)                    as u8,\n            //     (rr[2] >> 10)                    as u8,\n            //     (rr[2] >> 18)                    as u8,\n            //     (rr[2] >> 26)                    as u8,\n            //     (rr[2] >> 34)                    as u8,\n            //     (rr[2] >> 42)                    as u8,\n            //     ((rr[2] >> 50) | (rr[3] << 1)) as u8,\n            //     (rr[3] >>  7)                    as u8,\n            //     (rr[3] >> 15)                    as u8,\n            //     (rr[3] >> 23)                    as u8,\n            //     (rr[3] >> 31)                    as u8,\n            //     (rr[3] >> 39)                    as u8,\n            //     ((rr[3] >> 47) | (rr[4] << 4)) as u8,\n            //     (rr[4] >>  4)                    as u8,\n            //     (rr[4] >> 12)                    as u8,\n            //     (rr[4] >> 20)                    as u8,\n            //     (rr[4] >> 28)                    as u8,\n            //     (rr[4] >> 36)                    as u8,\n            //     (rr[4] >> 44)                    as u8\n            // ];\n\n        }\n        // Let h = limbs[0] + limbs[1]*2^51 + ... + limbs[4]*2^204.\n        //\n        // Write h = pq + r with 0 <= r < p.\n        //\n        // We want to compute r = h mod p.\n        //\n        // If h < 2*p = 2^256 - 38,\n        // then q = 0 or 1,\n        //\n        // with q = 0 when h < p\n        //  and q = 1 when h >= p.\n        //\n        // Notice that h >= p <==> h + 19 >= p + 19 <==> h + 19 >= 2^255.\n        // Therefore q can be computed as the carry bit of h + 19.\n\n        // First, reduce the limbs to ensure h < 2*p.\n        let mut limbs = FieldElement51::reduce(self.limbs).limbs;\n\n        let mut q = (limbs[0] + 19) >> 51;\n        q = (limbs[1] + q) >> 51;\n        q = (limbs[2] + q) >> 51;\n        q = (limbs[3] + q) >> 51;\n        q = (limbs[4] + q) >> 51;\n\n        // Now we can compute r as r = h - pq = r - (2^255-19)q = r + 19q - 2^255q\n\n        limbs[0] += 19 * q;\n\n        // Now carry the result to compute r + 19q ...\n        let low_51_bit_mask = (1u64 << 51) - 1;\n        limbs[1] += limbs[0] >> 51;\n        limbs[0] &= low_51_bit_mask;\n        limbs[2] += limbs[1] >> 51;\n        limbs[1] &= low_51_bit_mask;\n        limbs[3] += limbs[2] >> 51;\n        limbs[2] &= low_51_bit_mask;\n        limbs[4] += limbs[3] >> 51;\n        limbs[3] &= low_51_bit_mask;\n        // ... but instead of carrying (limbs[4] >> 51) = 2^255q\n        // into another limb, discard it, subtracting the value\n        limbs[4] &= low_51_bit_mask;\n\n        // Now arrange the bits of the limbs.\n        let mut s = [0u8;32];\n        s[ 0] =   limbs[0]                           as u8;\n        s[ 1] =  (limbs[0] >>  8)                    as u8;\n        s[ 2] =  (limbs[0] >> 16)                    as u8;\n        s[ 3] =  (limbs[0] >> 24)                    as u8;\n        s[ 4] =  (limbs[0] >> 32)                    as u8;\n        s[ 5] =  (limbs[0] >> 40)                    as u8;\n        s[ 6] = ((limbs[0] >> 48) | (limbs[1] << 3)) as u8;\n        s[ 7] =  (limbs[1] >>  5)                    as u8;\n        s[ 8] =  (limbs[1] >> 13)                    as u8;\n        s[ 9] =  (limbs[1] >> 21)                    as u8;\n        s[10] =  (limbs[1] >> 29)                    as u8;\n        s[11] =  (limbs[1] >> 37)                    as u8;\n        s[12] = ((limbs[1] >> 45) | (limbs[2] << 6)) as u8;\n        s[13] =  (limbs[2] >>  2)                    as u8;\n        s[14] =  (limbs[2] >> 10)                    as u8;\n        s[15] =  (limbs[2] >> 18)                    as u8;\n        s[16] =  (limbs[2] >> 26)                    as u8;\n        s[17] =  (limbs[2] >> 34)                    as u8;\n        s[18] =  (limbs[2] >> 42)                    as u8;\n        s[19] = ((limbs[2] >> 50) | (limbs[3] << 1)) as u8;\n        s[20] =  (limbs[3] >>  7)                    as u8;\n        s[21] =  (limbs[3] >> 15)                    as u8;\n        s[22] =  (limbs[3] >> 23)                    as u8;\n        s[23] =  (limbs[3] >> 31)                    as u8;\n        s[24] =  (limbs[3] >> 39)                    as u8;\n        s[25] = ((limbs[3] >> 47) | (limbs[4] << 4)) as u8;\n        s[26] =  (limbs[4] >>  4)                    as u8;\n        s[27] =  (limbs[4] >> 12)                    as u8;\n        s[28] =  (limbs[4] >> 20)                    as u8;\n        s[29] =  (limbs[4] >> 28)                    as u8;\n        s[30] =  (limbs[4] >> 36)                    as u8;\n        s[31] =  (limbs[4] >> 44)                    as u8;\n\n        // High bit should be zero.\n        // DISABLED DUE TO NO VERUS SUPPORT FOR PANICS\n        // debug_assert!((s[31] & 0b1000_0000u8) == 0u8);\n\n        s\n    }",
+    "display_name": "to_bytes",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/load8_at",
+    "statement_type": "function",
+    "deps": [],
+    "body": "const fn load8_at(input: &[u8], i: usize) -> (r: u64)\n    requires\n        i + 7 < input.len(),\n    ensures\n        0 <= r <= (u64::MAX as nat),\n{\n        (input[i] as u64)\n    | ((input[i + 1] as u64) << 8)\n    | ((input[i + 2] as u64) << 16)\n    | ((input[i + 3] as u64) << 24)\n    | ((input[i + 4] as u64) << 32)\n    | ((input[i + 5] as u64) << 40)\n    | ((input[i + 6] as u64) << 48)\n    | ((input[i + 7] as u64) << 56)\n}",
+    "display_name": "load8_at",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/invert",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn invert(&self) -> Scalar52 {\n        // TODO\n        Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] }\n    }",
+    "display_name": "invert",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/from_montgomery",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn from_montgomery(&self) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> self.limbs[i] < (1u64 << 52),\n    ensures\n        // TODO: Add proper specification for Montgomery form conversion\n        true,\n    {\n        let mut limbs = [0u128; 9];\n        #[allow(clippy::needless_range_loop)]\n        for i in 0..5 {\n            limbs[i] = self.limbs[i] as u128;\n        }\n        Scalar52::montgomery_reduce(&limbs)\n    }",
+    "display_name": "from_montgomery",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/m",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn m(x: u64, y: u64) -> (r: u128)\n    requires\n        (x as nat) * (y as nat) < (u128::MAX as nat),\n    ensures\n        (r as nat) == (x as nat) * (y as nat),\n{\n    (x as u128) * (y as u128)\n}",
+    "display_name": "m",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/from_bytes_wide",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn from_bytes_wide(bytes: &[u8; 64]) -> Scalar52 {\n        // TODO; just signature for now\n        Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] }\n    }",
+    "display_name": "from_bytes_wide",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/select",
+    "statement_type": "function",
+    "deps": [],
+    "body": "        fn select(x: &u64, y: &u64, c: Choice) -> (res: u64)\n            ensures boolify(c) ==> res == x,\n                    ! boolify(c) ==> res == y\n        {\n            u64::conditional_select(x, y, c)\n        }",
+    "display_name": "select",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/montgomery_reduce",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/sub",
+      "scalar_verus/impl/Scalar52/montgomery_part2",
+      "scalar_verus/impl/Scalar52/montgomery_part1",
+      "scalar_verus/m"
+    ],
+    "body": "    pub (crate) fn montgomery_reduce(limbs: &[u128; 9]) -> (result: Scalar52)\n    ensures\n        // TODO: Add proper specification for Montgomery reduction\n        true,\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n        // First half: compute Montgomery adjustment factor n and add n*L to make limbs divisible by R\n        let (carry, n0) = Scalar52::montgomery_part1(limbs[0]);\n        let (carry, n1) = Scalar52::montgomery_part1(carry + limbs[1] + m(n0, L.limbs[1]));\n        let (carry, n2) = Scalar52::montgomery_part1(carry + limbs[2] + m(n0, L.limbs[2]) + m(n1, L.limbs[1]));\n        let (carry, n3) = Scalar52::montgomery_part1(carry + limbs[3] + m(n1, L.limbs[2]) + m(n2, L.limbs[1]));\n        let (carry, n4) = Scalar52::montgomery_part1(carry + limbs[4] + m(n0, L.limbs[4]) + m(n2, L.limbs[2]) + m(n3, L.limbs[1]));\n\n        // Second half: limbs is now divisible by R, so divide by R by taking upper half\n        let (carry, r0) = Scalar52::montgomery_part2(carry + limbs[5] + m(n1, L.limbs[4]) + m(n3, L.limbs[2]) + m(n4, L.limbs[1]));\n        let (carry, r1) = Scalar52::montgomery_part2(carry + limbs[6] + m(n2, L.limbs[4]) + m(n4, L.limbs[2]));\n        let (carry, r2) = Scalar52::montgomery_part2(carry + limbs[7] + m(n3, L.limbs[4]));\n        let (carry, r3) = Scalar52::montgomery_part2(carry + limbs[8] + m(n4, L.limbs[4]));\n        let r4 = carry as u64;\n\n        // Result may be >= L, so attempt to subtract L\n        let result = Scalar52 { limbs: [r0, r1, r2, r3, r4] };\n        Scalar52::sub(&result, &L)\n    }",
+    "display_name": "montgomery_reduce",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/as_montgomery",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/montgomery_mul"
+    ],
+    "body": "    pub fn as_montgomery(&self) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> self.limbs[i] < (1u64 << 52),\n    ensures\n        // TODO: Add proper specification for Montgomery form conversion\n        true,\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        Scalar52::montgomery_mul(self, &RR)\n    }",
+    "display_name": "as_montgomery",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/main",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn main()\n{}\n",
+    "display_name": "main",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/from_bytes",
+    "statement_type": "function",
+    "deps": [],
+    "body": "        pub fn from_bytes(bytes: &[u8; 32]) -> (s: Scalar52)\n        // SPECIFICATION: unpacking keeps the same nat value\n        ensures bytes_to_nat(bytes) == to_nat(&s.limbs)\n        {\n            let mut words = [0u64; 4];\n            for i in 0..4\n                invariant 0 <= i <= 4 // proof\n            {\n                for j in 0..8\n                    invariant 0 <= j <= 8 && i < 4\n                {\n                    proof {\n                        assert(i < 4 && j < 8);\n                        assert((i as u64)*8u64 < 32u64);\n                        let idx = (i as u64) * 8 + (j as u64);\n                        assert(idx < 32);\n                    }\n                    words[i] |= (bytes[(i * 8) + j] as u64) << (j * 8);\n                }\n            }\n            assume(bytes_to_nat(bytes) == words_to_nat(&words));\n            proof {\n                assert(1u64 << 52 > 0) by (bit_vector);\n                assert(1u64 << 48 > 0) by (bit_vector);\n                // TODO: prove property about words array\n            }\n\n        let mask = (1u64 << 52) - 1;\n        let top_mask = (1u64 << 48) - 1;\n        // let mut s = Scalar52::ZERO; // ORIGINAL IMPLEMENTATION\n        let mut s = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        proof {\n            assert(Scalar52::ZERO == Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] });\n            assert(s == Scalar52::ZERO); // PROVES EQUIVALENCE TO ORIGINAL IMPLEMENTATION\n        }\n\n        s.limbs[0] =   words[0]                            & mask;\n        s.limbs[1] = ((words[0] >> 52) | (words[1] << 12)) & mask;\n        s.limbs[2] = ((words[1] >> 40) | (words[2] << 24)) & mask;\n        s.limbs[3] = ((words[2] >> 28) | (words[3] << 36)) & mask;\n        s.limbs[4] =  (words[3] >> 16)                     & top_mask;\n\n        assume(false); // TODO: complete the proof\n\n        s\n    }",
+    "display_name": "from_bytes",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/square",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/square_internal",
+      "scalar_verus/impl/Scalar52/montgomery_reduce",
+      "scalar_verus/impl/Scalar52/mul_internal"
+    ],
+    "body": "    pub fn square(&self) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> self.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&self.limbs) * to_nat(&self.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        let aa = Scalar52::montgomery_reduce(&Scalar52::square_internal(self));\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(&aa, &RR))\n    }",
+    "display_name": "square",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/montgomery_square",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/square_internal",
+      "scalar_verus/impl/Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn montgomery_square(&self) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> self.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&self.limbs) * to_nat(&self.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        Scalar52::montgomery_reduce(&Scalar52::square_internal(self))\n    }",
+    "display_name": "montgomery_square",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/reduce",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn reduce(mut limbs: [u64; 5]) -> (r: FieldElement51)\n        ensures\n            r.limbs == spec_reduce(limbs),\n            forall|i: int| 0 <= i < 5 ==> r.limbs[i] < (1u64 << 52),\n            (forall|i: int| 0 <= i < 5 ==> limbs[i] < (1u64 << 51)) ==> (r.limbs =~= limbs),\n            as_nat(r.limbs) == as_nat(limbs) - p() * (limbs[4] >> 51)\n    {\n        proof {\n            lemma_boundaries(limbs);\n            lemma_reduce(limbs);\n        }\n\n        // Since the input limbs are bounded by 2^64, the biggest\n        // carry-out is bounded by 2^13.\n        //\n        // The biggest carry-in is c4 * 19, resulting in\n        //\n        // 2^51 + 19*2^13 < 2^51.0000000001\n        //\n        // Because we don't need to canonicalize, only to reduce the\n        // limb sizes, it's OK to do a \"weak reduction\", where we\n        // compute the carry-outs in parallel.\n\n        let c0 = limbs[0] >> 51;\n        let c1 = limbs[1] >> 51;\n        let c2 = limbs[2] >> 51;\n        let c3 = limbs[3] >> 51;\n        let c4 = limbs[4] >> 51;\n\n        limbs[0] &= LOW_51_BIT_MASK;\n        limbs[1] &= LOW_51_BIT_MASK;\n        limbs[2] &= LOW_51_BIT_MASK;\n        limbs[3] &= LOW_51_BIT_MASK;\n        limbs[4] &= LOW_51_BIT_MASK;\n\n        limbs[0] += c4 * 19;\n        limbs[1] += c0;\n        limbs[2] += c1;\n        limbs[3] += c2;\n        limbs[4] += c3;\n\n        // ADAPTED CODE LINE: limbs is now a named field\n        FieldElement51{limbs}\n    }",
+    "display_name": "reduce",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/from_bytes",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/load8_at"
+    ],
+    "body": "    pub const fn from_bytes(bytes: &[u8; 32]) -> (r: FieldElement51)\n        ensures\n            true\n            // TODO:\n            // as_nat(r.limbs) =?= as_nat_32_u8(bytes)\n    {\n        proof {\n            l51_bit_mask_lt() // No over/underflow in the below let-def\n        }\n        let low_51_bit_mask = (1u64 << 51) - 1;\n        // ADAPTED CODE LINE: limbs is now a named field\n        FieldElement51{ limbs:\n        // load bits [  0, 64), no shift\n        [  load8_at(bytes,  0)        & low_51_bit_mask\n        // load bits [ 48,112), shift to [ 51,112)\n        , (load8_at(bytes,  6) >>  3) & low_51_bit_mask\n        // load bits [ 96,160), shift to [102,160)\n        , (load8_at(bytes, 12) >>  6) & low_51_bit_mask\n        // load bits [152,216), shift to [153,216)\n        , (load8_at(bytes, 19) >>  1) & low_51_bit_mask\n        // load bits [192,256), shift to [204,112)\n        , (load8_at(bytes, 24) >> 12) & low_51_bit_mask\n        ]}\n    }",
+    "display_name": "from_bytes",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/montgomery_part2",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn montgomery_part2(sum: u128) -> (u128, u64)\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n        let w = (sum as u64) & ((1u64 << 52) - 1);\n        let carry = sum >> 52;\n        (carry, w)\n    }",
+    "display_name": "montgomery_part2",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/montgomery_part1",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/m"
+    ],
+    "body": "    fn montgomery_part1(sum: u128) -> (u128, u64)\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n        let p = (sum as u64).wrapping_mul(LFACTOR) & ((1u64 << 52) - 1);\n        let carry = (sum + m(p, L.limbs[0])) >> 52;\n        (carry, p)\n    }",
+    "display_name": "montgomery_part1",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/mul",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/montgomery_reduce",
+      "scalar_verus/impl/Scalar52/mul_internal"
+    ],
+    "body": "    pub fn mul(a: &Scalar52, b: &Scalar52) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n        forall|i: int| 0 <= i < 5 ==> b.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&a.limbs) * to_nat(&b.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        let ab = Scalar52::montgomery_reduce(&Scalar52::mul_internal(a, b));\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(&ab, &RR))\n    }",
+    "display_name": "mul",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/m",
+    "statement_type": "function",
+    "deps": [],
+    "body": "        fn m(x: u64, y: u64) -> (z: u128)\n        requires\n            x < (1u64 << 52),\n            y < (1u64 << 52),\n        ensures\n            z < (1u128 << 104),\n            z == x * y\n        {\n            proof {\n                assert(1u128 << 52 == 1u64 << 52) by (bit_vector);\n                calc! {\n                    (<)\n                    (x as u128) * (y as u128); (<=) {\n                        if x > 0 {\n                            lemma_mul_strict_inequality(y as int, (1u128 << 52) as int, x as int);\n                        } else {\n                            assert(x == 0);\n                            assert((x as u128) * (y as u128) == 0);\n                        }\n                    }\n                    (x as u128) * (1u128 << 52); (<) {\n                        lemma_mul_strict_inequality(x as int, (1u128 << 52) as int, (1u128 << 52) as int);\n                    }\n                    (1u128 << 52) * (1u128 << 52);\n                }\n                assert((1u128 << 52) * (1u128 << 52) == (1u128 << 104)) by (compute);\n            }\n            (x as u128) * (y as u128)\n        }",
+    "display_name": "m",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/montgomery_mul",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/montgomery_reduce",
+      "scalar_verus/impl/Scalar52/mul_internal"
+    ],
+    "body": "    pub fn montgomery_mul(a: &Scalar52, b: &Scalar52) -> (result: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n        forall|i: int| 0 <= i < 5 ==> b.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&a.limbs) * to_nat(&b.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(a, b))\n    }",
+    "display_name": "montgomery_mul",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/sub",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/select"
+    ],
+    "body": "    pub fn sub(a: &Scalar52, b: &Scalar52) -> (s: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n        forall|i: int| 0 <= i < 5 ==> b.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&s.limbs) == to_nat(&a.limbs) - to_nat(&b.limbs),\n    {\n        //let mut difference = Scalar52::ZERO;\n         let mut difference = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        proof {\n            assert(Scalar52::ZERO == Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] });\n            assert(difference == Scalar52::ZERO);\n            assert(1u64 << 52 > 0) by (bit_vector);\n        }\n        let mask = (1u64 << 52) - 1;\n\n        // a - b\n        let mut borrow: u64 = 0;\n        for i in 0..5\n            invariant 0 <= i <= 5,\n                      forall|j: int| 0 <= j < 5 ==> b.limbs[j] < (1u64 << 52),\n        {\n            proof {\n                assert ((borrow >> 63) < 2) by (bit_vector);\n            }\n            borrow = a.limbs[i].wrapping_sub(b.limbs[i] + (borrow >> 63));\n            difference.limbs[i] = borrow & mask;\n        }\n\n        // conditionally add l if the difference is negative\n        let mut carry: u64 = 0;\n        for i in 0..5 {\n            let underflow = Choice::from((borrow >> 63) as u8);\n          /*** BEGIN: ADAPTED CODE BLOCK ***/\n          // ORIGINAL CODE\n         //   let addend = u64::conditional_select(&0, &constants::L[i], underflow);\n        // OUR ADAPTED CODE FOR VERUS\n            let addend = select(&0, &L.limbs[i], underflow);\n        /*** END: ADAPTED CODE BLOCK ***/\n            assume (carry >> 52 < 2);\n            assume (difference.limbs[i as int] < 1 << 52);\n            assume (L.limbs[i as int] < 1 << 52);\n            carry = (carry >> 52) + difference.limbs[i] + addend;\n            difference.limbs[i] = carry & mask;\n        }\n        assume(false); // TODO: complete the proof\n        difference\n    }",
+    "display_name": "sub",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/add",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/sub"
+    ],
+    "body": "    pub fn add(a: &Scalar52, b: &Scalar52) -> (s: Scalar52)\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n        forall|i: int| 0 <= i < 5 ==>  b.limbs[i] < (1u64 << 52),\n    ensures\n        to_nat(&s.limbs) == to_nat(&a.limbs) + to_nat(&b.limbs),\n    {\n        //let mut sum = Scalar52::ZERO;\n        let mut sum = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        proof {\n            assert(Scalar52::ZERO == Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] });\n            assert(sum == Scalar52::ZERO);\n            assert(1u64 << 52 > 0) by (bit_vector);\n        }\n        let mask = (1u64 << 52) - 1;\n\n        // a + b\n        let mut carry: u64 = 0;\n        proof {\n            assert(carry == 0u64);\n            assert(1u64 << 54 < u64::MAX) by (bit_vector);\n            assert(0u64 < (1u64 << 54)) by (bit_vector);\n        }\n        for i in 0..5\n           invariant //0 <= i <= 5,\n           // forall|j: int| 0 <= j < i ==> sum.limbs[j] < 1u64 << 52,\n            (0 <= i < 5) ==> a.limbs[i as int] < (1u64 << 52),\n            (0 <= i < 5) ==> b.limbs[i as int] < (1u64 << 52),\n            carry < (1u64 << 54),\n        {\n            proof {\n                assert(0 <= i < 5);\n                assert(a.limbs[i as int] < 1u64 << 52);\n                assert(b.limbs[i as int] < 1u64 << 52);\n                assert((1u64 << 52) + (1u64 << 52) == (1u64 << 53)) by (bit_vector);\n                assert(a.limbs[i as int] + b.limbs[i as int] < 1u64 << 53);\n                assert(carry < (1u64 << 54));\n                assert(carry >> 52 >= 0u64);\n                assert((carry >> 52) < (1u64 << 54)) by (bit_vector);\n                assert((1u64 << 53) + 3 < (1u64 << 54)) by (bit_vector);\n                assert((1u64 << 53) + (1u64 << 54) <= (1u64 << 55)) by (bit_vector);\n                assert((a.limbs[i as int] + b.limbs[i as int] + (carry >> 52)) < (1u64 << 55));\n            }\n            carry = a.limbs[i] + b.limbs[i] + (carry >> 52);\n            sum.limbs[i] = carry & mask;\n            assume( (0 <= i < 5) ==> a.limbs[i as int] < (1u64 << 52));\n            assume( (0 <= i < 5) ==> b.limbs[i as int] < (1u64 << 52));\n            assume(false);\n        }\n\n        // subtract l if the sum is >= l\n\n        /*** BEGIN: ADAPTED CODE BLOCK ***/\n\n        /* ORIGINAL CODE */\n        /*let mut s = Scalar52::sub(&sum, &Self::L);*/\n        /* OUR ADAPTED CODE FOR VERUS; PROVED EQUIVALENT TO ORIGINAL CODE */\n        let l_value = Scalar52 { limbs: [0x0002631a5cf5d3ed, 0x000dea2f79cd6581, 0x000000000014def9, 0x0000000000000000, 0x0000100000000000] };\n        assert(to_nat(&l_value.limbs) == to_nat(&L.limbs));\n        assume(false); // TODO: complete the proof\n\n        Scalar52::sub(&sum, &l_value)\n\n        /*** END: ADAPTED CODE BLOCK ***/\n\n    }",
+    "display_name": "add",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/square",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/impl/FieldElement51/pow2k"
+    ],
+    "body": "    pub fn square(&self) -> FieldElement51 {\n        self.pow2k(1)\n    }",
+    "display_name": "square",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/main",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/impl/Scalar52/from_bytes",
+      "scalar_verus/impl/Scalar52/invert"
+    ],
+    "body": "fn main()\n{\n    // Test scalar creation from bytes\n    let test_bytes: [u8; 32] = [\n        42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0\n    ];\n\n    let scalar = Scalar52::from_bytes(&test_bytes);\n    let inv_scalar = scalar.invert();\n}",
+    "display_name": "main",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/square2",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/impl/FieldElement51/pow2k"
+    ],
+    "body": "    pub fn square2(&self) -> (r: FieldElement51)\n        ensures\n            true\n    {\n        let mut square = self.pow2k(1);\n        for i in 0..5 {\n            proof {\n                assume(false);\n            }\n            square.limbs[i] *= 2;\n        }\n\n        square\n    }",
+    "display_name": "square2",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/from_limbs",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub(crate) const fn from_limbs(limbs: [u64; 5]) -> FieldElement51 {\n        // ADAPTED CODE LINE: limbs is now a named field\n        FieldElement51{limbs}\n    }",
+    "display_name": "from_limbs",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "field_verus/impl/FieldElement51/negate",
+    "statement_type": "function",
+    "deps": [
+      "field_verus/impl/FieldElement51/reduce"
+    ],
+    "body": "    pub fn negate(&mut self)\n        requires\n            forall|i: int| 0 <= i < 5 ==> old(self).limbs[i] < (1u64 << 51),\n        ensures\n            forall|i: int| 0 <= i < 5 ==> self.limbs[i] < (1u64 << 52),\n            // Assume we start with l = (l0, l1, l2, l3, l4).\n            // Using c0 = 2^51 - 19 and c = 2^51 - 1, we can see that\n            // ( 36028797018963664u64 - l0,\n            //   36028797018963952u64 - l1,\n            //   36028797018963952u64 - l2,\n            //   36028797018963952u64 - l3,\n            //   36028797018963952u64 - l4 )\n            // is just 16 * (c0, c, c, c, c) - l (in vector notation)\n            // Further, as_nat((c0, c, c, c, c)) = p, so\n            // as_nat(16 * (c0, c, c, c, c) - l) is 16p - as_nat(l)\n            // We know as_nat(reduce(v)) = as_nat(v) - p * (v4 >> 51) for any v.\n            // This gives us the identity\n            // as_nat(negate(l)) = as_nat(reduce(16 * (c0, c, c, c, c) - l))\n            //                   = 16p - as_nat(l) - p * ((16c - l4) >> 51)\n            // Note that (16c - l4) >> 51 is either 14 or 15, in either case < 16.\n            as_nat(self.limbs) == 16 * p() - as_nat(old(self).limbs) - p() * ((36028797018963952u64 - old(self).limbs[4]) as u64 >> 51)\n            // Reducing mod p, this implies `as_nat(self.limbs) == - as_nat(old(self).limbs)`\n    {\n        proof {\n            let c0 = (pow2(51) - 19);\n            let c  = (pow2(51) - 1);\n            lemma2_to64_rest(); // get pow2(51)\n            // solver knows 36028797018963664u64 == 16 * c0\n            // solver knows 36028797018963952u64 == 16 * c;\n\n            assert forall |i: int| 0 <= i < 5 implies old(self).limbs[i] < 16 * c0 by {\n                shift_is_pow2(51);\n            }\n\n            // Introduce 16p as a vector\n            let v = [(16 * c0) as u64,(16 * c) as u64,(16 * c) as u64,(16 * c) as u64,(16 * c) as u64];\n\n            assert(as_nat(v) == 16 * p()) by {\n                // by definition of as_nat\n                assert( as_nat(v) ==\n                    16 * c0 +\n                    pow2(51) * (16 * c) +\n                    pow2(102) * (16 * c) +\n                    pow2(153) * (16 * c) +\n                    pow2(204) * (16 * c)\n                );\n\n                // solver can reorder factors and pull out 16 on its own\n                // ...\n\n                // Write out `c`s and sum up powers\n                assert( p() ==\n                    c0 +\n                    pow2(51) * c +\n                    pow2(102) * c +\n                    pow2(153) * c +\n                    pow2(204) * c\n                ) by {\n                    lemma_pow2_adds(51, 51);\n                    lemma_pow2_adds(51, 102);\n                    lemma_pow2_adds(51, 153);\n                    lemma_pow2_adds(51, 204);\n                }\n            }\n\n            let l0 = old(self).limbs[0];\n            let l1 = old(self).limbs[1];\n            let l2 = old(self).limbs[2];\n            let l3 = old(self).limbs[3];\n            let l4 = old(self).limbs[4];\n\n            assert(as_nat([\n                (16 * c0 - l0) as u64,\n                (16 * c - l1) as u64,\n                (16 * c - l2) as u64,\n                (16 * c - l3) as u64,\n                (16 * c - l4) as u64,\n                ]) == as_nat(v) - as_nat(old(self).limbs)\n            ) by {\n                lemma_as_nat_sub(v, old(self).limbs);\n            }\n        }\n        // See commentary in the Sub impl: (copied below)\n            // To avoid underflow, first add a multiple of p.\n            // Choose 16*p = p << 4 to be larger than 54-bit _rhs.\n            //\n            // If we could statically track the bitlengths of the limbs\n            // of every FieldElement51, we could choose a multiple of p\n            // just bigger than _rhs and avoid having to do a reduction.\n            //\n            // Since we don't yet have type-level integers to do this, we\n            // have to add an explicit reduction call here.\n        // Note on \"magic numbers\":\n        // 36028797018963664u64 = 2^55 - 304 = 16 * (2^51 - 19)\n        // 36028797018963952u64 = 2^55 - 16 =  16 * (2^51 - 1)\n        let neg = FieldElement51::reduce([\n            36028797018963664u64 - self.limbs[0],\n            36028797018963952u64 - self.limbs[1],\n            36028797018963952u64 - self.limbs[2],\n            36028797018963952u64 - self.limbs[3],\n            36028797018963952u64 - self.limbs[4],\n        ]);\n        self.limbs = neg.limbs;\n    }",
+    "display_name": "negate",
+    "full_path": "file:///work/3129/src/field_verus.rs",
+    "relative_path": "src/field_verus.rs",
+    "file_name": "field_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/mul_internal",
+    "statement_type": "function",
+    "deps": [
+      "scalar_verus/m"
+    ],
+    "body": "    pub (crate) fn mul_internal(a: &Scalar52, b: &Scalar52) -> (z: [u128; 9])\n    requires\n        forall|i: int| 0 <= i < 5 ==> a.limbs[i] < (1u64 << 52),\n        forall|i: int| 0 <= i < 5 ==> b.limbs[i] < (1u64 << 52),\n    ensures\n        slice128_to_nat(&z) == to_nat(&a.limbs) * to_nat(&b.limbs),\n    {\n        let mut z = [0u128; 9];\n\n        z[0] = m(a.limbs[0], b.limbs[0]);\n\n        proof {\n            // Each m() result is < 2^104\n            // Sum: 2^104 + 2^104 = 2^105 < 2^128\n            assert((1u128 << 104) + (1u128 << 104) == (1u128 << 105)) by (bit_vector);\n        }\n        z[1] = m(a.limbs[0], b.limbs[1]) + m(a.limbs[1], b.limbs[0]);\n\n        proof {\n            // Each m() result is < 2^104\n            // Sum: 3 * 2^104 = 3 * 2^104 < 2^106 < 2^128\n            assert(3u128 * (1u128 << 104) < (1u128 << 106)) by (bit_vector);\n        }\n        z[2] = m(a.limbs[0], b.limbs[2]) + m(a.limbs[1], b.limbs[1]) + m(a.limbs[2], b.limbs[0]);\n\n        proof {\n            // Each m() result is < 2^104\n            // Sum: 4 * 2^104 = 2^2 * 2^104 = 2^106 < 2^128\n\n            assert(4u128 * (1u128 << 104) == (1u128 << 2) * (1u128 << 104)) by (bit_vector);\n            assert((1u128 << 2) * (1u128 << 104) == (1u128 << 106)) by (bit_vector);\n        }\n        z[3] = m(a.limbs[0], b.limbs[3]) + m(a.limbs[1], b.limbs[2]) + m(a.limbs[2], b.limbs[1]) + m(a.limbs[3], b.limbs[0]);\n\n        proof {\n            // Each m() result is < 2^104\n            // Sum: 5 * 2^104 < 8 * 2^104 = 2^3 * 2^104 = 2^107 < 2^128\n            assert(8u128 == (1u128 << 3)) by (bit_vector);\n            assert((1u128 << 3) * (1u128 << 104) == (1u128 << 107)) by (bit_vector);\n        }\n        z[4] = m(a.limbs[0], b.limbs[4]) + m(a.limbs[1], b.limbs[3]) + m(a.limbs[2], b.limbs[2]) + m(a.limbs[3], b.limbs[1]) + m(a.limbs[4], b.limbs[0]);\n        z[5] =                 m(a.limbs[1], b.limbs[4]) + m(a.limbs[2], b.limbs[3]) + m(a.limbs[3], b.limbs[2]) + m(a.limbs[4], b.limbs[1]);\n        z[6] =                                 m(a.limbs[2], b.limbs[4]) + m(a.limbs[3], b.limbs[3]) + m(a.limbs[4], b.limbs[2]);\n        z[7] =                                                 m(a.limbs[3], b.limbs[4]) + m(a.limbs[4], b.limbs[3]);\n        z[8] =                                                                 m(a.limbs[4], b.limbs[4]);\n\n        proof {\n            assert(five_limbs_to_nat_aux(a.limbs) * five_limbs_to_nat_aux(b.limbs) == nine_limbs_to_nat_aux(&z)) by {\n                broadcast use group_mul_is_commutative_and_distributive;\n                broadcast use lemma_mul_is_associative;\n\n                lemma_pow2_adds(52, 52);\n                lemma_pow2_adds(52, 104);\n                lemma_pow2_adds(52, 156);\n                lemma_pow2_adds(52, 208);\n                lemma_pow2_adds(104, 104);\n                lemma_pow2_adds(104, 156);\n                lemma_pow2_adds(104, 208);\n                lemma_pow2_adds(156, 156);\n                lemma_pow2_adds(156, 208);\n                lemma_pow2_adds(208, 208);\n            };\n            lemma_nine_limbs_equals_slice128_to_nat(&z);\n            lemma_five_limbs_equals_to_nat(&a.limbs);\n            lemma_five_limbs_equals_to_nat(&b.limbs);\n        }\n\n        z\n    }",
+    "display_name": "mul_internal",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "scalar_verus/impl/Scalar52/to_bytes",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn to_bytes(self) -> (s: [u8; 32])\n    // DIFF-SPEC-3: we give a name to the output: \"s\"\n    // SPECIFICATION: packing keeps the same nat value\n    ensures bytes_to_nat(&s) == to_nat(&self.limbs)\n    {\n        let mut s = [0u8; 32];\n\n        s[ 0] =  (self.limbs[ 0] >>  0)                      as u8;\n        s[ 1] =  (self.limbs[ 0] >>  8)                      as u8;\n        s[ 2] =  (self.limbs[ 0] >> 16)                      as u8;\n        s[ 3] =  (self.limbs[ 0] >> 24)                      as u8;\n        s[ 4] =  (self.limbs[ 0] >> 32)                      as u8;\n        s[ 5] =  (self.limbs[ 0] >> 40)                      as u8;\n        s[ 6] = ((self.limbs[ 0] >> 48) | (self.limbs[ 1] << 4)) as u8;\n        s[ 7] =  (self.limbs[ 1] >>  4)                      as u8;\n        s[ 8] =  (self.limbs[ 1] >> 12)                      as u8;\n        s[ 9] =  (self.limbs[ 1] >> 20)                      as u8;\n        s[10] =  (self.limbs[ 1] >> 28)                      as u8;\n        s[11] =  (self.limbs[ 1] >> 36)                      as u8;\n        s[12] =  (self.limbs[ 1] >> 44)                      as u8;\n        s[13] =  (self.limbs[ 2] >>  0)                      as u8;\n        s[14] =  (self.limbs[ 2] >>  8)                      as u8;\n        s[15] =  (self.limbs[ 2] >> 16)                      as u8;\n        s[16] =  (self.limbs[ 2] >> 24)                      as u8;\n        s[17] =  (self.limbs[ 2] >> 32)                      as u8;\n        s[18] =  (self.limbs[ 2] >> 40)                      as u8;\n        s[19] = ((self.limbs[ 2] >> 48) | (self.limbs[ 3] << 4)) as u8;\n        s[20] =  (self.limbs[ 3] >>  4)                      as u8;\n        s[21] =  (self.limbs[ 3] >> 12)                      as u8;\n        s[22] =  (self.limbs[ 3] >> 20)                      as u8;\n        s[23] =  (self.limbs[ 3] >> 28)                      as u8;\n        s[24] =  (self.limbs[ 3] >> 36)                      as u8;\n        s[25] =  (self.limbs[ 3] >> 44)                      as u8;\n        s[26] =  (self.limbs[ 4] >>  0)                      as u8;\n        s[27] =  (self.limbs[ 4] >>  8)                      as u8;\n        s[28] =  (self.limbs[ 4] >> 16)                      as u8;\n        s[29] =  (self.limbs[ 4] >> 24)                      as u8;\n        s[30] =  (self.limbs[ 4] >> 32)                      as u8;\n        s[31] =  (self.limbs[ 4] >> 40)                      as u8;\n\n        assume(false); // TODO: complete the proof\n\n        s\n    }",
+    "display_name": "to_bytes",
+    "full_path": "file:///work/3129/src/scalar_verus.rs",
+    "relative_path": "src/scalar_verus.rs",
+    "file_name": "scalar_verus.rs",
+    "parent_folder": "src"
+  }
+]

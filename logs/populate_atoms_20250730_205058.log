@@ -1,0 +1,406 @@
+2025-07-30 20:50:58,531 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250730_205058.log
+2025-07-30 20:50:58,531 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   repo_id: 3155
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3155.json
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   JSON file size: 794966 bytes
+2025-07-30 20:50:58,532 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-07-30 20:50:57.621405
+2025-07-30 20:50:58,543 - PopulateAtomsDeps - INFO - Identified 19 folders containing Rust files
+2025-07-30 20:50:58,543 - PopulateAtomsDeps - INFO - Populating folder structure with 19 folders as molecules for repo 3155
+2025-07-30 20:50:58,561 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['curve25519-dalek', 'ed25519-dalek', 'curve25519-dalek-derive', 'x25519-dalek', 'ed25519-dalek/src', 'curve25519-dalek/benches', 'curve25519-dalek/src', 'ed25519-dalek/benches', 'curve25519-dalek-derive/tests', 'curve25519-dalek-derive/src', 'x25519-dalek/tests', 'ed25519-dalek/tests', 'x25519-dalek/src', 'x25519-dalek/benches', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/vector', 'curve25519-dalek/src/backend/serial/scalar_mul', 'curve25519-dalek/src/backend/serial/curve_models', 'curve25519-dalek/src/backend/vector/avx2', 'curve25519-dalek/src/backend/vector/scalar_mul', 'curve25519-dalek/src/backend/serial/u64']
+2025-07-30 20:50:58,748 - PopulateAtomsDeps - INFO - Adding 46 new file molecules in batch
+2025-07-30 20:50:58,788 - PopulateAtomsDeps - INFO - Successfully populated 69 folder and file molecules for repo 3155
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52316: filename='curve25519-dalek-derive/CHANGELOG.md', folder_id=12443, folder_path='curve25519-dalek-derive'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52317: filename='curve25519-dalek-derive/tests/tests.rs', folder_id=12444, folder_path='curve25519-dalek-derive/tests'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52318: filename='curve25519-dalek-derive/LICENSE-APACHE', folder_id=12443, folder_path='curve25519-dalek-derive'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52319: filename='curve25519-dalek-derive/README.md', folder_id=12443, folder_path='curve25519-dalek-derive'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52320: filename='curve25519-dalek-derive/LICENSE-MIT', folder_id=12443, folder_path='curve25519-dalek-derive'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52321: filename='curve25519-dalek-derive/src/lib.rs', folder_id=12445, folder_path='curve25519-dalek-derive/src'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52322: filename='curve25519-dalek-derive/Cargo.toml', folder_id=12443, folder_path='curve25519-dalek-derive'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52323: filename='docs/assets/dalek-logo.svg', folder_id=12447, folder_path='docs/assets'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52324: filename='docs/assets/dalek-logo.png', folder_id=12447, folder_path='docs/assets'
+2025-07-30 20:50:59,099 - PopulateAtomsDeps - INFO - !!!!!Code ID 52325: filename='docs/assets/dalek-logo-clear.png', folder_id=12447, folder_path='docs/assets'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52326: filename='x25519-dalek/CHANGELOG.md', folder_id=12448, folder_path='x25519-dalek'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52327: filename='x25519-dalek/LICENSE', folder_id=12448, folder_path='x25519-dalek'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52328: filename='x25519-dalek/docs/assets/rustdoc-include-katex-header.html', folder_id=12450, folder_path='x25519-dalek/docs/assets'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52329: filename='x25519-dalek/tests/x25519_tests.rs', folder_id=12451, folder_path='x25519-dalek/tests'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52330: filename='x25519-dalek/benches/x25519.rs', folder_id=12452, folder_path='x25519-dalek/benches'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52331: filename='x25519-dalek/res/bubblesort-zines-secret-messages-cover.jpeg', folder_id=12453, folder_path='x25519-dalek/res'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52332: filename='x25519-dalek/README.md', folder_id=12448, folder_path='x25519-dalek'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52333: filename='x25519-dalek/src/lib.rs', folder_id=12454, folder_path='x25519-dalek/src'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52334: filename='x25519-dalek/src/x25519.rs', folder_id=12454, folder_path='x25519-dalek/src'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52335: filename='x25519-dalek/Cargo.toml', folder_id=12448, folder_path='x25519-dalek'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52336: filename='CONTRIBUTING.md', folder_id=None, folder_path='None'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52337: filename='curve25519-dalek/CHANGELOG.md', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,100 - PopulateAtomsDeps - INFO - !!!!!Code ID 52338: filename='curve25519-dalek/LICENSE', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52339: filename='curve25519-dalek/docs/parallel-formulas.md', folder_id=12456, folder_path='curve25519-dalek/docs'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52340: filename='curve25519-dalek/docs/ifma-notes.md', folder_id=12456, folder_path='curve25519-dalek/docs'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52341: filename='curve25519-dalek/docs/avx2-notes.md', folder_id=12456, folder_path='curve25519-dalek/docs'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52342: filename='curve25519-dalek/docs/assets/rustdoc-include-katex-header.html', folder_id=12457, folder_path='curve25519-dalek/docs/assets'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52343: filename='curve25519-dalek/tests/build_tests.sh', folder_id=12458, folder_path='curve25519-dalek/tests'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52344: filename='curve25519-dalek/Makefile', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52345: filename='curve25519-dalek/benches/dalek_benchmarks.rs', folder_id=12459, folder_path='curve25519-dalek/benches'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52346: filename='curve25519-dalek/CLAUDE.md', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52347: filename='curve25519-dalek/README.md', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52348: filename='curve25519-dalek/vendor/ristretto.sage', folder_id=12460, folder_path='curve25519-dalek/vendor'
+2025-07-30 20:50:59,101 - PopulateAtomsDeps - INFO - !!!!!Code ID 52349: filename='curve25519-dalek/src/backend/vector/avx2/edwards.rs', folder_id=12464, folder_path='curve25519-dalek/src/backend/vector/avx2'
+2025-07-30 20:50:59,102 - PopulateAtomsDeps - INFO - !!!!!Code ID 52350: filename='curve25519-dalek/src/backend/vector/avx2/field.rs', folder_id=12464, folder_path='curve25519-dalek/src/backend/vector/avx2'
+2025-07-30 20:50:59,102 - PopulateAtomsDeps - INFO - !!!!!Code ID 52351: filename='curve25519-dalek/src/backend/vector/avx2/constants.rs', folder_id=12464, folder_path='curve25519-dalek/src/backend/vector/avx2'
+2025-07-30 20:50:59,102 - PopulateAtomsDeps - INFO - !!!!!Code ID 52352: filename='curve25519-dalek/src/backend/vector/avx2/mod.rs', folder_id=12464, folder_path='curve25519-dalek/src/backend/vector/avx2'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52353: filename='curve25519-dalek/src/backend/vector/ifma/edwards.rs', folder_id=12465, folder_path='curve25519-dalek/src/backend/vector/ifma'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52354: filename='curve25519-dalek/src/backend/vector/ifma/field.rs', folder_id=12465, folder_path='curve25519-dalek/src/backend/vector/ifma'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52355: filename='curve25519-dalek/src/backend/vector/ifma/constants.rs', folder_id=12465, folder_path='curve25519-dalek/src/backend/vector/ifma'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52356: filename='curve25519-dalek/src/backend/vector/ifma/mod.rs', folder_id=12465, folder_path='curve25519-dalek/src/backend/vector/ifma'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52357: filename='curve25519-dalek/src/backend/vector/scalar_mul/precomputed_straus.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52358: filename='curve25519-dalek/src/backend/vector/scalar_mul/pippenger.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52359: filename='curve25519-dalek/src/backend/vector/scalar_mul/straus.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52360: filename='curve25519-dalek/src/backend/vector/scalar_mul/variable_base.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52361: filename='curve25519-dalek/src/backend/vector/scalar_mul/mod.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52362: filename='curve25519-dalek/src/backend/vector/scalar_mul/vartime_double_base.rs', folder_id=12466, folder_path='curve25519-dalek/src/backend/vector/scalar_mul'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52363: filename='curve25519-dalek/src/backend/vector/packed_simd.rs', folder_id=12463, folder_path='curve25519-dalek/src/backend/vector'
+2025-07-30 20:50:59,103 - PopulateAtomsDeps - INFO - !!!!!Code ID 52364: filename='curve25519-dalek/src/backend/vector/mod.rs', folder_id=12463, folder_path='curve25519-dalek/src/backend/vector'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52365: filename='curve25519-dalek/src/backend/mod.rs', folder_id=12462, folder_path='curve25519-dalek/src/backend'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52366: filename='curve25519-dalek/src/backend/serial/curve_models/mod.rs', folder_id=12468, folder_path='curve25519-dalek/src/backend/serial/curve_models'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52367: filename='curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52368: filename='curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52369: filename='curve25519-dalek/src/backend/serial/scalar_mul/straus.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52370: filename='curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52371: filename='curve25519-dalek/src/backend/serial/scalar_mul/mod.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52372: filename='curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs', folder_id=12469, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52373: filename='curve25519-dalek/src/backend/serial/fiat_u32/field.rs', folder_id=12470, folder_path='curve25519-dalek/src/backend/serial/fiat_u32'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52374: filename='curve25519-dalek/src/backend/serial/fiat_u32/mod.rs', folder_id=12470, folder_path='curve25519-dalek/src/backend/serial/fiat_u32'
+2025-07-30 20:50:59,104 - PopulateAtomsDeps - INFO - !!!!!Code ID 52375: filename='curve25519-dalek/src/backend/serial/u32/scalar.rs', folder_id=12471, folder_path='curve25519-dalek/src/backend/serial/u32'
+2025-07-30 20:50:59,105 - PopulateAtomsDeps - INFO - !!!!!Code ID 52376: filename='curve25519-dalek/src/backend/serial/u32/field.rs', folder_id=12471, folder_path='curve25519-dalek/src/backend/serial/u32'
+2025-07-30 20:50:59,105 - PopulateAtomsDeps - INFO - !!!!!Code ID 52377: filename='curve25519-dalek/src/backend/serial/u32/constants.rs', folder_id=12471, folder_path='curve25519-dalek/src/backend/serial/u32'
+2025-07-30 20:50:59,105 - PopulateAtomsDeps - INFO - !!!!!Code ID 52378: filename='curve25519-dalek/src/backend/serial/u32/mod.rs', folder_id=12471, folder_path='curve25519-dalek/src/backend/serial/u32'
+2025-07-30 20:50:59,105 - PopulateAtomsDeps - INFO - !!!!!Code ID 52379: filename='curve25519-dalek/src/backend/serial/fiat_u64/field.rs', folder_id=12472, folder_path='curve25519-dalek/src/backend/serial/fiat_u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52380: filename='curve25519-dalek/src/backend/serial/fiat_u64/mod.rs', folder_id=12472, folder_path='curve25519-dalek/src/backend/serial/fiat_u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52381: filename='curve25519-dalek/src/backend/serial/mod.rs', folder_id=12467, folder_path='curve25519-dalek/src/backend/serial'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52382: filename='curve25519-dalek/src/backend/serial/u64/scalar_verus.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52383: filename='curve25519-dalek/src/backend/serial/u64/field_verus.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52384: filename='curve25519-dalek/src/backend/serial/u64/common_verus.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52385: filename='curve25519-dalek/src/backend/serial/u64/field_lemmas.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52386: filename='curve25519-dalek/src/backend/serial/u64/scalar.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52387: filename='curve25519-dalek/src/backend/serial/u64/field.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,106 - PopulateAtomsDeps - INFO - !!!!!Code ID 52388: filename='curve25519-dalek/src/backend/serial/u64/constants.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52389: filename='curve25519-dalek/src/backend/serial/u64/mod.rs', folder_id=12473, folder_path='curve25519-dalek/src/backend/serial/u64'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52390: filename='curve25519-dalek/src/montgomery.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52391: filename='curve25519-dalek/src/edwards.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52392: filename='curve25519-dalek/src/scalar.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52393: filename='curve25519-dalek/src/macros.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52394: filename='curve25519-dalek/src/field.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52395: filename='curve25519-dalek/src/ristretto.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52396: filename='curve25519-dalek/src/diagnostics.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52397: filename='curve25519-dalek/src/lib.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52398: filename='curve25519-dalek/src/constants.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52399: filename='curve25519-dalek/src/traits.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,107 - PopulateAtomsDeps - INFO - !!!!!Code ID 52400: filename='curve25519-dalek/src/window.rs', folder_id=12461, folder_path='curve25519-dalek/src'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52401: filename='curve25519-dalek/src/edwards/affine.rs', folder_id=12474, folder_path='curve25519-dalek/src/edwards'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52402: filename='curve25519-dalek/build.rs', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52403: filename='curve25519-dalek/Cargo.toml', folder_id=12455, folder_path='curve25519-dalek'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52404: filename='scripts/verus_cleaner.py', folder_id=12475, folder_path='scripts'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52405: filename='ed25519-dalek/CHANGELOG.md', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52406: filename='ed25519-dalek/LICENSE', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52407: filename='ed25519-dalek/docs/assets/ed25519-malleability.png', folder_id=12478, folder_path='ed25519-dalek/docs/assets'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52408: filename='ed25519-dalek/docs/assets/rustdoc-include-katex-header.html', folder_id=12478, folder_path='ed25519-dalek/docs/assets'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52409: filename='ed25519-dalek/tests/ed25519.rs', folder_id=12479, folder_path='ed25519-dalek/tests'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52410: filename='ed25519-dalek/tests/validation_criteria.rs', folder_id=12479, folder_path='ed25519-dalek/tests'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52411: filename='ed25519-dalek/tests/pkcs8.rs', folder_id=12479, folder_path='ed25519-dalek/tests'
+2025-07-30 20:50:59,108 - PopulateAtomsDeps - INFO - !!!!!Code ID 52412: filename='ed25519-dalek/tests/examples/pkcs8-v1.der', folder_id=12480, folder_path='ed25519-dalek/tests/examples'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52413: filename='ed25519-dalek/tests/examples/pkcs8-v2.der', folder_id=12480, folder_path='ed25519-dalek/tests/examples'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52414: filename='ed25519-dalek/tests/examples/pubkey.der', folder_id=12480, folder_path='ed25519-dalek/tests/examples'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52415: filename='ed25519-dalek/tests/x25519.rs', folder_id=12479, folder_path='ed25519-dalek/tests'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52416: filename='ed25519-dalek/benches/ed25519_benchmarks.rs', folder_id=12481, folder_path='ed25519-dalek/benches'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52417: filename='ed25519-dalek/VALIDATIONVECTORS', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52418: filename='ed25519-dalek/TESTVECTORS', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52419: filename='ed25519-dalek/README.md', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52420: filename='ed25519-dalek/src/verifying.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52421: filename='ed25519-dalek/src/batch.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52422: filename='ed25519-dalek/src/hazmat.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,109 - PopulateAtomsDeps - INFO - !!!!!Code ID 52423: filename='ed25519-dalek/src/signature.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,110 - PopulateAtomsDeps - INFO - !!!!!Code ID 52424: filename='ed25519-dalek/src/errors.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,110 - PopulateAtomsDeps - INFO - !!!!!Code ID 52425: filename='ed25519-dalek/src/batch/strobe.rs', folder_id=12483, folder_path='ed25519-dalek/src/batch'
+2025-07-30 20:50:59,110 - PopulateAtomsDeps - INFO - !!!!!Code ID 52426: filename='ed25519-dalek/src/batch/transcript.rs', folder_id=12483, folder_path='ed25519-dalek/src/batch'
+2025-07-30 20:50:59,110 - PopulateAtomsDeps - INFO - !!!!!Code ID 52427: filename='ed25519-dalek/src/verifying/stream.rs', folder_id=12484, folder_path='ed25519-dalek/src/verifying'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52428: filename='ed25519-dalek/src/signing.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52429: filename='ed25519-dalek/src/context.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52430: filename='ed25519-dalek/src/lib.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52431: filename='ed25519-dalek/src/constants.rs', folder_id=12482, folder_path='ed25519-dalek/src'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52432: filename='ed25519-dalek/Cargo.toml', folder_id=12476, folder_path='ed25519-dalek'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52433: filename='README.md', folder_id=None, folder_path='None'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52434: filename='Cargo.toml', folder_id=None, folder_path='None'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52435: filename='workflows/ed25519-dalek.yml', folder_id=12485, folder_path='workflows'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52436: filename='workflows/cross.yml', folder_id=12485, folder_path='workflows'
+2025-07-30 20:50:59,111 - PopulateAtomsDeps - INFO - !!!!!Code ID 52437: filename='workflows/x25519-dalek.yml', folder_id=12485, folder_path='workflows'
+2025-07-30 20:50:59,112 - PopulateAtomsDeps - INFO - !!!!!Code ID 52438: filename='workflows/curve25519-dalek.yml', folder_id=12485, folder_path='workflows'
+2025-07-30 20:50:59,112 - PopulateAtomsDeps - INFO - !!!!!Code ID 52439: filename='workflows/workspace.yml', folder_id=12485, folder_path='workflows'
+2025-07-30 20:50:59,112 - PopulateAtomsDeps - INFO - Retrieved 124 codes from database
+2025-07-30 20:50:59,149 - PopulateAtomsDeps - INFO - Nb of Codes: 78
+2025-07-30 20:50:59,160 - PopulateAtomsDeps - INFO - Found 16 atoms for curve25519-dalek-derive/tests/tests.rs
+2025-07-30 20:50:59,161 - PopulateAtomsDeps - INFO - Found 11 atoms for curve25519-dalek-derive/src/lib.rs
+2025-07-30 20:50:59,161 - PopulateAtomsDeps - INFO - Found 7 atoms for x25519-dalek/tests/x25519_tests.rs
+2025-07-30 20:50:59,162 - PopulateAtomsDeps - INFO - Found 2 atoms for x25519-dalek/benches/x25519.rs
+2025-07-30 20:50:59,162 - PopulateAtomsDeps - WARNING - No atoms found for filename: x25519-dalek/src/lib.rs
+2025-07-30 20:50:59,163 - PopulateAtomsDeps - INFO - Found 23 atoms for x25519-dalek/src/x25519.rs
+2025-07-30 20:50:59,163 - PopulateAtomsDeps - INFO - Found 25 atoms for curve25519-dalek/benches/dalek_benchmarks.rs
+2025-07-30 20:50:59,163 - PopulateAtomsDeps - INFO - Found 19 atoms for curve25519-dalek/src/backend/vector/avx2/edwards.rs
+2025-07-30 20:50:59,164 - PopulateAtomsDeps - INFO - Found 22 atoms for curve25519-dalek/src/backend/vector/avx2/field.rs
+2025-07-30 20:50:59,164 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/avx2/constants.rs
+2025-07-30 20:50:59,165 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/avx2/mod.rs
+2025-07-30 20:50:59,165 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/ifma/edwards.rs
+2025-07-30 20:50:59,166 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/ifma/field.rs
+2025-07-30 20:50:59,167 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/ifma/constants.rs
+2025-07-30 20:50:59,167 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/ifma/mod.rs
+2025-07-30 20:50:59,168 - PopulateAtomsDeps - INFO - Found 4 atoms for curve25519-dalek/src/backend/vector/scalar_mul/precomputed_straus.rs
+2025-07-30 20:50:59,168 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/vector/scalar_mul/pippenger.rs
+2025-07-30 20:50:59,169 - PopulateAtomsDeps - INFO - Found 2 atoms for curve25519-dalek/src/backend/vector/scalar_mul/straus.rs
+2025-07-30 20:50:59,169 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/vector/scalar_mul/variable_base.rs
+2025-07-30 20:50:59,170 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/scalar_mul/mod.rs
+2025-07-30 20:50:59,170 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/vector/scalar_mul/vartime_double_base.rs
+2025-07-30 20:50:59,171 - PopulateAtomsDeps - INFO - Found 9 atoms for curve25519-dalek/src/backend/vector/packed_simd.rs
+2025-07-30 20:50:59,171 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/vector/mod.rs
+2025-07-30 20:50:59,172 - PopulateAtomsDeps - INFO - Found 12 atoms for curve25519-dalek/src/backend/mod.rs
+2025-07-30 20:50:59,172 - PopulateAtomsDeps - INFO - Found 26 atoms for curve25519-dalek/src/backend/serial/curve_models/mod.rs
+2025-07-30 20:50:59,172 - PopulateAtomsDeps - INFO - Found 4 atoms for curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs
+2025-07-30 20:50:59,173 - PopulateAtomsDeps - INFO - Found 2 atoms for curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs
+2025-07-30 20:50:59,173 - PopulateAtomsDeps - INFO - Found 2 atoms for curve25519-dalek/src/backend/serial/scalar_mul/straus.rs
+2025-07-30 20:50:59,173 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs
+2025-07-30 20:50:59,174 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/mod.rs
+2025-07-30 20:50:59,174 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs
+2025-07-30 20:50:59,175 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/fiat_u32/field.rs
+2025-07-30 20:50:59,175 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/fiat_u32/mod.rs
+2025-07-30 20:50:59,176 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u32/scalar.rs
+2025-07-30 20:50:59,177 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u32/field.rs
+2025-07-30 20:50:59,177 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u32/constants.rs
+2025-07-30 20:50:59,178 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u32/mod.rs
+2025-07-30 20:50:59,178 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/fiat_u64/field.rs
+2025-07-30 20:50:59,179 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/fiat_u64/mod.rs
+2025-07-30 20:50:59,179 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/mod.rs
+2025-07-30 20:50:59,180 - PopulateAtomsDeps - INFO - Found 20 atoms for curve25519-dalek/src/backend/serial/u64/scalar_verus.rs
+2025-07-30 20:50:59,180 - PopulateAtomsDeps - INFO - Found 11 atoms for curve25519-dalek/src/backend/serial/u64/field_verus.rs
+2025-07-30 20:50:59,181 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/u64/common_verus.rs
+2025-07-30 20:50:59,181 - PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/u64/field_lemmas.rs
+2025-07-30 20:50:59,182 - PopulateAtomsDeps - INFO - Found 30 atoms for curve25519-dalek/src/backend/serial/u64/scalar.rs
+2025-07-30 20:50:59,182 - PopulateAtomsDeps - INFO - Found 22 atoms for curve25519-dalek/src/backend/serial/u64/field.rs
+2025-07-30 20:50:59,182 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/constants.rs
+2025-07-30 20:50:59,183 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/mod.rs
+2025-07-30 20:50:59,184 - PopulateAtomsDeps - INFO - Found 36 atoms for curve25519-dalek/src/montgomery.rs
+2025-07-30 20:50:59,184 - PopulateAtomsDeps - INFO - Found 101 atoms for curve25519-dalek/src/edwards.rs
+2025-07-30 20:50:59,185 - PopulateAtomsDeps - INFO - Found 78 atoms for curve25519-dalek/src/scalar.rs
+2025-07-30 20:50:59,185 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/macros.rs
+2025-07-30 20:50:59,186 - PopulateAtomsDeps - INFO - Found 26 atoms for curve25519-dalek/src/field.rs
+2025-07-30 20:50:59,186 - PopulateAtomsDeps - INFO - Found 70 atoms for curve25519-dalek/src/ristretto.rs
+2025-07-30 20:50:59,187 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/diagnostics.rs
+2025-07-30 20:50:59,187 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/lib.rs
+2025-07-30 20:50:59,188 - PopulateAtomsDeps - INFO - Found 8 atoms for curve25519-dalek/src/constants.rs
+2025-07-30 20:50:59,188 - PopulateAtomsDeps - INFO - Found 10 atoms for curve25519-dalek/src/traits.rs
+2025-07-30 20:50:59,189 - PopulateAtomsDeps - INFO - Found 8 atoms for curve25519-dalek/src/window.rs
+2025-07-30 20:50:59,189 - PopulateAtomsDeps - INFO - Found 11 atoms for curve25519-dalek/src/edwards/affine.rs
+2025-07-30 20:50:59,189 - PopulateAtomsDeps - INFO - Found 5 atoms for curve25519-dalek/build.rs
+2025-07-30 20:50:59,190 - PopulateAtomsDeps - INFO - Found 6 atoms for ed25519-dalek/tests/ed25519.rs
+2025-07-30 20:50:59,190 - PopulateAtomsDeps - INFO - Found 5 atoms for ed25519-dalek/tests/validation_criteria.rs
+2025-07-30 20:50:59,190 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/tests/pkcs8.rs
+2025-07-30 20:50:59,191 - PopulateAtomsDeps - INFO - Found 1 atoms for ed25519-dalek/tests/x25519.rs
+2025-07-30 20:50:59,191 - PopulateAtomsDeps - INFO - Found 6 atoms for ed25519-dalek/benches/ed25519_benchmarks.rs
+2025-07-30 20:50:59,192 - PopulateAtomsDeps - INFO - Found 23 atoms for ed25519-dalek/src/verifying.rs
+2025-07-30 20:50:59,192 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/batch.rs
+2025-07-30 20:50:59,193 - PopulateAtomsDeps - INFO - Found 13 atoms for ed25519-dalek/src/hazmat.rs
+2025-07-30 20:50:59,193 - PopulateAtomsDeps - INFO - Found 6 atoms for ed25519-dalek/src/signature.rs
+2025-07-30 20:50:59,193 - PopulateAtomsDeps - INFO - Found 2 atoms for ed25519-dalek/src/errors.rs
+2025-07-30 20:50:59,194 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/batch/strobe.rs
+2025-07-30 20:50:59,194 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/batch/transcript.rs
+2025-07-30 20:50:59,195 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/verifying/stream.rs
+2025-07-30 20:50:59,196 - PopulateAtomsDeps - INFO - Found 26 atoms for ed25519-dalek/src/signing.rs
+2025-07-30 20:50:59,196 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/context.rs
+2025-07-30 20:50:59,197 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/lib.rs
+2025-07-30 20:50:59,197 - PopulateAtomsDeps - WARNING - No atoms found for filename: ed25519-dalek/src/constants.rs
+2025-07-30 20:50:59,197 - PopulateAtomsDeps - INFO - Summary: Found atoms for 46 out of 78 files
+2025-07-30 20:50:59,198 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek-derive/tests/tests.rs and code_id 52317
+2025-07-30 20:50:59,208 - PopulateAtomsDeps - INFO - Inserted 16 atoms for file curve25519-dalek-derive/tests/tests.rs
+2025-07-30 20:50:59,209 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek-derive/src/lib.rs and code_id 52321
+2025-07-30 20:50:59,220 - PopulateAtomsDeps - INFO - Inserted 11 atoms for file curve25519-dalek-derive/src/lib.rs
+2025-07-30 20:50:59,220 - PopulateAtomsDeps - INFO - Populating atoms for x25519-dalek/tests/x25519_tests.rs and code_id 52329
+2025-07-30 20:50:59,231 - PopulateAtomsDeps - INFO - Inserted 7 atoms for file x25519-dalek/tests/x25519_tests.rs
+2025-07-30 20:50:59,232 - PopulateAtomsDeps - INFO - Populating atoms for x25519-dalek/benches/x25519.rs and code_id 52330
+2025-07-30 20:50:59,250 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file x25519-dalek/benches/x25519.rs
+2025-07-30 20:50:59,251 - PopulateAtomsDeps - INFO - Populating atoms for x25519-dalek/src/x25519.rs and code_id 52334
+2025-07-30 20:50:59,272 - PopulateAtomsDeps - INFO - Inserted 21 atoms for file x25519-dalek/src/x25519.rs
+2025-07-30 20:50:59,273 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/benches/dalek_benchmarks.rs and code_id 52345
+2025-07-30 20:50:59,303 - PopulateAtomsDeps - INFO - Inserted 25 atoms for file curve25519-dalek/benches/dalek_benchmarks.rs
+2025-07-30 20:50:59,304 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/avx2/edwards.rs and code_id 52349
+2025-07-30 20:50:59,327 - PopulateAtomsDeps - INFO - Inserted 19 atoms for file curve25519-dalek/src/backend/vector/avx2/edwards.rs
+2025-07-30 20:50:59,328 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/avx2/field.rs and code_id 52350
+2025-07-30 20:50:59,386 - PopulateAtomsDeps - INFO - Inserted 22 atoms for file curve25519-dalek/src/backend/vector/avx2/field.rs
+2025-07-30 20:50:59,386 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/scalar_mul/precomputed_straus.rs and code_id 52357
+2025-07-30 20:50:59,391 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/vector/scalar_mul/precomputed_straus.rs
+2025-07-30 20:50:59,391 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/scalar_mul/pippenger.rs and code_id 52358
+2025-07-30 20:50:59,399 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/vector/scalar_mul/pippenger.rs
+2025-07-30 20:50:59,400 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/scalar_mul/straus.rs and code_id 52359
+2025-07-30 20:50:59,406 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file curve25519-dalek/src/backend/vector/scalar_mul/straus.rs
+2025-07-30 20:50:59,406 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/scalar_mul/variable_base.rs and code_id 52360
+2025-07-30 20:50:59,412 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/vector/scalar_mul/variable_base.rs
+2025-07-30 20:50:59,412 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/scalar_mul/vartime_double_base.rs and code_id 52362
+2025-07-30 20:50:59,419 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/vector/scalar_mul/vartime_double_base.rs
+2025-07-30 20:50:59,419 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/vector/packed_simd.rs and code_id 52363
+2025-07-30 20:50:59,433 - PopulateAtomsDeps - INFO - Inserted 9 atoms for file curve25519-dalek/src/backend/vector/packed_simd.rs
+2025-07-30 20:50:59,433 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/mod.rs and code_id 52365
+2025-07-30 20:50:59,440 - PopulateAtomsDeps - INFO - Inserted 12 atoms for file curve25519-dalek/src/backend/mod.rs
+2025-07-30 20:50:59,441 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/curve_models/mod.rs and code_id 52366
+2025-07-30 20:50:59,449 - PopulateAtomsDeps - INFO - Inserted 24 atoms for file curve25519-dalek/src/backend/serial/curve_models/mod.rs
+2025-07-30 20:50:59,449 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs and code_id 52367
+2025-07-30 20:50:59,455 - PopulateAtomsDeps - INFO - Inserted 4 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs
+2025-07-30 20:50:59,455 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs and code_id 52368
+2025-07-30 20:50:59,462 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs
+2025-07-30 20:50:59,462 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/straus.rs and code_id 52369
+2025-07-30 20:50:59,470 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/straus.rs
+2025-07-30 20:50:59,470 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs and code_id 52370
+2025-07-30 20:50:59,475 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs
+2025-07-30 20:50:59,476 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs and code_id 52372
+2025-07-30 20:50:59,481 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs
+2025-07-30 20:50:59,482 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/scalar_verus.rs and code_id 52382
+2025-07-30 20:50:59,490 - PopulateAtomsDeps - INFO - Inserted 20 atoms for file curve25519-dalek/src/backend/serial/u64/scalar_verus.rs
+2025-07-30 20:50:59,491 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field_verus.rs and code_id 52383
+2025-07-30 20:50:59,500 - PopulateAtomsDeps - INFO - Inserted 11 atoms for file curve25519-dalek/src/backend/serial/u64/field_verus.rs
+2025-07-30 20:50:59,500 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/common_verus.rs and code_id 52384
+2025-07-30 20:50:59,506 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/u64/common_verus.rs
+2025-07-30 20:50:59,506 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field_lemmas.rs and code_id 52385
+2025-07-30 20:50:59,512 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/u64/field_lemmas.rs
+2025-07-30 20:50:59,512 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/scalar.rs and code_id 52386
+2025-07-30 20:50:59,522 - PopulateAtomsDeps - INFO - Inserted 30 atoms for file curve25519-dalek/src/backend/serial/u64/scalar.rs
+2025-07-30 20:50:59,522 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field.rs and code_id 52387
+2025-07-30 20:50:59,530 - PopulateAtomsDeps - INFO - Inserted 22 atoms for file curve25519-dalek/src/backend/serial/u64/field.rs
+2025-07-30 20:50:59,531 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/montgomery.rs and code_id 52390
+2025-07-30 20:50:59,542 - PopulateAtomsDeps - INFO - Inserted 36 atoms for file curve25519-dalek/src/montgomery.rs
+2025-07-30 20:50:59,543 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/edwards.rs and code_id 52391
+2025-07-30 20:50:59,560 - PopulateAtomsDeps - INFO - Inserted 101 atoms for file curve25519-dalek/src/edwards.rs
+2025-07-30 20:50:59,561 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/scalar.rs and code_id 52392
+2025-07-30 20:50:59,578 - PopulateAtomsDeps - INFO - Inserted 74 atoms for file curve25519-dalek/src/scalar.rs
+2025-07-30 20:50:59,578 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/field.rs and code_id 52394
+2025-07-30 20:50:59,589 - PopulateAtomsDeps - INFO - Inserted 26 atoms for file curve25519-dalek/src/field.rs
+2025-07-30 20:50:59,590 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/ristretto.rs and code_id 52395
+2025-07-30 20:50:59,610 - PopulateAtomsDeps - INFO - Inserted 69 atoms for file curve25519-dalek/src/ristretto.rs
+2025-07-30 20:50:59,610 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/constants.rs and code_id 52398
+2025-07-30 20:50:59,618 - PopulateAtomsDeps - INFO - Inserted 8 atoms for file curve25519-dalek/src/constants.rs
+2025-07-30 20:50:59,619 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/traits.rs and code_id 52399
+2025-07-30 20:50:59,625 - PopulateAtomsDeps - INFO - Inserted 10 atoms for file curve25519-dalek/src/traits.rs
+2025-07-30 20:50:59,626 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/window.rs and code_id 52400
+2025-07-30 20:50:59,634 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file curve25519-dalek/src/window.rs
+2025-07-30 20:50:59,634 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/edwards/affine.rs and code_id 52401
+2025-07-30 20:50:59,642 - PopulateAtomsDeps - INFO - Inserted 10 atoms for file curve25519-dalek/src/edwards/affine.rs
+2025-07-30 20:50:59,642 - PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/build.rs and code_id 52402
+2025-07-30 20:50:59,648 - PopulateAtomsDeps - INFO - Inserted 5 atoms for file curve25519-dalek/build.rs
+2025-07-30 20:50:59,649 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/tests/ed25519.rs and code_id 52409
+2025-07-30 20:50:59,657 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file ed25519-dalek/tests/ed25519.rs
+2025-07-30 20:50:59,657 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/tests/validation_criteria.rs and code_id 52410
+2025-07-30 20:50:59,664 - PopulateAtomsDeps - INFO - Inserted 5 atoms for file ed25519-dalek/tests/validation_criteria.rs
+2025-07-30 20:50:59,664 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/tests/x25519.rs and code_id 52415
+2025-07-30 20:50:59,670 - PopulateAtomsDeps - INFO - Inserted 1 atoms for file ed25519-dalek/tests/x25519.rs
+2025-07-30 20:50:59,670 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/benches/ed25519_benchmarks.rs and code_id 52416
+2025-07-30 20:50:59,677 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file ed25519-dalek/benches/ed25519_benchmarks.rs
+2025-07-30 20:50:59,678 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/src/verifying.rs and code_id 52420
+2025-07-30 20:50:59,686 - PopulateAtomsDeps - INFO - Inserted 21 atoms for file ed25519-dalek/src/verifying.rs
+2025-07-30 20:50:59,686 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/src/hazmat.rs and code_id 52422
+2025-07-30 20:50:59,694 - PopulateAtomsDeps - INFO - Inserted 13 atoms for file ed25519-dalek/src/hazmat.rs
+2025-07-30 20:50:59,694 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/src/signature.rs and code_id 52423
+2025-07-30 20:50:59,701 - PopulateAtomsDeps - INFO - Inserted 6 atoms for file ed25519-dalek/src/signature.rs
+2025-07-30 20:50:59,701 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/src/errors.rs and code_id 52424
+2025-07-30 20:50:59,706 - PopulateAtomsDeps - INFO - Inserted 2 atoms for file ed25519-dalek/src/errors.rs
+2025-07-30 20:50:59,707 - PopulateAtomsDeps - INFO - Populating atoms for ed25519-dalek/src/signing.rs and code_id 52428
+2025-07-30 20:50:59,715 - PopulateAtomsDeps - INFO - Inserted 25 atoms for file ed25519-dalek/src/signing.rs
+2025-07-30 20:50:59,716 - PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+2025-07-30 20:50:59,774 - PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+2025-07-30 20:50:59,782 - PopulateAtomsDeps - INFO - Processing 12 dependencies in batch
+2025-07-30 20:50:59,841 - PopulateAtomsDeps - INFO - Inserting 12 new dependencies
+2025-07-30 20:50:59,847 - PopulateAtomsDeps - INFO - Processing 9 dependencies in batch
+2025-07-30 20:50:59,902 - PopulateAtomsDeps - INFO - Inserting 9 new dependencies
+2025-07-30 20:50:59,908 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-30 20:50:59,971 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-30 20:50:59,985 - PopulateAtomsDeps - INFO - Processing 18 dependencies in batch
+2025-07-30 20:51:00,148 - PopulateAtomsDeps - INFO - Inserting 18 new dependencies
+2025-07-30 20:51:00,160 - PopulateAtomsDeps - INFO - Processing 66 dependencies in batch
+2025-07-30 20:51:00,283 - PopulateAtomsDeps - INFO - Inserting 66 new dependencies
+2025-07-30 20:51:00,304 - PopulateAtomsDeps - INFO - Processing 29 dependencies in batch
+2025-07-30 20:51:00,382 - PopulateAtomsDeps - INFO - Inserting 29 new dependencies
+2025-07-30 20:51:00,402 - PopulateAtomsDeps - INFO - Processing 31 dependencies in batch
+2025-07-30 20:51:00,489 - PopulateAtomsDeps - INFO - Inserting 31 new dependencies
+2025-07-30 20:51:00,500 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-30 20:51:00,565 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-30 20:51:00,570 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-30 20:51:00,623 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-30 20:51:00,629 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-30 20:51:00,683 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-30 20:51:00,689 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-30 20:51:00,742 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-30 20:51:00,747 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-30 20:51:00,814 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-30 20:51:00,820 - PopulateAtomsDeps - INFO - Processing 2 dependencies in batch
+2025-07-30 20:51:00,878 - PopulateAtomsDeps - INFO - Inserting 2 new dependencies
+2025-07-30 20:51:00,883 - PopulateAtomsDeps - INFO - Processing 26 dependencies in batch
+2025-07-30 20:51:00,939 - PopulateAtomsDeps - INFO - Inserting 26 new dependencies
+2025-07-30 20:51:00,946 - PopulateAtomsDeps - INFO - Processing 12 dependencies in batch
+2025-07-30 20:51:01,005 - PopulateAtomsDeps - INFO - Inserting 12 new dependencies
+2025-07-30 20:51:01,012 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-07-30 20:51:01,068 - PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+2025-07-30 20:51:01,073 - PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+2025-07-30 20:51:01,173 - PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+2025-07-30 20:51:01,192 - PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+2025-07-30 20:51:01,505 - PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+2025-07-30 20:51:01,554 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-30 20:51:02,054 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-30 20:51:02,088 - PopulateAtomsDeps - INFO - Processing 9 dependencies in batch
+2025-07-30 20:51:02,440 - PopulateAtomsDeps - INFO - Inserting 9 new dependencies
+2025-07-30 20:51:02,461 - PopulateAtomsDeps - INFO - Processing 22 dependencies in batch
+2025-07-30 20:51:02,885 - PopulateAtomsDeps - INFO - Inserting 22 new dependencies
+2025-07-30 20:51:02,947 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-30 20:51:03,794 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-30 20:51:03,809 - PopulateAtomsDeps - INFO - Processing 29 dependencies in batch
+2025-07-30 20:51:03,978 - PopulateAtomsDeps - INFO - Inserting 29 new dependencies
+2025-07-30 20:51:03,991 - PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+2025-07-30 20:51:04,275 - PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+2025-07-30 20:51:04,287 - PopulateAtomsDeps - INFO - Processing 61 dependencies in batch
+2025-07-30 20:51:04,477 - PopulateAtomsDeps - INFO - Inserting 61 new dependencies
+2025-07-30 20:51:04,488 - PopulateAtomsDeps - INFO - Processing 174 dependencies in batch
+2025-07-30 20:51:04,660 - PopulateAtomsDeps - INFO - Inserting 174 new dependencies
+2025-07-30 20:51:04,707 - PopulateAtomsDeps - INFO - Processing 101 dependencies in batch
+2025-07-30 20:51:04,931 - PopulateAtomsDeps - INFO - Inserting 101 new dependencies
+2025-07-30 20:51:04,956 - PopulateAtomsDeps - INFO - Processing 45 dependencies in batch
+2025-07-30 20:51:05,142 - PopulateAtomsDeps - INFO - Inserting 45 new dependencies
+2025-07-30 20:51:05,169 - PopulateAtomsDeps - INFO - Processing 118 dependencies in batch
+2025-07-30 20:51:05,633 - PopulateAtomsDeps - INFO - Inserting 118 new dependencies
+2025-07-30 20:51:05,665 - PopulateAtomsDeps - INFO - Processing 14 dependencies in batch
+2025-07-30 20:51:05,921 - PopulateAtomsDeps - INFO - Inserting 14 new dependencies
+2025-07-30 20:51:05,929 - PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+2025-07-30 20:51:06,099 - PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+2025-07-30 20:51:06,106 - PopulateAtomsDeps - INFO - Processing 12 dependencies in batch
+2025-07-30 20:51:06,210 - PopulateAtomsDeps - INFO - Inserting 12 new dependencies
+2025-07-30 20:51:06,215 - PopulateAtomsDeps - INFO - Processing 12 dependencies in batch
+2025-07-30 20:51:06,345 - PopulateAtomsDeps - INFO - Inserting 12 new dependencies
+2025-07-30 20:51:06,354 - PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+2025-07-30 20:51:06,413 - PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+2025-07-30 20:51:06,419 - PopulateAtomsDeps - INFO - Processing 27 dependencies in batch
+2025-07-30 20:51:06,499 - PopulateAtomsDeps - INFO - Inserting 27 new dependencies
+2025-07-30 20:51:06,504 - PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+2025-07-30 20:51:06,586 - PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+2025-07-30 20:51:06,590 - PopulateAtomsDeps - INFO - Processing 14 dependencies in batch
+2025-07-30 20:51:06,647 - PopulateAtomsDeps - INFO - Inserting 14 new dependencies
+2025-07-30 20:51:06,651 - PopulateAtomsDeps - INFO - Processing 11 dependencies in batch
+2025-07-30 20:51:06,713 - PopulateAtomsDeps - INFO - Inserting 11 new dependencies
+2025-07-30 20:51:06,718 - PopulateAtomsDeps - INFO - Processing 28 dependencies in batch
+2025-07-30 20:51:06,783 - PopulateAtomsDeps - INFO - Inserting 28 new dependencies
+2025-07-30 20:51:06,788 - PopulateAtomsDeps - INFO - Processing 19 dependencies in batch
+2025-07-30 20:51:06,858 - PopulateAtomsDeps - INFO - Inserting 19 new dependencies
+2025-07-30 20:51:06,864 - PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+2025-07-30 20:51:06,918 - PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+2025-07-30 20:51:06,923 - PopulateAtomsDeps - INFO - Processing 25 dependencies in batch
+2025-07-30 20:51:06,986 - PopulateAtomsDeps - INFO - Inserting 25 new dependencies
+2025-07-30 20:51:06,992 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3155
+2025-07-30 20:51:06,999 - PopulateAtomsDeps - INFO - Found 46 file molecules with code_id=0 to update
+2025-07-30 20:51:06,999 - PopulateAtomsDeps - INFO - Found 0 file molecules with specific code_ids
+2025-07-30 20:51:07,030 - PopulateAtomsDeps - INFO - Found code_id mappings for 46 files
+2025-07-30 20:51:07,037 - PopulateAtomsDeps - INFO - Successfully updated code_id for 46 file molecules
+2025-07-30 20:51:07,039 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3155_20250730_204922.log
+2025-07-30 20:51:07,039 - PopulateAtomsDeps - INFO - Successfully read 600 characters from atomizer log
+2025-07-30 20:51:07,052 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3155
+2025-07-30 20:51:07,052 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3155
+2025-07-30 20:51:07,052 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3155.json

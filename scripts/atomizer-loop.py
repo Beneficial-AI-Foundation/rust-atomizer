@@ -76,7 +76,9 @@ def main():
 
                     env = os.environ.copy()
                     env["DB_PASSWORD"] = os.getenv("DB_PASSWORD")
-
+                    # export DB_PASSWORD=DdlrsIjzp52YeOs8 && ./run_compose.sh /var/www/html/public/files/uploads/3162 3162 460176 
+                    # export DB_PASSWORD=DdlrsIjzp52YeOs8 && ./run_compose.sh /var/www/html/public/files/uploads/3162 3162 460176 
+                    
                     # Open pipes manually for stdout and stderr
                     process = subprocess.Popen(
                         ["./run_compose.sh", upload_path, repo_id],
@@ -113,41 +115,29 @@ def main():
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
-                    # query = """
-                    #     UPDATE atomsbup AS a
-                    #     JOIN atomsbup AS b
-                    #     ON a.full_identifier = b.full_identifier
-                    #     AND a.identifier    = b.identifier
-                    #     AND a.repo_id = %s
-                    #     AND b.repo_id = %s
-                    #     AND a.statement_type != 'molecule' 
-                    #     SET
-                    #     a.specified = b.specified,
-                    #     a.status_id = b.status_id;
-                    # """
                     
-                    
-                    query = """UPDATE atoms AS a
-                            JOIN atomsbup AS b
-                            ON a.full_identifier = b.full_identifier
-                            AND a.identifier = b.identifier
-                            AND a.repo_id = %s
-                            AND b.repo_id = %s
-                            AND a.statement_type != 'molecule'
-                            SET a.parent_id = b.parent_id
-                            WHERE b.parent_id IN (
+                    query = """
+                        UPDATE atoms AS a
+                        JOIN atomsbup AS b
+                        ON a.full_identifier = b.full_identifier
+                        AND a.identifier = b.identifier
+                        AND a.repo_id = %s
+                        AND b.repo_id = %s
+                        AND a.statement_type != 'molecule'
+                        SET a.parent_id = b.parent_id
+                        WHERE b.parent_id IN (
+                            SELECT id
+                            FROM (
                                 SELECT id
-                                FROM (
-                                    SELECT id
-                                    FROM atoms
-                                    WHERE statement_type = 'molecule'
-                                ) AS sub
-                            );
+                                FROM atoms
+                                WHERE statement_type = 'molecule'
+                            ) AS sub
+                        );
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
                     query = """
-                    UPDATE atoms AS a
+                        UPDATE atoms AS a
                         JOIN atomsbup AS b
                         ON a.identifier = b.identifier
                         AND (a.full_identifier <=> b.full_identifier) 
@@ -167,21 +157,17 @@ def main():
                     """
                     sql2(connection, query, (repo_id, repo_id,repo_id,))
 
-                    # SELECT * FROM `atoms` WHERE `repo_id` = 3192 and parent_id IS NULL ORDER BY `type` ASC;
-
-                    # sql2(connection, query, (repo_id,repo_id,))
-                    
                     query = """
-                    UPDATE atomlayouts AS al
-                    INNER JOIN atomsbup AS b
-                    ON al.parent_id       = b.id
-                    AND b.repo_id          = %s
-                    INNER JOIN atoms AS a
-                    ON a.full_identifier  = b.full_identifier
-                    AND a.identifier       = b.identifier
-                    AND a.repo_id          = %s
-                    SET
-                    al.parent_id = a.id;
+                        UPDATE atomlayouts AS al
+                        INNER JOIN atomsbup AS b
+                        ON al.parent_id       = b.id
+                        AND b.repo_id          = %s
+                        INNER JOIN atoms AS a
+                        ON a.full_identifier  = b.full_identifier
+                        AND a.identifier       = b.identifier
+                        AND a.repo_id          = %s
+                        SET
+                        al.parent_id = a.id;
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     

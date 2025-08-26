@@ -1,0 +1,45 @@
+=== Atomizer Log Session ===
+Repo ID: 3224
+User ID: 460176
+Session Start: 2025-08-18 15:19:09 UTC
+================================
+
+[2025-08-18 15:18:56 UTC] [INFO] Starting atomizer for repo_id: 3224, user_id: 460176
+[2025-08-18 15:18:56 UTC] [INFO] Running: verus-analyzer scip /work/3224
+[2025-08-18 15:19:07 UTC] [WARN] Errors while running verus-analyzer scip: Generating SCIP start...
+rust-analyzer: Loading metadata
+Error: Failed to load the project at /work/3224/Cargo.toml
+
+Caused by:
+    0: Failed to read Cargo metadata from Cargo.toml file /work/3224/Cargo.toml, Some(Version { major: 1, minor: 86, patch: 0 })
+    1: Failed to run `cd "/work/3224" && RUSTUP_TOOLCHAIN="/root/.rustup/toolchains/stable-x86_64-unknown-linux-gnu" "/root/.cargo/bin/cargo" "metadata" "--format-version" "1" "--manifest-path" "/work/3224/Cargo.toml" "--filter-platform" "x86_64-unknown-linux-gnu"`
+    2: `cargo metadata` exited with an error:     Updating git repository `https://github.com/verus-lang/verus`
+           Updating crates.io index
+       error: no matching package named `builtin` found
+       location searched: Git repository https://github.com/verus-lang/verus
+       required by package `verus-example v0.1.0 (/work/3224)`
+       
+
+Stack backtrace:
+   0: <E as anyhow::context::ext::StdError>::ext_context
+   1: anyhow::context::<impl anyhow::Context<T,E> for core::result::Result<T,E>>::with_context
+   2: project_model::cargo_workspace::CargoWorkspace::fetch_metadata
+   3: project_model::workspace::ProjectWorkspace::load
+   4: load_cargo::load_workspace_at
+   5: rust_analyzer::cli::scip::<impl rust_analyzer::cli::flags::Scip>::run
+   6: rust_analyzer::main
+   7: std::sys::backtrace::__rust_begin_short_backtrace
+   8: std::rt::lang_start::{{closure}}
+   9: std::rt::lang_start_internal
+  10: main
+  11: <unknown>
+  12: __libc_start_main
+  13: _start
+
+[2025-08-18 15:19:07 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+[2025-08-18 15:19:07 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+[2025-08-18 15:19:07 UTC] [INFO] Building call graph...
+[2025-08-18 15:19:09 UTC] [INFO] Atoms JSON written to 3224.json
+
+=== End of Session ===
+

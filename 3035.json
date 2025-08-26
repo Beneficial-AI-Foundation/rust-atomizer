@@ -1,0 +1,13 @@
+[
+  {
+    "identifier": "bn_add_seq/main",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn main() {\n    }",
+    "display_name": "main",
+    "full_path": "file:///work/3035/src/bn_add_seq.rs",
+    "relative_path": "src/bn_add_seq.rs",
+    "file_name": "bn_add_seq.rs",
+    "parent_folder": "src"
+  }
+]

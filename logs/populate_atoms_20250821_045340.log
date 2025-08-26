@@ -1,0 +1,79 @@
+2025-08-21 04:53:40,333 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250821_045340.log
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO -   repo_id: 3214
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/curve25519-dalek.json
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-08-21 04:53:40,334 - PopulateAtomsDeps - INFO -   JSON file size: 192569 bytes
+2025-08-21 04:53:40,335 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-20 09:34:21.846643
+2025-08-21 04:53:40,341 - PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+2025-08-21 04:53:40,341 - PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3214
+2025-08-21 04:53:40,351 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['src', 'src/edwards', 'src/backend', 'src/backend/serial', 'src/backend/serial/curve_models', 'src/backend/serial/scalar_mul', 'src/backend/serial/u64']
+2025-08-21 04:53:40,374 - PopulateAtomsDeps - INFO - Successfully populated 31 folder and file molecules for repo 3214
+2025-08-21 04:53:40,389 - PopulateAtomsDeps - INFO - Nb of Codes: 32
+2025-08-21 04:53:40,391 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/mod.rs
+2025-08-21 04:53:40,392 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/curve_models/mod.rs
+2025-08-21 04:53:40,392 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs
+2025-08-21 04:53:40,392 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs
+2025-08-21 04:53:40,393 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/straus.rs
+2025-08-21 04:53:40,393 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs
+2025-08-21 04:53:40,394 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/mod.rs
+2025-08-21 04:53:40,394 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs
+2025-08-21 04:53:40,394 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/mod.rs
+2025-08-21 04:53:40,394 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/field_verus.rs
+2025-08-21 04:53:40,395 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/common_verus.rs
+2025-08-21 04:53:40,395 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs
+2025-08-21 04:53:40,395 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/field_lemmas.rs
+2025-08-21 04:53:40,396 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/scalar.rs
+2025-08-21 04:53:40,396 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs
+2025-08-21 04:53:40,396 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/field.rs
+2025-08-21 04:53:40,397 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/constants.rs
+2025-08-21 04:53:40,397 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/mod.rs
+2025-08-21 04:53:40,398 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/scalar_specs.rs
+2025-08-21 04:53:40,398 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/montgomery.rs
+2025-08-21 04:53:40,398 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/edwards.rs
+2025-08-21 04:53:40,399 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/scalar.rs
+2025-08-21 04:53:40,399 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/macros.rs
+2025-08-21 04:53:40,399 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/field.rs
+2025-08-21 04:53:40,400 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/ristretto.rs
+2025-08-21 04:53:40,400 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/diagnostics.rs
+2025-08-21 04:53:40,400 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/lib.rs
+2025-08-21 04:53:40,400 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/constants.rs
+2025-08-21 04:53:40,401 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/traits.rs
+2025-08-21 04:53:40,401 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/window.rs
+2025-08-21 04:53:40,402 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/edwards/affine.rs
+2025-08-21 04:53:40,402 - PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/build.rs
+2025-08-21 04:53:40,402 - PopulateAtomsDeps - INFO - Summary: Found atoms for 0 out of 32 files
+2025-08-21 04:53:40,402 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3214
+2025-08-21 04:53:40,408 - PopulateAtomsDeps - INFO - Found 24 file molecules with code_id=0 to update
+2025-08-21 04:53:40,408 - PopulateAtomsDeps - INFO - Found 24 file molecules with specific code_ids
+2025-08-21 04:53:40,409 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359374 (file: src/montgomery.rs)
+2025-08-21 04:53:40,415 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359375 (file: src/ristretto.rs)
+2025-08-21 04:53:40,421 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359376 (file: src/edwards.rs)
+2025-08-21 04:53:40,428 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359377 (file: src/scalar.rs)
+2025-08-21 04:53:40,434 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359378 (file: src/field.rs)
+2025-08-21 04:53:40,447 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359379 (file: src/traits.rs)
+2025-08-21 04:53:40,455 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359380 (file: src/window.rs)
+2025-08-21 04:53:40,464 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359381 (file: src/backend/serial/u64/scalar_lemmas.rs)
+2025-08-21 04:53:40,471 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359382 (file: src/backend/serial/u64/field.rs)
+2025-08-21 04:53:40,476 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359383 (file: src/backend/serial/u64/field_lemmas.rs)
+2025-08-21 04:53:40,481 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359384 (file: src/backend/serial/u64/scalar.rs)
+2025-08-21 04:53:40,486 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359385 (file: src/backend/serial/u64/common_verus.rs)
+2025-08-21 04:53:40,491 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359386 (file: src/backend/serial/u64/scalar_specs.rs)
+2025-08-21 04:53:40,497 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359387 (file: src/backend/serial/u64/field_verus.rs)
+2025-08-21 04:53:40,502 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359388 (file: src/backend/serial/u64/subtle_assumes.rs)
+2025-08-21 04:53:40,507 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359389 (file: build.rs)
+2025-08-21 04:53:40,513 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359390 (file: src/backend/serial/curve_models/mod.rs)
+2025-08-21 04:53:40,518 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359391 (file: src/backend/serial/scalar_mul/straus.rs)
+2025-08-21 04:53:40,524 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359392 (file: src/backend/serial/scalar_mul/pippenger.rs)
+2025-08-21 04:53:40,535 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359393 (file: src/backend/serial/scalar_mul/vartime_double_base.rs)
+2025-08-21 04:53:40,540 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359394 (file: src/backend/serial/scalar_mul/precomputed_straus.rs)
+2025-08-21 04:53:40,545 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359395 (file: src/backend/serial/scalar_mul/variable_base.rs)
+2025-08-21 04:53:40,550 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359396 (file: src/edwards/affine.rs)
+2025-08-21 04:53:40,555 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359397 (file: src/backend/mod.rs)
+2025-08-21 04:53:40,559 - PopulateAtomsDeps - INFO - No file-to-code_id mappings found
+2025-08-21 04:53:40,564 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3214_20250820_093350.log
+2025-08-21 04:53:40,565 - PopulateAtomsDeps - INFO - Successfully read 625 characters from atomizer log
+2025-08-21 04:53:40,571 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3214
+2025-08-21 04:53:40,571 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3214
+2025-08-21 04:53:40,571 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/curve25519-dalek.json

@@ -1,0 +1,4787 @@
+[
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_bound_scalar",
+    "display_name": "lemma_bound_scalar",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_general_bound",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "power2/arithmetic/lemma2_to64",
+    "display_name": "lemma2_to64",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core impls/cmp/Ord/cmp",
+    "display_name": "cmp",
+    "relative_path": "src/backend/serial/scalar_mul/vartime_double_base.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/from_limbs",
+    "display_name": "from_limbs",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/ConditionallySelectable/conditional_assign",
+    "display_name": "conditional_assign",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "ConditionallySelectable"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable8/From/from",
+    "display_name": "from",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_affine_niels",
+      "5.0.0_pre.0 edwards/EdwardsPoint/double",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "core https:/github.com/rust_lang/rust/library/core convert/From",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective_niels"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/as_bytes",
+    "display_name": "as_bytes",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+    "display_name": "square",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+    "display_name": "limbs_bounded",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/from_slice",
+    "display_name": "from_slice",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core result/Result/map",
+      "5.0.0_pre.0 traits/Identity",
+      "core https:/github.com/rust_lang/rust/library/core convert/TryInto/try_into"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/square_internal",
+    "display_name": "square_internal",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar/u64/serial/backend/m",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_square_internal_no_overflow",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_square_internal_correct"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core fmt/Display",
+    "display_name": "Display",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/m",
+    "display_name": "m",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core convert/TryFrom",
+    "display_name": "TryFrom",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/verify_invert_correct",
+    "display_name": "verify_invert_correct",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shl_le_u64",
+    "display_name": "lemma_shl_le_u64",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 decompress/edwards/step_2",
+    "display_name": "step_2",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/as_bytes",
+      "core https:/github.com/rust_lang/rust/library/core convert/TryFrom",
+      "ConditionallyNegatable/conditional_negate",
+      "Choice/From/from"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/ConditionallySelectable/conditional_select",
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/compress",
+    "display_name": "compress",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/FieldElement51/invsqrt",
+      "ConditionallyNegatable/conditional_negate",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul",
+    "display_name": "mul",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/decompress",
+    "display_name": "decompress",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "5.0.0_pre.0 decompress/ristretto/step_2",
+      "5.0.0_pre.0 decompress/ristretto/step_1"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/as_affine_niels",
+    "display_name": "as_affine_niels",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/invert"
+    ]
+  },
+  {
+    "identifier": "TryCryptoRng",
+    "display_name": "TryCryptoRng",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 decompress/ristretto/step_2",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "5.0.0_pre.0 ristretto/RistrettoPoint/coset4",
+      "5.0.0_pre.0 decompress/ristretto/step_1"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_l_value_properties",
+    "display_name": "lemma_l_value_properties",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/a0_0_val",
+    "display_name": "a0_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_val"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign",
+    "display_name": "AddAssign",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "ConditionallySelectable",
+    "display_name": "ConditionallySelectable",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/decompress",
+    "display_name": "decompress",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 decompress/edwards/step_1",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "5.0.0_pre.0 decompress/edwards/step_2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_empty_seq_as_nat",
+    "display_name": "lemma_empty_seq_as_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/a1_0_val",
+    "display_name": "a1_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_val"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/with_capacity",
+    "display_name": "with_capacity",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/SubAssign/sub_assign",
+    "display_name": "sub_assign",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core convert/From",
+    "display_name": "From",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_strict_inequality",
+    "display_name": "lemma_mul_strict_inequality",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/VartimeEdwardsPrecomputation/VartimePrecomputedMultiscalarMul/new",
+    "display_name": "new",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/new"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square2",
+    "display_name": "square2",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/as_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_0_val",
+    "display_name": "c2_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/as_montgomery",
+    "display_name": "as_montgomery",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_rr_limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_pow2_square",
+    "display_name": "lemma_pow2_square",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "power/arithmetic/pow",
+      "power2/arithmetic/lemma_pow2_unfold",
+      "power/arithmetic/lemma_pow_adds"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/compress_batch",
+    "display_name": "compress_batch",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "5.0.0_pre.0 affine/edwards/AffinePoint/compress",
+      "5.0.0_pre.0 field/FieldElement51/batch_invert",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/by_ref",
+    "display_name": "by_ref",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "ConditionallyNegatable/conditional_negate",
+    "display_name": "conditional_negate",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_montgomery",
+    "display_name": "from_montgomery",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_from_montgomery_limbs_conversion"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "5.0.0_pre.0 edwards/EdwardsPoint/ConstantTimeEq/ct_eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/ProjectivePoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "Choice/unwrap_u8",
+    "display_name": "unwrap_u8",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "ConditionallySelectable",
+      "5.0.0_pre.0 decompress/edwards/step_2",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign",
+      "5.0.0_pre.0 traits/IsIdentity",
+      "5.0.0_pre.0 traits/Identity",
+      "ConstantTimeEq",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub",
+      "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Sum",
+      "core https:/github.com/rust_lang/rust/library/core convert/From",
+      "5.0.0_pre.0 decompress/edwards/step_1",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/to_affine",
+    "display_name": "to_affine",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/invert"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "ConstantTimeEq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 decompress/ristretto/step_2",
+    "display_name": "step_2",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "ConditionallyNegatable/conditional_negate",
+      "5.0.0_pre.0 field/FieldElement51/invsqrt",
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 field/FieldElement51/is_zero"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/push",
+    "display_name": "push",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/as_extended",
+    "display_name": "as_extended",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/VartimeEdwardsPrecomputation/VartimePrecomputedMultiscalarMul/is_empty",
+    "display_name": "is_empty",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/is_empty"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core clone/Clone",
+    "display_name": "Clone",
+    "relative_path": "src/traits.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_square_internal_correct",
+    "display_name": "lemma_square_internal_correct",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_nine_limbs_equals_slice128_to_nat",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_five_limbs_equals_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/nine_limbs_to_nat_aux",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/five_limbs_to_nat_aux",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+    "display_name": "VartimePrecomputedMultiscalarMul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "core https:/github.com/rust_lang/rust/library/core clone/Clone"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc string/ToString/to_string",
+    "display_name": "to_string",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/VartimeEdwardsPrecomputation/VartimePrecomputedMultiscalarMul/optional_mixed_multiscalar_mul",
+    "display_name": "optional_mixed_multiscalar_mul",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/optional_mixed_multiscalar_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/is_small_order",
+    "display_name": "is_small_order",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/IsIdentity/is_identity",
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_cofactor"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/try_from_rng",
+    "display_name": "try_from_rng",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 ristretto/RistrettoPoint/from_uniform_bytes",
+      "TryCryptoRng",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/Sum/sum",
+    "display_name": "sum",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/fold",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/compress",
+    "display_name": "compress",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "Choice/unwrap_u8",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/traits.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat",
+    "display_name": "seq_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_is_distributive_sub_other_way",
+    "display_name": "lemma_mul_is_distributive_sub_other_way",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_decompose",
+    "display_name": "lemma_decompose",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "div_mod/arithmetic/lemma_fundamental_div_mod",
+      "power2/arithmetic/lemma_pow2_pos",
+      "power2/arithmetic/lemma2_to64_rest",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/as_radix_16",
+    "display_name": "as_radix_16",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_add_carry_and_sum_bounds",
+    "display_name": "lemma_add_carry_and_sum_bounds",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/lemma_pow2_pos",
+      "div_mod/arithmetic/lemma_fundamental_div_mod",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "mul/arithmetic/lemma_mul_strict_inequality_converse"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/as_bytes",
+    "display_name": "as_bytes",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core index/ops/Index",
+    "display_name": "Index",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/as_bytes",
+    "display_name": "as_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/vartime_double_scalar_mul_basepoint",
+    "display_name": "vartime_double_scalar_mul_basepoint",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/vartime_double_base_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/add",
+    "display_name": "add",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/sub",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_l_equals_group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_l_value_properties",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_add_loop_bounds",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_add_carry_and_sum_bounds"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/five_limbs_to_nat_aux",
+    "display_name": "five_limbs_to_nat_aux",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/double_and_compress_batch",
+    "display_name": "double_and_compress_batch",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/straus_optional_multiscalar_mul",
+    "display_name": "straus_optional_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 straus/scalar_mul/serial/backend/Straus/VartimeMultiscalarMul/optional_multiscalar_mul",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 backend/get_selected_backend"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core result/Result/map_err",
+    "display_name": "map_err",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 deterministic/determine_curve25519_dalek_bits",
+    "display_name": "determine_curve25519_dalek_bits",
+    "relative_path": "build.rs",
+    "deps": [
+      "std https:/github.com/rust_lang/rust/library/std env/var",
+      "5.0.0_pre.0 deterministic/determine_curve25519_dalek_bits_warning",
+      "alloc https:/github.com/rust_lang/rust/library/alloc string/String/AsRef/as_ref"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_inequality",
+    "display_name": "lemma_mul_inequality",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/Add/add",
+    "display_name": "add",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_quad_prod",
+    "display_name": "mul_quad_prod",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_as_nat_sub",
+    "display_name": "lemma_as_nat_sub",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "power2/arithmetic/pow2",
+      "mul/arithmetic/lemma_mul_is_distributive_sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_mul_internal_no_overflow",
+    "display_name": "lemma_mul_internal_no_overflow",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+    "display_name": "shift_is_pow2",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/pow2_le_max64"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core marker/Copy",
+    "display_name": "Copy",
+    "relative_path": "src/window.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_reduce",
+    "display_name": "lemma_reduce",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_two_factoring_51",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_boundaries",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "div_mod/arithmetic/lemma_small_mod",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/spec_reduce",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_div_and_mod_51",
+      "div_mod/arithmetic/lemma_basic_div",
+      "mul/arithmetic/lemma_mul_is_distributive_add",
+      "mul/arithmetic/lemma_mul_is_distributive_sub_other_way",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/pow22501",
+    "display_name": "pow22501",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc string/String/AsRef/as_ref",
+    "display_name": "as_ref",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core default/Default",
+    "display_name": "Default",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul",
+    "display_name": "Mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/Sum/sum",
+    "display_name": "sum",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 ristretto/RistrettoPoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/fold"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/sub",
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "5.0.0_pre.0 scalar/Scalar/unpack"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_reorder_mul",
+    "display_name": "lemma_reorder_mul",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq"
+    ]
+  },
+  {
+    "identifier": "seq_lib/Seq/map",
+    "display_name": "map",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+    "display_name": "seq_u64_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "seq_lib/Seq/map",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/VartimeEdwardsPrecomputation/VartimePrecomputedMultiscalarMul/len",
+    "display_name": "len",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/len"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core hash/Hash",
+    "display_name": "Hash",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 DalekBits/Display/fmt",
+    "display_name": "fmt",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/VartimeMultiscalarMul/optional_multiscalar_mul",
+    "display_name": "optional_multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 edwards/EdwardsPoint/VartimeMultiscalarMul/optional_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core option/Option/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_bits_be",
+    "display_name": "mul_bits_be",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 montgomery/ProjectivePoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "ConditionallySelectable/conditional_swap",
+      "5.0.0_pre.0 montgomery/ProjectivePoint/as_affine",
+      "5.0.0_pre.0 montgomery/differential_add_and_double",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "Choice/From/from"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/cmp",
+    "display_name": "cmp",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/elligator_encode",
+    "display_name": "elligator_encode",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "ConditionallyNegatable/conditional_negate",
+      "5.0.0_pre.0 field/FieldElement51/sqrt_ratio_i",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square2",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "5.0.0_pre.0 field/FieldElement51/invert",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 decompress/ristretto/step_1",
+    "display_name": "step_1",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "ConstantTimeEq/ct_eq",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "5.0.0_pre.0 ristretto/CompressedRistretto/as_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/pippenger_optional_multiscalar_mul",
+    "display_name": "pippenger_optional_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+      "5.0.0_pre.0 backend/get_selected_backend",
+      "5.0.0_pre.0 pippenger/scalar_mul/serial/backend/Pippenger/VartimeMultiscalarMul/optional_multiscalar_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_pow_2",
+    "display_name": "mul_by_pow_2",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/SubAssign/sub_assign",
+    "display_name": "sub_assign",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Sum",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "5.0.0_pre.0 montgomery/MontgomeryPoint/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core hash/Hash"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core index/ops/Index",
+      "ConstantTimeEq/ct_eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/VartimePrecomputedStraus/new",
+    "display_name": "new",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/new",
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+      "5.0.0_pre.0 backend/get_selected_backend",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/main",
+    "display_name": "main",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_div_multiples_vanish",
+    "display_name": "lemma_div_multiples_vanish",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/load8_at",
+    "display_name": "load8_at",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/IsIdentity",
+    "display_name": "IsIdentity",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat_k",
+    "display_name": "as_nat_k",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_distributive_add",
+      "power2/arithmetic/pow2",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 straus/scalar_mul/serial/backend/Straus/VartimeMultiscalarMul/optional_multiscalar_mul",
+    "display_name": "optional_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/as_extended",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 traits/Identity",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 window/NafLookupTable5/From/from",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/unpack",
+    "display_name": "unpack",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_bytes"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core result/Result/map",
+    "display_name": "map",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 subtle_assumes/u64/serial/backend/reveal_choice",
+    "display_name": "reveal_choice",
+    "relative_path": "src/backend/serial/u64/subtle_assumes.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/pow_p58",
+    "display_name": "pow_p58",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k",
+      "5.0.0_pre.0 field/FieldElement51/pow22501"
+    ]
+  },
+  {
+    "identifier": "power/arithmetic/pow",
+    "display_name": "pow",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/negate",
+    "display_name": "negate",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/reduce"
+    ]
+  },
+  {
+    "identifier": "CryptoRng",
+    "display_name": "CryptoRng",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/Sub/sub",
+    "display_name": "sub",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/BasepointTable",
+    "display_name": "BasepointTable",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shl_nondecreasing",
+    "display_name": "shl_nondecreasing",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shl_decomposition",
+      "power2/arithmetic/lemma2_to64",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shl_zero_is_id",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shl_le_u64"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_old_carry",
+    "display_name": "lemma_old_carry",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_shr_51_fits_u64",
+    "display_name": "lemma_shr_51_fits_u64",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_shr_51_le"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "ConditionallySelectable/conditional_assign",
+    "display_name": "conditional_assign",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "ConstantTimeEq",
+      "5.0.0_pre.0 ristretto/RistrettoPoint/ConstantTimeEq/ct_eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_loop1_invariant",
+    "display_name": "lemma_sub_loop1_invariant",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 load8_at",
+    "display_name": "load8_at",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core slice/iter_mut",
+    "display_name": "iter_mut",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/variable_base_mul",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul/new",
+    "display_name": "new",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+    "display_name": "group_order",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/from_bytes",
+    "display_name": "from_bytes",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_verus/u64/serial/backend/load8_at",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/read_le_u64_into",
+    "display_name": "read_le_u64_into",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core result/Result/expect",
+      "core https:/github.com/rust_lang/rust/library/core convert/TryInto/try_into",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core slice/len",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter_mut",
+      "core https:/github.com/rust_lang/rust/library/core num/from_le_bytes",
+      "core https:/github.com/rust_lang/rust/library/core slice/chunks"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/nine_limbs_to_nat_aux",
+    "display_name": "nine_limbs_to_nat_aux",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_div_and_mod",
+    "display_name": "lemma_div_and_mod",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/lemma2_to64_rest",
+      "div_mod/arithmetic/lemma_fundamental_div_mod",
+      "bits/low_bits_mask",
+      "power2/arithmetic/lemma_pow2_pos",
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "power2/arithmetic/lemma2_to64",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_mod_diff_factor",
+    "display_name": "lemma_mod_diff_factor",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "div_mod/arithmetic/lemma_sub_mod_noop",
+      "div_mod/arithmetic/lemma_mod_multiples_basic",
+      "div_mod/arithmetic/lemma_mod_twice"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mod_multiples_vanish",
+    "display_name": "lemma_mod_multiples_vanish",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_swap",
+    "display_name": "conditional_swap",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "ConditionallySelectable/conditional_swap"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_si_vi_and_reorder",
+    "display_name": "mul_si_vi_and_reorder",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_quad_prod",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_5_terms"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+    "display_name": "zip",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core slice/chunks",
+    "display_name": "chunks",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le",
+    "display_name": "mul_le",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_inequality"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 square_multiply",
+    "display_name": "square_multiply",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_square",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul"
+    ]
+  },
+  {
+    "identifier": "power/arithmetic/lemma_pow_adds",
+    "display_name": "lemma_pow_adds",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/invsqrt",
+    "display_name": "invsqrt",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/sqrt_ratio_i"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 deterministic/determine_curve25519_dalek_bits_warning",
+    "display_name": "determine_curve25519_dalek_bits_warning",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut",
+    "display_name": "IndexMut",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+    "display_name": "as_nat",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/a4_0_val",
+    "display_name": "a4_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/new",
+    "display_name": "new",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "5.0.0_pre.0 window/NafLookupTable8/From/from"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_boundaries",
+    "display_name": "lemma_boundaries",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_verus/u64/serial/backend/masked_lt_51",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_lt",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shifted_lt",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "power2/arithmetic/lemma_pow2_adds"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core hash/Hasher",
+    "display_name": "Hasher",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar52/pack",
+    "display_name": "pack",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/to_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_u64_max_shifting",
+    "display_name": "lemma_u64_max_shifting",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shr_decomposition",
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "power2/arithmetic/lemma2_to64",
+      "div_mod/arithmetic/lemma_div_multiples_vanish",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shl_decomposition",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_to_nat_rec",
+    "display_name": "bytes_to_nat_rec",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/part1",
+    "display_name": "part1",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/m",
+      "core https:/github.com/rust_lang/rust/library/core num/wrapping_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/AddAssign/add_assign",
+    "display_name": "add_assign",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_0_val",
+    "display_name": "c4_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "ConditionallyNegatable",
+    "display_name": "ConditionallyNegatable",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power2/arithmetic/lemma_pow2_subtracts",
+    "display_name": "lemma_pow2_subtracts",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/skip",
+    "display_name": "skip",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/spec_reduce",
+    "display_name": "spec_reduce",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/reduce",
+    "display_name": "reduce",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 BatchCompressState/From/from",
+    "display_name": "from",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "ConditionallyNegatable/conditional_negate",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "5.0.0_pre.0 field/FieldElement51/batch_invert",
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "5.0.0_pre.0 BatchCompressState/efgh",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c_i_0_bounded",
+    "display_name": "c_i_0_bounded",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/term_product_bounds",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/main",
+    "display_name": "main",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power/arithmetic/lemma_pow_positive",
+    "display_name": "lemma_pow_positive",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/double",
+    "display_name": "double",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable8/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/From"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable5/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/From"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/masked_lt_51",
+    "display_name": "masked_lt_51",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/masked_lt",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt"
+    ]
+  },
+  {
+    "identifier": "version_meta",
+    "display_name": "version_meta",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/LookupTable/select",
+    "display_name": "select",
+    "relative_path": "src/backend/serial/scalar_mul/variable_base.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/mul_clamped",
+    "display_name": "mul_clamped",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/clamp_integer"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/variable_base_mul",
+    "display_name": "variable_base_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 variable_base/scalar_mul/serial/backend/mul",
+      "5.0.0_pre.0 backend/get_selected_backend"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq",
+      "5.0.0_pre.0 affine/edwards/AffinePoint/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/size_hint",
+    "display_name": "size_hint",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq",
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/optional_mixe",
+    "display_name": "optional_mixed_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/len",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/as_extended",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 window/NafLookupTable5/From/from",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_general_bound",
+    "display_name": "lemma_general_bound",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat",
+      "power2/arithmetic/lemma2_to64",
+      "seq_lib/Seq/map",
+      "mul/arithmetic/lemma_mul_is_distributive_sub",
+      "power2/arithmetic/lemma2_to64_rest",
+      "mul/arithmetic/lemma_mul_inequality",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core option/Option/map",
+    "display_name": "map",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/Add/add",
+    "display_name": "add",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/len",
+    "display_name": "len",
+    "relative_path": "src/backend/serial/scalar_mul/precomputed_straus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+    "display_name": "Borrow",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_is_associative",
+    "display_name": "lemma_mul_is_associative",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/Index/index",
+    "display_name": "index",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+    "display_name": "p",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_five_limbs_equals_to_nat",
+    "display_name": "lemma_five_limbs_equals_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/five_limbs_to_nat_aux",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/Identity/identity",
+      "5.0.0_pre.0 traits/Identity"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core double_ended/traits/iter/DoubleEndedIterator",
+    "display_name": "DoubleEndedIterator",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/div_ceil",
+    "display_name": "div_ceil",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/square2",
+    "display_name": "square2",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/pow2k",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "mul/arithmetic/lemma_mul_left_inequality",
+      "div_mod/arithmetic/lemma_mul_mod_noop",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_pow_nat_is_nat",
+      "mul/arithmetic/lemma_mul_strict_inequality",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat_k",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+      "power/arithmetic/pow",
+      "power2/arithmetic/lemma2_to64"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_scalar_subtract_no_overflow",
+    "display_name": "lemma_scalar_subtract_no_overflow",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt",
+    "display_name": "l51_bit_mask_lt",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "bits/low_bits_mask",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_val",
+    "display_name": "c2_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/SubAssign/sub_assign",
+    "display_name": "sub_assign",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Sum"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_is_distributive_add",
+    "display_name": "lemma_mul_is_distributive_add",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 BatchCompressState/efgh",
+    "display_name": "efgh",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/From"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_is_distributive_add_other_way",
+    "display_name": "lemma_mul_is_distributive_add_other_way",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 decompress/edwards/step_1",
+    "display_name": "step_1",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/FieldElement51/sqrt_ratio_i",
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/as_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/VartimeRistrettoPrecomputation/VartimePrecomputedMultiscalarMul/len",
+    "display_name": "len",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/len"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat",
+    "display_name": "slice128_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_mul_sub",
+    "display_name": "lemma_mul_sub",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative",
+      "mul/arithmetic/lemma_mul_is_distributive_sub",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma_pow2_adds"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign",
+    "display_name": "SubAssign",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_base_clamped",
+    "display_name": "mul_base_clamped",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/clamp_integer",
+      "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_base"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/square",
+    "display_name": "square",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/square_internal",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/Identity/identity",
+      "5.0.0_pre.0 traits/ValidityCheck"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/coset4",
+    "display_name": "coset4",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/TryFrom/try_from",
+    "display_name": "try_from",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/from_slice"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/from_le_bytes",
+    "display_name": "from_le_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/reduce",
+    "display_name": "reduce",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_add_mod_noop",
+    "display_name": "lemma_add_mod_noop",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power2/arithmetic/pow2",
+    "display_name": "pow2",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core fmt/Debug",
+    "display_name": "Debug",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mul_mod_noop",
+    "display_name": "lemma_mul_mod_noop",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power2/arithmetic/lemma_pow2_pos",
+    "display_name": "lemma_pow2_pos",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/MultiscalarMul",
+    "display_name": "MultiscalarMul",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/from_slice",
+    "display_name": "from_slice",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/TryInto/try_into",
+      "core https:/github.com/rust_lang/rust/library/core result/Result/map"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 main",
+    "display_name": "main",
+    "relative_path": "build.rs",
+    "deps": [
+      "version_meta",
+      "alloc https:/github.com/rust_lang/rust/library/alloc string/ToString/to_string",
+      "core https:/github.com/rust_lang/rust/library/core result/Result/expect",
+      "version",
+      "5.0.0_pre.0 deterministic/determine_curve25519_dalek_bits",
+      "5.0.0_pre.0 is_capable_simd",
+      "core https:/github.com/rust_lang/rust/library/core result/Result/as_deref",
+      "std https:/github.com/rust_lang/rust/library/std env/var"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/BasepointTable/mul_base_clamped",
+    "display_name": "mul_base_clamped",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/clamp_integer"
+    ]
+  },
+  {
+    "identifier": "From/from",
+    "display_name": "from",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_0_val",
+    "display_name": "c0_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/Add",
+    "display_name": "Add",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/clamp_integer",
+    "display_name": "clamp_integer",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/Sub/sub",
+    "display_name": "sub",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_val",
+    "display_name": "c0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add",
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_nonzero",
+    "display_name": "lemma_mul_nonzero",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimeMultiscalarMul/vartime_multiscalar_mul",
+    "display_name": "vartime_multiscalar_mul",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core clone/Clone",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul/optional_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core option/Option/expect"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/IntoIterator/into_iter",
+    "display_name": "into_iter",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/Identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_v0_and_reorder",
+    "display_name": "mul_v0_and_reorder",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_5_terms",
+      "mul/arithmetic/lemma_mul_is_associative"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core convert/TryInto/try_into",
+    "display_name": "try_into",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core option/Option/expect",
+    "display_name": "expect",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_left_inequality",
+    "display_name": "lemma_mul_left_inequality",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_correct_after_loops",
+    "display_name": "lemma_sub_correct_after_loops",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_l_equals_group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_bound_scalar",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "div_mod/arithmetic/lemma_small_mod",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective",
+    "display_name": "as_projective",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core slice/copy_from_slice",
+    "display_name": "copy_from_slice",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_square_internal_no_overflow",
+    "display_name": "lemma_square_internal_no_overflow",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_val",
+    "display_name": "c4_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/VartimePrecomputedStraus/optional_mixed_multiscalar_mul",
+    "display_name": "optional_mixed_multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/optional_mixe"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/reduce",
+    "display_name": "reduce",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_reduce",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+      "div_mod/arithmetic/lemma_mod_multiples_vanish",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_boundaries",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/spec_reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_bytes",
+    "display_name": "from_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/words_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/words_to_nat_gen_u32",
+    "display_name": "words_to_nat_gen_u32",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_mod_cancel",
+    "display_name": "lemma_mod_cancel",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "div_mod/arithmetic/lemma_mod_add_multiples_vanish",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_cast_then_mask_51",
+    "display_name": "lemma_cast_then_mask_51",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/mul_base",
+    "display_name": "mul_base",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/MultiscalarMul"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core slice/len",
+    "display_name": "len",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_pow_nat_is_nat",
+    "display_name": "lemma_pow_nat_is_nat",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/lemma_pow2_pos",
+      "power/arithmetic/lemma_pow_positive",
+      "power2/arithmetic/pow2",
+      "power/arithmetic/pow",
+      "power/arithmetic/lemma0_pow"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/Default/default",
+    "display_name": "default",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/Identity/identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/masked_lt",
+    "display_name": "masked_lt",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "bits/low_bits_mask",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "div_mod/arithmetic/lemma_mod_bound",
+      "power2/arithmetic/lemma_pow2_pos",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "ConditionallySelectable"
+    ]
+  },
+  {
+    "identifier": "power/arithmetic/lemma0_pow",
+    "display_name": "lemma0_pow",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core slice/iter",
+    "display_name": "iter",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar52/invert",
+    "display_name": "invert",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar52/montgomery_invert",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_montgomery",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/as_montgomery"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoBasepointTable/basepoint",
+    "display_name": "basepoint",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "ConditionallySelectable",
+      "5.0.0_pre.0 edwards/EdwardsBasepointTable/BasepointTable/basepoint"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/pow2k",
+    "display_name": "pow2k",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "div_mod/arithmetic/lemma_mul_mod_noop",
+      "mul/arithmetic/lemma_mul_is_distributive_sub_other_way",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/lemma2_to64_rest",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_0_val",
+      "power/arithmetic/pow",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_reorder_mul",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_pow_nat_is_nat",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/m",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_cast_then_mod_51",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat_squared",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_mul_sub",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/term_product_bounds",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_0_val",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt",
+      "mul/arithmetic/lemma_mul_is_distributive_sub",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_mod_diff_factor",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c_i_0_bounded",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_pow2_square",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_shr_51_le",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c_i_shift_bounded",
+      "power2/arithmetic/lemma2_to64",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_div_and_mod_51",
+      "div_mod/arithmetic/lemma_fundamental_div_mod",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/masked_lt_51",
+      "power/arithmetic/lemma_pow1"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "ConditionallySelectable"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/as_bytes",
+    "display_name": "as_bytes",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "ConditionallySelectable",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/differential_add_and_double",
+    "display_name": "differential_add_and_double",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/Identity",
+    "display_name": "Identity",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_bits_be",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign",
+      "5.0.0_pre.0 scalar/Scalar/bits_le",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/skip"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_basic_div",
+    "display_name": "lemma_basic_div",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+    "display_name": "map",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/get_selected_backend",
+    "display_name": "get_selected_backend",
+    "relative_path": "src/backend/mod.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/AddAssign/add_assign",
+    "display_name": "add_assign",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 m",
+    "display_name": "m",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg"
+    ]
+  },
+  {
+    "identifier": "CtOption/new",
+    "display_name": "new",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/a2_0_val",
+    "display_name": "a2_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_val"
+    ]
+  },
+  {
+    "identifier": "bits/lemma_low_bits_mask_div2",
+    "display_name": "lemma_low_bits_mask_div2",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/compress",
+    "display_name": "compress",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/to_affine",
+      "5.0.0_pre.0 affine/edwards/AffinePoint/compress"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_div_and_mod_51",
+    "display_name": "lemma_div_and_mod_51",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_div_and_mod"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/from_canonical_bytes",
+    "display_name": "from_canonical_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug",
+      "CtOption/new",
+      "5.0.0_pre.0 scalar/Scalar/is_canonical"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core map/adapters/iter/Map/Iterator/fold",
+    "display_name": "fold",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/Default/default",
+    "display_name": "default",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 ristretto/CompressedRistretto/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core convert/TryFrom"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_shr_51_le",
+    "display_name": "lemma_shr_51_le",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/lemma_pow2_pos",
+      "div_mod/arithmetic/lemma_div_is_ordered",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/low_bits_mask_increases",
+    "display_name": "low_bits_mask_increases",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "bits/lemma_low_bits_mask_unfold",
+      "bits/lemma_low_bits_mask_div2",
+      "bits/low_bits_mask",
+      "bits/lemma_low_bits_mask_values"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core cmp/Eq",
+    "display_name": "Eq",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/ProjectivePoint/as_affine",
+    "display_name": "as_affine",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/invert",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_val",
+    "display_name": "c3_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/main",
+    "display_name": "main",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/straus_multiscalar_mul",
+    "display_name": "straus_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/get_selected_backend",
+      "5.0.0_pre.0 traits/MultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 straus/scalar_mul/serial/backend/Straus/MultiscalarMul/multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/From/from",
+    "display_name": "from",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core slice/len",
+      "core https:/github.com/rust_lang/rust/library/core slice/copy_from_slice",
+      "core https:/github.com/rust_lang/rust/library/core num/to_le_bytes",
+      "core https:/github.com/rust_lang/rust/library/core convert/From"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "ConstantTimeEq",
+      "5.0.0_pre.0 ristretto/CompressedRistretto/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "TryRngCore",
+    "display_name": "TryRngCore",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+    "display_name": "VartimeMultiscalarMul",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_bytes_wide",
+    "display_name": "from_bytes_wide",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_wide_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/add",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "version",
+    "display_name": "version",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat_32_u8",
+    "display_name": "as_nat_32_u8",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/BasepointTable/create",
+    "display_name": "create",
+    "relative_path": "src/traits.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core convert/From/from",
+    "display_name": "from",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/sub",
+    "display_name": "sub",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_borrow_and_mask_bounded",
+      "Choice/From/from",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_loop1_invariant",
+      "core https:/github.com/rust_lang/rust/library/core num/wrapping_sub",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 subtle_assumes/u64/serial/backend/select",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_carry_bounded_after_mask",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_correct_after_loops",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_scalar_subtract_no_overflow",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_loop2_invariant"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/to_radix_2w_size_hint",
+    "display_name": "to_radix_2w_size_hint",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core num/div_ceil"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_two_factoring_51",
+    "display_name": "lemma_two_factoring_51",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_two_factoring"
+    ]
+  },
+  {
+    "identifier": "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/is_empty",
+    "display_name": "is_empty",
+    "relative_path": "src/backend/serial/scalar_mul/precomputed_straus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/elligator_ristretto_flavor",
+    "display_name": "elligator_ristretto_flavor",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "ConditionallyNegatable/conditional_negate",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "5.0.0_pre.0 field/FieldElement51/sqrt_ratio_i"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/ValidityCheck/is_valid",
+    "display_name": "is_valid",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/ValidityCheck/is_valid",
+      "ConditionallySelectable",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/vartime_double_scalar_mul_basepoint",
+    "display_name": "vartime_double_scalar_mul_basepoint",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul",
+      "5.0.0_pre.0 edwards/EdwardsPoint/vartime_double_scalar_mul_basepoint"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/batch_invert",
+    "display_name": "batch_invert",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core slice/len",
+      "From/from",
+      "5.0.0_pre.0 field/FieldElement51/invert",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "5.0.0_pre.0 field/FieldElement51/is_zero",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter_mut",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/IntoIterator/into_iter"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_val",
+    "display_name": "c1_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/Sub/sub",
+    "display_name": "sub",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_limbs",
+    "display_name": "from_limbs",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/MulAssign/mul_assign",
+    "display_name": "mul_assign",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 subtle_assumes/u64/serial/backend/select",
+    "display_name": "select",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "ConditionallySelectable/conditional_select",
+      "5.0.0_pre.0 subtle_assumes/u64/serial/backend/reveal_choice"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq",
+      "5.0.0_pre.0 ristretto/RistrettoPoint/Identity/identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_borrow_and_mask_bounded",
+    "display_name": "lemma_borrow_and_mask_bounded",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_add_then_shift",
+    "display_name": "lemma_add_then_shift",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "div_mod/arithmetic/lemma_multiply_divide_lt",
+      "power2/arithmetic/lemma2_to64_rest",
+      "power2/arithmetic/lemma_pow2_subtracts"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/to_le_bytes",
+    "display_name": "to_le_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mod_add_multiples_vanish",
+    "display_name": "lemma_mod_add_multiples_vanish",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/low_bits_masks_fit_u64",
+    "display_name": "low_bits_masks_fit_u64",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/low_bits_mask_increases",
+      "bits/lemma_low_bits_mask_values",
+      "bits/low_bits_mask"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_verus/u64/serial/backend/spec_reduce",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shifted_lt",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/l51_bit_mask_lt",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/reduce",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/lemma_reduce",
+      "power2/arithmetic/lemma2_to64",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_add_then_shift"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/Hash/hash",
+    "display_name": "hash",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core hash/Hasher",
+      "core https:/github.com/rust_lang/rust/library/core array/Hash/hash",
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/is_zero",
+    "display_name": "is_zero",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "ConstantTimeEq/ct_eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/invert",
+    "display_name": "invert",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k",
+      "5.0.0_pre.0 field/FieldElement51/pow22501"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_0_val",
+    "display_name": "c3_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/words_to_nat_gen_u64",
+    "display_name": "words_to_nat_gen_u64",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shl_zero_is_id",
+    "display_name": "shl_zero_is_id",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "bits/lemma_low_bits_mask_unfold",
+    "display_name": "lemma_low_bits_mask_unfold",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_5_terms",
+    "display_name": "mul_5_terms",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_distributive_add"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Default/default",
+    "display_name": "default",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/From"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+    "display_name": "montgomery_radix",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/ValidityCheck/is_valid",
+    "display_name": "is_valid",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "ConditionallySelectable"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/Sub/sub",
+    "display_name": "sub",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective_niels"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/as_radix_2w",
+    "display_name": "as_radix_2w",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/read_le_u64_into",
+      "core https:/github.com/rust_lang/rust/library/core num/div_ceil",
+      "5.0.0_pre.0 scalar/Scalar/as_radix_16"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/random",
+    "display_name": "random",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/IsIdentity/is_identity",
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/decompress",
+      "RngCore",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "5.0.0_pre.0 traits/IsIdentity"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+    "display_name": "rev",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/VartimeRistrettoPrecomputation/VartimePrecomputedMultiscalarMul/optional_mixed_multiscalar_mul",
+    "display_name": "optional_mixed_multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/optional_mixed_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core option/Option/map",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+    "display_name": "collect",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_carry_bounded_after_mask",
+    "display_name": "lemma_carry_bounded_after_mask",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "mul/arithmetic/lemma_mul_strict_inequality_converse",
+      "power2/arithmetic/lemma_pow2_pos",
+      "div_mod/arithmetic/lemma_fundamental_div_mod"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/is_negative",
+    "display_name": "is_negative",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_lt",
+    "display_name": "mul_lt",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_nonzero",
+      "mul/arithmetic/lemma_mul_strict_inequality"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/VartimeRistrettoPrecomputation/VartimePrecomputedMultiscalarMul/new",
+    "display_name": "new",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/new",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/invert",
+    "display_name": "invert",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "5.0.0_pre.0 scalar/Scalar52/invert",
+      "5.0.0_pre.0 scalar/Scalar52/pack"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/random",
+    "display_name": "random",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "CryptoRng",
+      "5.0.0_pre.0 scalar/Scalar/from_bytes_mod_order_wide"
+    ]
+  },
+  {
+    "identifier": "power/arithmetic/lemma_pow1",
+    "display_name": "lemma_pow1",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+    "display_name": "from_bytes",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/is_torsion_free",
+    "display_name": "is_torsion_free",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/IsIdentity/is_identity",
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/MulAssign/mul_assign",
+    "display_name": "mul_assign",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul/vartime_multiscalar_mul",
+    "display_name": "vartime_multiscalar_mul",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul/vartime_mixed_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core empty/sources/iter/empty"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/from_bytes_mod_order",
+    "display_name": "from_bytes_mod_order",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar/reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/MultiscalarMul/multiscalar_mul",
+    "display_name": "multiscalar_mul",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal",
+    "display_name": "mul_internal",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_mul_internal_correct",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_mul_internal_no_overflow",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar/u64/serial/backend/m",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/VartimeRistrettoPrecomputation/VartimePrecomputedMultiscalarMul/is_empty",
+    "display_name": "is_empty",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 backend/VartimePrecomputedStraus/is_empty"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_add_loop_bounds",
+    "display_name": "lemma_add_loop_bounds",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_l_equals_group_order",
+    "display_name": "lemma_l_equals_group_order",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/lemma2_to64_rest",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_five_limbs_equals_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/five_limbs_to_nat_aux"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Sub/sub",
+    "display_name": "sub",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/sub",
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/TryFrom/try_from",
+    "display_name": "try_from",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 ristretto/CompressedRistretto/from_slice"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select",
+      "ConstantTimeEq"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core result/Result/expect",
+    "display_name": "expect",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_multiply_divide_lt",
+    "display_name": "lemma_multiply_divide_lt",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable5/select",
+    "display_name": "select",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_0_val",
+    "display_name": "c1_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_cofactor",
+    "display_name": "mul_by_cofactor",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_pow_2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "ConstantTimeEq",
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into"
+    ]
+  },
+  {
+    "identifier": "ConditionallySelectable/conditional_swap",
+    "display_name": "conditional_swap",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/Scalar/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul",
+      "5.0.0_pre.0 affine/edwards/AffinePoint/to_edwards"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_wide_to_nat_rec",
+    "display_name": "bytes_wide_to_nat_rec",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "deps": [
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+    "display_name": "montgomery_reduce",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/part2",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/part1",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar/u64/serial/backend/m",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimeMultiscalarMul/optional_multiscalar_mul",
+    "display_name": "optional_multiscalar_mul",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+    "display_name": "as_extended",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/is_canonical",
+    "display_name": "is_canonical",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar/ConstantTimeEq/ct_eq",
+      "5.0.0_pre.0 scalar/Scalar/reduce"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/len",
+    "display_name": "len",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/len"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/fold",
+    "display_name": "fold",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Index/index",
+    "display_name": "index",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Sum",
+    "display_name": "Sum",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/to_montgomery_batch",
+    "display_name": "to_montgomery_batch",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/batch_invert",
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/with_capacity",
+      "core https:/github.com/rust_lang/rust/library/core slice/len",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/push"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/negate",
+      "ConditionallySelectable"
+    ]
+  },
+  {
+    "identifier": "power2/arithmetic/lemma_pow2_adds",
+    "display_name": "lemma_pow2_adds",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mod_twice",
+    "display_name": "lemma_mod_twice",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shifted_lt",
+    "display_name": "shifted_lt",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shl_zero_is_id",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_u64_max_shifting",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shr_le_u64"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/to_montgomery",
+    "display_name": "to_montgomery",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "5.0.0_pre.0 field/FieldElement51/invert"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/c_i_shift_bounded",
+    "display_name": "c_i_shift_bounded",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c1_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c2_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_shr_51_fits_u64",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_val",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c_i_0_bounded",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c0_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/a3_0_val",
+    "display_name": "a3_0_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c3_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/part2",
+    "display_name": "part2",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Sum/sum",
+    "display_name": "sum",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/fold",
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/is_empty",
+    "display_name": "is_empty",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "alloc https:/github.com/rust_lang/rust/library/alloc vec/Vec/is_empty"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shl_decomposition",
+    "display_name": "shl_decomposition",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shl_zero_is_id",
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_le",
+      "mul/arithmetic/lemma_mul_is_associative"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/words_to_nat",
+    "display_name": "words_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/words_to_nat_gen_u64"
+    ]
+  },
+  {
+    "identifier": "Choice/From/from",
+    "display_name": "from",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 is_capable_simd",
+    "display_name": "is_capable_simd",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/ConditionallySelectable/conditional_assign",
+    "display_name": "conditional_assign",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "ConstantTimeEq/ct_eq",
+      "5.0.0_pre.0 ristretto/CompressedRistretto/as_bytes"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/mul_base",
+    "display_name": "mul_base",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_sub_mod_noop",
+    "display_name": "lemma_sub_mod_noop",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/wrapping_mul",
+    "display_name": "wrapping_mul",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable8/select",
+    "display_name": "select",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul/vartime_mixed_multiscalar_mul",
+    "display_name": "vartime_mixed_multiscalar_mul",
+    "relative_path": "src/traits.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core option/Option/expect"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/pow2k",
+    "display_name": "pow2k",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+    "display_name": "IntoIterator",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_m",
+    "display_name": "lemma_m",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_lt"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/Add/add",
+    "display_name": "add",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective_niels",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_strict_inequality_converse",
+    "display_name": "lemma_mul_strict_inequality_converse",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/VartimePrecomputedStraus/is_empty",
+    "display_name": "is_empty",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+      "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/is_empty"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsBasepointTable/BasepointTable/basepoint",
+    "display_name": "basepoint",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power2/arithmetic/lemma2_to64_rest",
+    "display_name": "lemma2_to64_rest",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_mul_internal_correct",
+    "display_name": "lemma_mul_internal_correct",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_five_limbs_equals_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/nine_limbs_to_nat_aux",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/five_limbs_to_nat_aux",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_nine_limbs_equals_slice128_to_nat",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/as_bytes",
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq",
+      "ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core cmp/Eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/IsIdentity/is_identity",
+    "display_name": "is_identity",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 traits/Identity",
+      "5.0.0_pre.0 traits/Identity/identity",
+      "ConstantTimeEq",
+      "ConstantTimeEq/ct_eq",
+      "5.0.0_pre.0 traits/IsIdentity",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/MulAssign/mul_assign",
+    "display_name": "mul_assign",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/MulAssign/mul_assign",
+    "display_name": "mul_assign",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/m",
+    "display_name": "m",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_52_52"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/sqrt_ratio_i",
+    "display_name": "sqrt_ratio_i",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/FieldElement51/is_negative",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+      "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square",
+      "5.0.0_pre.0 field/FieldElement51/pow_p58",
+      "ConditionallyNegatable/conditional_negate"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": [
+      "5.0.0_pre.0 affine/edwards/AffinePoint/Identity/identity",
+      "5.0.0_pre.0 traits/Identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 traits/ValidityCheck",
+    "display_name": "ValidityCheck",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul",
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/AddAssign",
+      "5.0.0_pre.0 scalar/Scalar52/pack"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul",
+    "display_name": "montgomery_mul",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul_internal",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 straus/scalar_mul/serial/backend/Straus/MultiscalarMul/multiscalar_mul",
+    "display_name": "multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_pow_2",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+      "5.0.0_pre.0 traits/Identity",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "core https:/github.com/rust_lang/rust/library/core convert/From/from",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/MulAssign/mul_assign",
+    "display_name": "mul_assign",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/mul",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul",
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "5.0.0_pre.0 scalar/Scalar/unpack"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 variable_base/scalar_mul/serial/backend/mul",
+    "display_name": "mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+      "5.0.0_pre.0 window/LookupTable/From/from",
+      "5.0.0_pre.0 window/LookupTable/select",
+      "5.0.0_pre.0 scalar/Scalar/as_radix_16",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mod_bound",
+    "display_name": "lemma_mod_bound",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "bits/lemma_low_bits_mask_values",
+    "display_name": "lemma_low_bits_mask_values",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/LookupTable/From/from",
+    "display_name": "from",
+    "relative_path": "src/backend/serial/scalar_mul/variable_base.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/to_edwards",
+    "display_name": "to_edwards",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "5.0.0_pre.0 field/FieldElement51/invert",
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/decompress"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 affine/edwards/AffinePoint/to_edwards",
+    "display_name": "to_edwards",
+    "relative_path": "src/edwards/affine.rs",
+    "deps": []
+  },
+  {
+    "identifier": "power2/arithmetic/lemma_pow2_strictly_increases",
+    "display_name": "lemma_pow2_strictly_increases",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub",
+    "display_name": "Sub",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsBasepointTable/BasepointTable/create",
+    "display_name": "create",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 pippenger/scalar_mul/serial/backend/Pippenger/VartimeMultiscalarMul/optional_multiscalar_mul",
+    "display_name": "optional_multiscalar_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/size_hint",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+      "5.0.0_pre.0 scalar/Scalar/to_radix_2w_size_hint",
+      "core https:/github.com/rust_lang/rust/library/core map/adapters/iter/Map/Iterator/next",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/collect",
+      "5.0.0_pre.0 traits/Identity",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/by_ref",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/cmp",
+      "core https:/github.com/rust_lang/rust/library/core map/adapters/iter/Map/Iterator/fold",
+      "core https:/github.com/rust_lang/rust/library/core option/Option/expect",
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_by_pow_2"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+    "display_name": "Sized",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/mul_5_terms_other_way",
+    "display_name": "mul_5_terms_other_way",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_distributive_add_other_way"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_wide_to_nat",
+    "display_name": "bytes_wide_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_wide_to_nat_rec"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Product",
+    "display_name": "Product",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 window/NafLookupTable5/From/from",
+    "display_name": "from",
+    "relative_path": "src/window.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core convert/From",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_affine_niels",
+      "core https:/github.com/rust_lang/rust/library/core marker/Copy",
+      "5.0.0_pre.0 edwards/EdwardsPoint/as_projective_niels",
+      "5.0.0_pre.0 edwards/EdwardsPoint/double",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+    "display_name": "Neg",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_base",
+    "display_name": "mul_base",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_base",
+      "5.0.0_pre.0 edwards/EdwardsPoint/to_montgomery"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core result/Result/as_deref",
+    "display_name": "as_deref",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Add/add",
+    "display_name": "add",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/add",
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/SubAssign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/ProjectivePoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "ConditionallySelectable",
+      "5.0.0_pre.0 montgomery/ProjectivePoint/Identity/identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_from_montgomery_limbs_conversion",
+    "display_name": "lemma_from_montgomery_limbs_conversion",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_nine_limbs_equals_slice128_to_nat",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_five_limbs_equals_to_nat",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/nine_limbs_to_nat_aux"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/VartimePrecomputedStraus/len",
+    "display_name": "len",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 precomputed_straus/scalar_mul/serial/backend/VartimePrecomputedStraus/VartimePrecomputedMultiscalarMul/len",
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shr_zero_is_id",
+    "display_name": "shr_zero_is_id",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shr_le_u64",
+    "display_name": "lemma_shr_le_u64",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/lemma_pow2_pos",
+      "power2/arithmetic/pow2",
+      "div_mod/arithmetic/lemma_div_is_ordered"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+    "display_name": "pow255_gt_19",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "power2/arithmetic/lemma2_to64",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "ConstantTimeEq",
+    "display_name": "ConstantTimeEq",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_assign",
+    "display_name": "conditional_assign",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "ConditionallySelectable/conditional_assign"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/VartimeMultiscalarMul/optional_multiscalar_mul",
+    "display_name": "optional_multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "5.0.0_pre.0 backend/straus_optional_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/by_ref",
+      "5.0.0_pre.0 traits/VartimePrecomputedMultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/size_hint",
+      "5.0.0_pre.0 backend/pippenger_optional_multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 backend/vartime_double_base_mul",
+    "display_name": "vartime_double_base_mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "5.0.0_pre.0 vartime_double_base/scalar_mul/serial/backend/mul",
+      "5.0.0_pre.0 backend/get_selected_backend"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_sub_loop2_invariant",
+    "display_name": "lemma_sub_loop2_invariant",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_old_carry",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/carry_val",
+    "display_name": "carry_val",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/c4_val"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/square",
+    "display_name": "square",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "power/arithmetic/pow",
+      "power2/arithmetic/lemma2_to64",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/pow2k"
+    ]
+  },
+  {
+    "identifier": "power2/arithmetic/lemma_pow2_unfold",
+    "display_name": "lemma_pow2_unfold",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/to_bytes",
+    "display_name": "to_bytes",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_fundamental_div_mod",
+    "display_name": "lemma_fundamental_div_mod",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_small_mod",
+    "display_name": "lemma_small_mod",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_52_52",
+    "display_name": "lemma_52_52",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_square",
+    "display_name": "montgomery_square",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/limbs_bounded",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_reduce",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/montgomery_radix",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/square_internal"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/FieldElement51/ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/field.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/to_bytes",
+      "ConstantTimeEq/ct_eq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/SubAssign/sub_assign",
+    "display_name": "sub_assign",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoBasepointTable/create",
+    "display_name": "create",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsBasepointTable/BasepointTable/create"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/Mul/mul",
+    "display_name": "mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+    "display_name": "to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/wrapping_sub",
+    "display_name": "wrapping_sub",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double",
+    "display_name": "double",
+    "relative_path": "src/backend/serial/scalar_mul/straus.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square2",
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add",
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/square"
+    ]
+  },
+  {
+    "identifier": "mul/arithmetic/lemma_mul_is_distributive_sub",
+    "display_name": "lemma_mul_is_distributive_sub",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core arith/ops/MulAssign",
+    "display_name": "MulAssign",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 top_half",
+    "display_name": "top_half",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 bot_half"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/MultiscalarMul/multiscalar_mul",
+    "display_name": "multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+      "5.0.0_pre.0 edwards/EdwardsPoint/MultiscalarMul/multiscalar_mul",
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator"
+    ]
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_div_denominator",
+    "display_name": "lemma_div_denominator",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/as_projective",
+    "display_name": "as_projective",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator",
+    "display_name": "Iterator",
+    "relative_path": "src/ristretto.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/ProjectiveNielsPoint/Identity/identity",
+    "display_name": "identity",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core default/Default"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/pow2_le_max64",
+    "display_name": "pow2_le_max64",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "power2/arithmetic/lemma2_to64",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_mod_sum_factor",
+    "display_name": "lemma_mod_sum_factor",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "div_mod/arithmetic/lemma_add_mod_noop",
+      "div_mod/arithmetic/lemma_mod_multiples_basic",
+      "div_mod/arithmetic/lemma_mod_twice"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_scalar",
+    "display_name": "to_scalar",
+    "relative_path": "src/backend/serial/u64/scalar_specs.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/group_order"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/Default/default",
+    "display_name": "default",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/Identity/identity",
+      "5.0.0_pre.0 traits/ValidityCheck"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core empty/sources/iter/empty",
+    "display_name": "empty",
+    "relative_path": "src/traits.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_to_nat",
+    "display_name": "bytes_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/bytes_to_nat_rec"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/MultiscalarMul/multiscalar_mul",
+    "display_name": "multiscalar_mul",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core collect/traits/iter/IntoIterator",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/by_ref",
+      "5.0.0_pre.0 traits/VartimeMultiscalarMul",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/size_hint",
+      "5.0.0_pre.0 backend/straus_multiscalar_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/CompressedRistretto/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug",
+      "5.0.0_pre.0 ristretto/CompressedRistretto/as_bytes"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+    "display_name": "into",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "bits/low_bits_mask",
+    "display_name": "low_bits_mask",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_mod_multiples_basic",
+    "display_name": "lemma_mod_multiples_basic",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Product",
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_seq_u64_to_nat_subrange_extend",
+    "display_name": "lemma_seq_u64_to_nat_subrange_extend",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_to_nat",
+      "power2/arithmetic/pow2",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/seq_u64_to_nat",
+      "seq_lib/Seq/map"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/mul_clamped",
+    "display_name": "mul_clamped",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/clamp_integer"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/batch_invert",
+    "display_name": "batch_invert",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core slice/len",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_montgomery",
+      "5.0.0_pre.0 scalar/Scalar/unpack",
+      "5.0.0_pre.0 scalar/Scalar52/montgomery_invert",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/as_montgomery",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter_mut",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/zip",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "core https:/github.com/rust_lang/rust/library/core slice/iter",
+      "5.0.0_pre.0 scalar/Scalar52/pack"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/random",
+    "display_name": "random",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "CryptoRng",
+      "core https:/github.com/rust_lang/rust/library/core result/Result/map_err",
+      "core https:/github.com/rust_lang/rust/library/core marker/Sized",
+      "core https:/github.com/rust_lang/rust/library/core result/Result/expect",
+      "5.0.0_pre.0 ristretto/RistrettoPoint/try_from_rng"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/MontgomeryPoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "ConditionallySelectable/conditional_select",
+      "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 montgomery/ProjectivePoint/ConditionallySelectable/conditional_select",
+    "display_name": "conditional_select",
+    "relative_path": "src/montgomery.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/ConditionallySelectable/conditional_select"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/AddAssign/add_assign",
+    "display_name": "add_assign",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core index/ops/Index"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core cmp/PartialEq",
+    "display_name": "PartialEq",
+    "relative_path": "src/field.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/CompressedEdwardsY/PartialEq/eq",
+    "display_name": "eq",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/CompressedEdwardsY/ConstantTimeEq/ct_eq",
+      "core https:/github.com/rust_lang/rust/library/core convert/Into/into",
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/bits_le",
+    "display_name": "bits_le",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core double_ended/traits/iter/DoubleEndedIterator",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/map"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 bot_half",
+    "display_name": "bot_half",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/negate",
+    "display_name": "negate",
+    "relative_path": "src/backend/serial/u64/field_verus.rs",
+    "deps": [
+      "power2/arithmetic/pow2",
+      "mul/arithmetic/lemma_mul_is_distributive_sub",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_as_nat_sub",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shr_le_u64",
+      "5.0.0_pre.0 field_verus/u64/serial/backend/FieldElement51/reduce",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shift_is_pow2",
+      "div_mod/arithmetic/lemma_mod_multiples_basic",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/mul_base_clamped",
+    "display_name": "mul_base_clamped",
+    "relative_path": "src/edwards.rs",
+    "deps": [
+      "5.0.0_pre.0 edwards/EdwardsPoint/mul_base",
+      "5.0.0_pre.0 traits/MultiscalarMul",
+      "5.0.0_pre.0 scalar/clamp_integer"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/from_bytes_mod_order_wide",
+    "display_name": "from_bytes_mod_order_wide",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/Scalar52/pack",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/from_bytes_wide"
+    ]
+  },
+  {
+    "identifier": "ConstantTimeEq/ct_eq",
+    "display_name": "ct_eq",
+    "relative_path": "src/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/AffineNielsPoint/Debug/fmt",
+    "display_name": "fmt",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "std https:/github.com/rust_lang/rust/library/std env/var",
+    "display_name": "var",
+    "relative_path": "build.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat_squared",
+    "display_name": "as_nat_squared",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_distributive_add",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_5_terms_other_way",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_v0_and_reorder",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/p",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma_pow2_adds",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/as_nat",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/mul_si_vi_and_reorder",
+      "5.0.0_pre.0 field_lemmas/u64/serial/backend/pow255_gt_19",
+      "mul/arithmetic/lemma_mul_is_associative",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_mod_sum_factor"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/Neg/neg",
+    "display_name": "neg",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Neg",
+      "core https:/github.com/rust_lang/rust/library/core fmt/Debug"
+    ]
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core array/Hash/hash",
+    "display_name": "hash",
+    "relative_path": "src/montgomery.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/term_product_bounds",
+    "display_name": "term_product_bounds",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_m",
+      "mul/arithmetic/lemma_mul_is_associative"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field_lemmas/u64/serial/backend/lemma_cast_then_mod_51",
+    "display_name": "lemma_cast_then_mod_51",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "power2/arithmetic/lemma2_to64_rest",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "RngCore",
+    "display_name": "RngCore",
+    "relative_path": "src/edwards.rs",
+    "deps": []
+  },
+  {
+    "identifier": "div_mod/arithmetic/lemma_div_is_ordered",
+    "display_name": "lemma_div_is_ordered",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/IndexMut/index_mut",
+    "display_name": "index_mut",
+    "relative_path": "src/backend/serial/u64/scalar.rs",
+    "deps": []
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core map/adapters/iter/Map/Iterator/next",
+    "display_name": "next",
+    "relative_path": "src/backend/serial/scalar_mul/pippenger.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_two_factoring",
+    "display_name": "lemma_two_factoring",
+    "relative_path": "src/backend/serial/u64/field_lemmas.rs",
+    "deps": [
+      "mul/arithmetic/lemma_mul_is_associative",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/pow2"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 ristretto/RistrettoPoint/from_uniform_bytes",
+    "display_name": "from_uniform_bytes",
+    "relative_path": "src/ristretto.rs",
+    "deps": [
+      "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/from_bytes",
+      "5.0.0_pre.0 ristretto/RistrettoPoint/elligator_ristretto_flavor",
+      "core https:/github.com/rust_lang/rust/library/core slice/copy_from_slice",
+      "5.0.0_pre.0 traits/Identity"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 edwards/EdwardsPoint/as_projective_niels",
+    "display_name": "as_projective_niels",
+    "relative_path": "src/window.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 curve_models/serial/backend/Add/add",
+    "display_name": "add",
+    "relative_path": "src/backend/serial/curve_models/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Sub"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shr_decomposition",
+    "display_name": "shr_decomposition",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "div_mod/arithmetic/lemma_div_denominator",
+      "power2/arithmetic/lemma_pow2_pos",
+      "power2/arithmetic/lemma_pow2_strictly_increases",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shr_zero_is_id",
+      "power2/arithmetic/pow2",
+      "power2/arithmetic/lemma_pow2_adds",
+      "power2/arithmetic/lemma2_to64_rest"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar52/montgomery_invert",
+    "display_name": "montgomery_invert",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_square",
+      "5.0.0_pre.0 scalar/u64/serial/backend/Scalar52/montgomery_mul"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/Product/product",
+    "display_name": "product",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core borrow/Borrow",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/fold",
+      "core https:/github.com/rust_lang/rust/library/core accum/traits/iter/Sum",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar/Scalar/non_adjacent_form",
+    "display_name": "non_adjacent_form",
+    "relative_path": "src/scalar.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core num/wrapping_sub",
+      "5.0.0_pre.0 scalar/read_le_u64_into"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_nine_limbs_equals_slice128_to_nat",
+    "display_name": "lemma_nine_limbs_equals_slice128_to_nat",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": [
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/slice128_to_nat",
+      "5.0.0_pre.0 scalar_specs/u64/serial/backend/nine_limbs_to_nat_aux"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 scalar_lemmas/u64/serial/backend/lemma_rr_limbs_bounded",
+    "display_name": "lemma_rr_limbs_bounded",
+    "relative_path": "src/backend/serial/u64/scalar_lemmas.rs",
+    "deps": []
+  },
+  {
+    "identifier": "5.0.0_pre.0 common_verus/u64/serial/backend/shr_nonincreasing",
+    "display_name": "shr_nonincreasing",
+    "relative_path": "src/backend/serial/u64/common_verus.rs",
+    "deps": [
+      "5.0.0_pre.0 common_verus/u64/serial/backend/lemma_shr_le_u64",
+      "5.0.0_pre.0 common_verus/u64/serial/backend/shr_decomposition"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 vartime_double_base/scalar_mul/serial/backend/mul",
+    "display_name": "mul",
+    "relative_path": "src/backend/mod.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core impls/cmp/Ord/cmp",
+      "5.0.0_pre.0 scalar/Scalar/non_adjacent_form",
+      "5.0.0_pre.0 window/NafLookupTable5/select",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/as_extended",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_extended",
+      "5.0.0_pre.0 curve_models/serial/backend/CompletedPoint/as_projective",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/Identity/identity",
+      "core https:/github.com/rust_lang/rust/library/core iterator/traits/iter/Iterator/rev",
+      "5.0.0_pre.0 window/NafLookupTable5/From/from",
+      "5.0.0_pre.0 window/NafLookupTable8/select",
+      "5.0.0_pre.0 curve_models/serial/backend/ProjectivePoint/double"
+    ]
+  },
+  {
+    "identifier": "5.0.0_pre.0 field/u64/serial/backend/FieldElement51/AddAssign/add_assign",
+    "display_name": "add_assign",
+    "relative_path": "src/backend/serial/u64/field.rs",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core arith/ops/Add"
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250818_151910.log
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   repo_id: 3224
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3224.json
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   user_id: 460176
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   JSON file exists: True
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   JSON file size: 282263 bytes
+2025-08-18 15:19:10,644 - PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-18 15:19:09.934440
+2025-08-18 15:19:10,648 - PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+2025-08-18 15:19:10,648 - PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3224
+2025-08-18 15:19:10,649 - PopulateAtomsDeps - INFO - All folders to create (including parents): ['src', 'src/edwards', 'src/backend', 'src/backend/serial', 'src/backend/serial/scalar_mul', 'src/backend/serial/u64', 'src/backend/serial/curve_models']
+2025-08-18 15:19:10,683 - PopulateAtomsDeps - INFO - Adding 24 new file molecules in batch
+2025-08-18 15:19:10,696 - PopulateAtomsDeps - INFO - Successfully populated 31 folder and file molecules for repo 3224
+2025-08-18 15:19:10,948 - PopulateAtomsDeps - INFO - !!!!!Code ID 65453: filename='README.md', folder_id=None, folder_path='None'
+2025-08-18 15:19:10,949 - PopulateAtomsDeps - INFO - !!!!!Code ID 65454: filename='src/scalar_verus.rs', folder_id=16238, folder_path='src'
+2025-08-18 15:19:10,949 - PopulateAtomsDeps - INFO - !!!!!Code ID 65455: filename='src/field_verus.rs', folder_id=16238, folder_path='src'
+2025-08-18 15:19:10,949 - PopulateAtomsDeps - INFO - !!!!!Code ID 65456: filename='src/lib.rs', folder_id=16238, folder_path='src'
+2025-08-18 15:19:10,949 - PopulateAtomsDeps - INFO - !!!!!Code ID 65457: filename='Cargo.toml', folder_id=None, folder_path='None'
+2025-08-18 15:19:10,949 - PopulateAtomsDeps - INFO - Retrieved 5 codes from database
+2025-08-18 15:19:10,951 - PopulateAtomsDeps - INFO - Nb of Codes: 3
+2025-08-18 15:19:10,954 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/scalar_verus.rs
+2025-08-18 15:19:10,954 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/field_verus.rs
+2025-08-18 15:19:10,954 - PopulateAtomsDeps - WARNING - No atoms found for filename: src/lib.rs
+2025-08-18 15:19:10,955 - PopulateAtomsDeps - INFO - Summary: Found atoms for 0 out of 3 files
+2025-08-18 15:19:10,955 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3224
+2025-08-18 15:19:10,956 - PopulateAtomsDeps - INFO - Found 24 file molecules with code_id=0 to update
+2025-08-18 15:19:10,957 - PopulateAtomsDeps - INFO - Found 0 file molecules with specific code_ids
+2025-08-18 15:19:10,958 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359405 (file: src/backend/serial/u64/scalar.rs)
+2025-08-18 15:19:10,959 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359406 (file: src/backend/serial/u64/scalar_lemmas.rs)
+2025-08-18 15:19:10,960 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359407 (file: src/backend/serial/u64/field.rs)
+2025-08-18 15:19:10,962 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359408 (file: src/backend/serial/u64/field_lemmas.rs)
+2025-08-18 15:19:10,963 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359409 (file: src/backend/serial/u64/subtle_assumes.rs)
+2025-08-18 15:19:10,964 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359410 (file: src/backend/serial/u64/common_verus.rs)
+2025-08-18 15:19:10,966 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359411 (file: src/backend/serial/u64/scalar_specs.rs)
+2025-08-18 15:19:10,967 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359412 (file: src/backend/serial/u64/field_verus.rs)
+2025-08-18 15:19:10,968 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359413 (file: src/traits.rs)
+2025-08-18 15:19:10,969 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359414 (file: src/montgomery.rs)
+2025-08-18 15:19:10,971 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359415 (file: src/field.rs)
+2025-08-18 15:19:10,972 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359416 (file: src/scalar.rs)
+2025-08-18 15:19:10,973 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359417 (file: src/ristretto.rs)
+2025-08-18 15:19:10,975 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359418 (file: src/edwards.rs)
+2025-08-18 15:19:10,976 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359419 (file: src/window.rs)
+2025-08-18 15:19:10,977 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359420 (file: src/edwards/affine.rs)
+2025-08-18 15:19:10,978 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359421 (file: src/backend/serial/curve_models/mod.rs)
+2025-08-18 15:19:10,980 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359422 (file: build.rs)
+2025-08-18 15:19:10,981 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359423 (file: src/backend/mod.rs)
+2025-08-18 15:19:10,982 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359424 (file: src/backend/serial/scalar_mul/precomputed_straus.rs)
+2025-08-18 15:19:10,984 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359425 (file: src/backend/serial/scalar_mul/pippenger.rs)
+2025-08-18 15:19:10,985 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359426 (file: src/backend/serial/scalar_mul/straus.rs)
+2025-08-18 15:19:10,986 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359427 (file: src/backend/serial/scalar_mul/variable_base.rs)
+2025-08-18 15:19:10,988 - PopulateAtomsDeps - WARNING - No child atoms found for file ID 359428 (file: src/backend/serial/scalar_mul/vartime_double_base.rs)
+2025-08-18 15:19:10,988 - PopulateAtomsDeps - INFO - No file-to-code_id mappings found
+2025-08-18 15:19:10,989 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3224_20250818_151856.log
+2025-08-18 15:19:10,990 - PopulateAtomsDeps - INFO - Successfully read 2178 characters from atomizer log
+2025-08-18 15:19:10,994 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3224
+2025-08-18 15:19:10,994 - PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3224
+2025-08-18 15:19:10,994 - PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3224.json

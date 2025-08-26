@@ -1,0 +1,17 @@
+2025-06-20 12:35:34,530 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250620_123534.log
+2025-06-20 12:35:34,530 - PopulateAtomsDeps - INFO - Identified 1 folders containing Rust files
+2025-06-20 12:35:34,531 - PopulateAtomsDeps - INFO - Populating folder structure with 1 folders as molecules for repo 3048
+2025-06-20 12:35:34,539 - PopulateAtomsDeps - INFO - Adding 1 new file molecules in batch
+2025-06-20 12:35:34,560 - PopulateAtomsDeps - INFO - Successfully populated 1 folder and file molecules for repo 3048
+2025-06-20 12:35:34,565 - PopulateAtomsDeps - INFO - Nb of Codes: 1
+2025-06-20 12:35:34,566 - PopulateAtomsDeps - INFO - Populating atoms for RustLoop.rs and code_id 38778
+2025-06-20 12:35:34,579 - PopulateAtomsDeps - INFO - Inserted 25 atoms for file RustLoop.rs
+2025-06-20 12:35:34,580 - PopulateAtomsDeps - INFO - Processing 2 dependencies in batch
+2025-06-20 12:35:34,606 - PopulateAtomsDeps - INFO - Inserting 2 new dependencies
+2025-06-20 12:35:34,614 - PopulateAtomsDeps - INFO - Setting code_id for file molecules in repo 3048
+2025-06-20 12:35:34,618 - PopulateAtomsDeps - INFO - Found 1 file molecules to update
+2025-06-20 12:35:34,625 - PopulateAtomsDeps - INFO - Found code_id mappings for 1 files
+2025-06-20 12:35:34,632 - PopulateAtomsDeps - INFO - Successfully updated code_id for 1 file molecules
+2025-06-20 12:35:34,632 - PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3048_20250620_123444.log
+2025-06-20 12:35:34,632 - PopulateAtomsDeps - INFO - Successfully read 774 characters from atomizer log
+2025-06-20 12:35:34,652 - PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3048
