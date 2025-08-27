@@ -1541,3 +1541,635 @@ Removing old parent deps
 Removing old child deps
 Running actual atomizer
 Post atomizer cleanup
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3264
+CONTAINER_PATH: /work/3264
+REPO_ID: 3264
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.1s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#5 CACHED
+
+#6 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#6 CACHED
+
+#7 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#8 CACHED
+
+#9 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#9 CACHED
+
+#10 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#10 CACHED
+
+#11 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#11 CACHED
+
+#12 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#12 CACHED
+
+#13 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 0.0s done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.2s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 11:35:10 UTC] [INFO] Starting atomizer for repo_id: 3264, user_id: 460176
+rust-atomizer-1  | [2025-08-27 11:35:10 UTC] [INFO] Running: verus-analyzer scip /work/3264
+rust-atomizer-1  | [2025-08-27 11:35:39 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 11:35:39 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 11:35:39 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 11:35:41 UTC] [INFO] Atoms JSON written to 3264.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3264_20250827_113510.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3264.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3264, user_id=460176 and json_path=/var/www/html/rust-atomizer/3264.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T11:35:07Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Created
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_113541.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3264
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3264.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 512199 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 11:35:41.031183
+PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3264
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['curve25519-dalek', 'curve25519-dalek/src', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/serial/scalar_mul', 'curve25519-dalek/src/backend/serial/u64', 'curve25519-dalek/src/backend/serial/curve_models']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updating repos to atomized
+Restoring specified status
+Restoring parent molecule from atom world
+Restoring parent molecule from atom world #2
+Restoring atom layouts
+Removing old data
+Done atomizing repo ID: 3264
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3269
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3269
+CONTAINER_PATH: /work/3269
+REPO_ID: 3269
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.0s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#5 CACHED
+
+#6 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#6 CACHED
+
+#7 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#7 CACHED
+
+#8 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#8 CACHED
+
+#9 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#9 CACHED
+
+#10 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#10 CACHED
+
+#11 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#11 CACHED
+
+#12 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#12 CACHED
+
+#13 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 11:41:00 UTC] [INFO] Starting atomizer for repo_id: 3269, user_id: 460176
+rust-atomizer-1  | [2025-08-27 11:41:00 UTC] [INFO] Running: verus-analyzer scip /work/3269
+rust-atomizer-1  | [2025-08-27 11:42:18 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 11:42:18 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 11:42:18 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 11:42:20 UTC] [INFO] Atoms JSON written to 3269.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3269_20250827_114100.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3269.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3269, user_id=460176 and json_path=/var/www/html/rust-atomizer/3269.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T11:40:57Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Recreate
+ Container rust-atomizer-rust-atomizer-1  Recreated
+rust-atomizer-1  |     Updating crates.io index
+rust-atomizer-1  |  Downloading crates ...
+rust-atomizer-1  |   Downloaded autocfg v1.4.0
+rust-atomizer-1  |   Downloaded html-escape v0.2.13
+rust-atomizer-1  |   Downloaded serde_derive v1.0.219
+rust-atomizer-1  |   Downloaded scip v0.5.2
+rust-atomizer-1  |   Downloaded utf8-width v0.1.7
+rust-atomizer-1  |   Downloaded serde v1.0.219
+rust-atomizer-1  |   Downloaded memchr v2.7.4
+rust-atomizer-1  |   Downloaded chrono v0.4.41
+rust-atomizer-1  |   Downloaded unicode-ident v1.0.18
+rust-atomizer-1  |   Downloaded thiserror-impl v1.0.69
+rust-atomizer-1  |   Downloaded thiserror v1.0.69
+rust-atomizer-1  |   Downloaded regex-automata v0.4.9
+rust-atomizer-1  |   Downloaded proc-macro2 v1.0.95
+rust-atomizer-1  |   Downloaded regex v1.11.1
+rust-atomizer-1  |   Downloaded num-traits v0.2.19
+rust-atomizer-1  |   Downloaded ryu v1.0.20
+rust-atomizer-1  |   Downloaded protobuf-support v3.7.1
+rust-atomizer-1  |   Downloaded quote v1.0.40
+rust-atomizer-1  |   Downloaded regex-syntax v0.8.5
+rust-atomizer-1  |   Downloaded once_cell v1.21.3
+rust-atomizer-1  |   Downloaded protobuf v3.7.1
+rust-atomizer-1  |   Downloaded log v0.4.27
+rust-atomizer-1  |   Downloaded itoa v1.0.15
+rust-atomizer-1  |   Downloaded serde_json v1.0.140
+rust-atomizer-1  |   Downloaded iana-time-zone v0.1.63
+rust-atomizer-1  |   Downloaded aho-corasick v1.1.3
+rust-atomizer-1  |   Downloaded syn v2.0.101
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.82s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_114220.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3269
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3269.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 512199 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 11:42:20.602369
+PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3269
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['curve25519-dalek', 'curve25519-dalek/src', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/serial/u64', 'curve25519-dalek/src/backend/serial/curve_models', 'curve25519-dalek/src/backend/serial/scalar_mul']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updating repos to atomized
+Restoring specified status
+Restoring parent molecule from atom world
+Restoring parent molecule from atom world #2
+Restoring atom layouts
+Removing old data
+Done atomizing repo ID: 3269
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3269
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3269
+CONTAINER_PATH: /work/3269
+REPO_ID: 3269
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.1s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#5 CACHED
+
+#6 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#6 CACHED
+
+#7 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#7 CACHED
+
+#8 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#8 CACHED
+
+#9 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#10 CACHED
+
+#11 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#11 CACHED
+
+#12 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#12 CACHED
+
+#13 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.2s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 11:52:10 UTC] [INFO] Starting atomizer for repo_id: 3269, user_id: 460176
+rust-atomizer-1  | [2025-08-27 11:52:10 UTC] [INFO] Running: verus-analyzer scip /work/3269
+rust-atomizer-1  | [2025-08-27 11:52:39 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 11:52:39 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 11:52:39 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 11:52:40 UTC] [INFO] Atoms JSON written to 3269.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3269_20250827_115210.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3269.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3269, user_id=460176 and json_path=/var/www/html/rust-atomizer/3269.json
+
+STDERR: time="2025-08-27T11:52:08Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Created
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_115241.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3269
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3269.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 512199 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 11:52:40.921535
+PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3269
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['curve25519-dalek', 'curve25519-dalek/src', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/serial/u64', 'curve25519-dalek/src/backend/serial/scalar_mul', 'curve25519-dalek/src/backend/serial/curve_models']
+PopulateAtomsDeps - INFO - Adding 24 new file molecules in batch
+PopulateAtomsDeps - INFO - Successfully populated 32 folder and file molecules for repo 3269
+PopulateAtomsDeps - INFO - !!!!!Code ID 68110: filename='CONTRIBUTING.md', folder_id=None, folder_path='None'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68111: filename='curve25519-dalek/CHANGELOG.md', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68112: filename='curve25519-dalek/LICENSE', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68113: filename='curve25519-dalek/Makefile', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68114: filename='curve25519-dalek/CLAUDE.md', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68115: filename='curve25519-dalek/README.md', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68116: filename='curve25519-dalek/src/backend/mod.rs', folder_id=16819, folder_path='curve25519-dalek/src/backend'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68117: filename='curve25519-dalek/src/backend/serial/curve_models/mod.rs', folder_id=16821, folder_path='curve25519-dalek/src/backend/serial/curve_models'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68118: filename='curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68119: filename='curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68120: filename='curve25519-dalek/src/backend/serial/scalar_mul/straus.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68121: filename='curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68122: filename='curve25519-dalek/src/backend/serial/scalar_mul/mod.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68123: filename='curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs', folder_id=16822, folder_path='curve25519-dalek/src/backend/serial/scalar_mul'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68124: filename='curve25519-dalek/src/backend/serial/mod.rs', folder_id=16820, folder_path='curve25519-dalek/src/backend/serial'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68125: filename='curve25519-dalek/src/backend/serial/u64/field_verus.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68126: filename='curve25519-dalek/src/backend/serial/u64/common_verus.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68127: filename='curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68128: filename='curve25519-dalek/src/backend/serial/u64/field_lemmas.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68129: filename='curve25519-dalek/src/backend/serial/u64/scalar.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68130: filename='curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68131: filename='curve25519-dalek/src/backend/serial/u64/field.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68132: filename='curve25519-dalek/src/backend/serial/u64/constants.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68133: filename='curve25519-dalek/src/backend/serial/u64/mod.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68134: filename='curve25519-dalek/src/backend/serial/u64/scalar_specs.rs', folder_id=16823, folder_path='curve25519-dalek/src/backend/serial/u64'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68135: filename='curve25519-dalek/src/montgomery.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68136: filename='curve25519-dalek/src/edwards.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68137: filename='curve25519-dalek/src/scalar.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68138: filename='curve25519-dalek/src/macros.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68139: filename='curve25519-dalek/src/field.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68140: filename='curve25519-dalek/src/ristretto.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68141: filename='curve25519-dalek/src/diagnostics.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68142: filename='curve25519-dalek/src/lib.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68143: filename='curve25519-dalek/src/constants.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68144: filename='curve25519-dalek/src/traits.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68145: filename='curve25519-dalek/src/window.rs', folder_id=16818, folder_path='curve25519-dalek/src'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68146: filename='curve25519-dalek/src/edwards/affine.rs', folder_id=16824, folder_path='curve25519-dalek/src/edwards'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68147: filename='curve25519-dalek/build.rs', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68148: filename='curve25519-dalek/Cargo.toml', folder_id=16817, folder_path='curve25519-dalek'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68149: filename='scripts/test_functions.txt', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68150: filename='scripts/test_analysis.log', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68151: filename='scripts/find_new_verus_functions.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68152: filename='scripts/create_graph_gallery.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68153: filename='scripts/generate_dependency_graphs.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68154: filename='scripts/validate_scripts.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68155: filename='scripts/find_changed_verus_constructs.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68156: filename='scripts/map_functions_to_symbols.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68157: filename='scripts/verus_cleaner.py', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68158: filename='scripts/README.md', folder_id=16825, folder_path='scripts'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68159: filename='README.md', folder_id=None, folder_path='None'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68160: filename='Cargo.toml', folder_id=None, folder_path='None'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68161: filename='workflows/verus-function-graphs.yml', folder_id=16826, folder_path='workflows'
+PopulateAtomsDeps - INFO - !!!!!Code ID 68162: filename='workflows/ci.yml', folder_id=16826, folder_path='workflows'
+PopulateAtomsDeps - INFO - Retrieved 53 codes from database
+PopulateAtomsDeps - INFO - Nb of Codes: 32
+PopulateAtomsDeps - INFO - Found 10 atoms for curve25519-dalek/src/backend/mod.rs
+PopulateAtomsDeps - INFO - Found 21 atoms for curve25519-dalek/src/backend/serial/curve_models/mod.rs
+PopulateAtomsDeps - INFO - Found 4 atoms for curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs
+PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs
+PopulateAtomsDeps - INFO - Found 2 atoms for curve25519-dalek/src/backend/serial/scalar_mul/straus.rs
+PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/scalar_mul/mod.rs
+PopulateAtomsDeps - INFO - Found 1 atoms for curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/mod.rs
+PopulateAtomsDeps - INFO - Found 18 atoms for curve25519-dalek/src/backend/serial/u64/field_verus.rs
+PopulateAtomsDeps - INFO - Found 30 atoms for curve25519-dalek/src/backend/serial/u64/common_verus.rs
+PopulateAtomsDeps - INFO - Found 31 atoms for curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs
+PopulateAtomsDeps - INFO - Found 34 atoms for curve25519-dalek/src/backend/serial/u64/field_lemmas.rs
+PopulateAtomsDeps - INFO - Found 20 atoms for curve25519-dalek/src/backend/serial/u64/scalar.rs
+PopulateAtomsDeps - INFO - Found 2 atoms for curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs
+PopulateAtomsDeps - INFO - Found 21 atoms for curve25519-dalek/src/backend/serial/u64/field.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/constants.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/backend/serial/u64/mod.rs
+PopulateAtomsDeps - INFO - Found 17 atoms for curve25519-dalek/src/backend/serial/u64/scalar_specs.rs
+PopulateAtomsDeps - INFO - Found 20 atoms for curve25519-dalek/src/montgomery.rs
+PopulateAtomsDeps - INFO - Found 52 atoms for curve25519-dalek/src/edwards.rs
+PopulateAtomsDeps - INFO - Found 41 atoms for curve25519-dalek/src/scalar.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/macros.rs
+PopulateAtomsDeps - INFO - Found 10 atoms for curve25519-dalek/src/field.rs
+PopulateAtomsDeps - INFO - Found 46 atoms for curve25519-dalek/src/ristretto.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/diagnostics.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/lib.rs
+PopulateAtomsDeps - WARNING - No atoms found for filename: curve25519-dalek/src/constants.rs
+PopulateAtomsDeps - INFO - Found 10 atoms for curve25519-dalek/src/traits.rs
+PopulateAtomsDeps - INFO - Found 6 atoms for curve25519-dalek/src/window.rs
+PopulateAtomsDeps - INFO - Found 8 atoms for curve25519-dalek/src/edwards/affine.rs
+PopulateAtomsDeps - INFO - Found 5 atoms for curve25519-dalek/build.rs
+PopulateAtomsDeps - INFO - Summary: Found atoms for 24 out of 32 files
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/mod.rs and code_id 68116
+PopulateAtomsDeps - INFO - Inserted 10 atoms for file curve25519-dalek/src/backend/mod.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/curve_models/mod.rs and code_id 68117
+PopulateAtomsDeps - INFO - Inserted 21 atoms for file curve25519-dalek/src/backend/serial/curve_models/mod.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs and code_id 68118
+PopulateAtomsDeps - INFO - Inserted 4 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/precomputed_straus.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs and code_id 68119
+PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/pippenger.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/straus.rs and code_id 68120
+PopulateAtomsDeps - INFO - Inserted 2 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/straus.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs and code_id 68121
+PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/variable_base.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs and code_id 68123
+PopulateAtomsDeps - INFO - Inserted 1 atoms for file curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field_verus.rs and code_id 68125
+PopulateAtomsDeps - INFO - Inserted 18 atoms for file curve25519-dalek/src/backend/serial/u64/field_verus.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/common_verus.rs and code_id 68126
+PopulateAtomsDeps - INFO - Inserted 30 atoms for file curve25519-dalek/src/backend/serial/u64/common_verus.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs and code_id 68127
+PopulateAtomsDeps - INFO - Inserted 31 atoms for file curve25519-dalek/src/backend/serial/u64/scalar_lemmas.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field_lemmas.rs and code_id 68128
+PopulateAtomsDeps - INFO - Inserted 34 atoms for file curve25519-dalek/src/backend/serial/u64/field_lemmas.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/scalar.rs and code_id 68129
+PopulateAtomsDeps - INFO - Inserted 20 atoms for file curve25519-dalek/src/backend/serial/u64/scalar.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs and code_id 68130
+PopulateAtomsDeps - INFO - Inserted 2 atoms for file curve25519-dalek/src/backend/serial/u64/subtle_assumes.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/field.rs and code_id 68131
+PopulateAtomsDeps - INFO - Inserted 21 atoms for file curve25519-dalek/src/backend/serial/u64/field.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/backend/serial/u64/scalar_specs.rs and code_id 68134
+PopulateAtomsDeps - INFO - Inserted 17 atoms for file curve25519-dalek/src/backend/serial/u64/scalar_specs.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/montgomery.rs and code_id 68135
+PopulateAtomsDeps - INFO - Inserted 20 atoms for file curve25519-dalek/src/montgomery.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/edwards.rs and code_id 68136
+PopulateAtomsDeps - INFO - Inserted 52 atoms for file curve25519-dalek/src/edwards.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/scalar.rs and code_id 68137
+PopulateAtomsDeps - INFO - Inserted 41 atoms for file curve25519-dalek/src/scalar.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/field.rs and code_id 68139
+PopulateAtomsDeps - INFO - Inserted 10 atoms for file curve25519-dalek/src/field.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/ristretto.rs and code_id 68140
+PopulateAtomsDeps - INFO - Inserted 46 atoms for file curve25519-dalek/src/ristretto.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/traits.rs and code_id 68144
+PopulateAtomsDeps - INFO - Inserted 10 atoms for file curve25519-dalek/src/traits.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/window.rs and code_id 68145
+PopulateAtomsDeps - INFO - Inserted 6 atoms for file curve25519-dalek/src/window.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/src/edwards/affine.rs and code_id 68146
+PopulateAtomsDeps - INFO - Inserted 8 atoms for file curve25519-dalek/src/edwards/affine.rs
+PopulateAtomsDeps - INFO - Populating atoms for curve25519-dalek/build.rs and code_id 68147
+PopulateAtomsDeps - INFO - Inserted 5 atoms for file curve25519-dalek/build.rs
+PopulateAtomsDeps - INFO - Processing 15 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 15 new dependencies
+PopulateAtomsDeps - INFO - Processing 10 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 10 new dependencies
+PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+PopulateAtomsDeps - INFO - Processing 5 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 5 new dependencies
+PopulateAtomsDeps - INFO - Processing 9 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 9 new dependencies
+PopulateAtomsDeps - INFO - Processing 76 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 76 new dependencies
+PopulateAtomsDeps - INFO - Processing 24 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 24 new dependencies
+PopulateAtomsDeps - INFO - Processing 59 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 59 new dependencies
+PopulateAtomsDeps - INFO - Processing 41 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 41 new dependencies
+PopulateAtomsDeps - INFO - Processing 91 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 91 new dependencies
+PopulateAtomsDeps - INFO - Processing 1 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 1 new dependencies
+PopulateAtomsDeps - INFO - Processing 6 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 6 new dependencies
+PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+PopulateAtomsDeps - INFO - Processing 31 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 31 new dependencies
+PopulateAtomsDeps - INFO - Processing 60 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 60 new dependencies
+PopulateAtomsDeps - INFO - Processing 51 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 51 new dependencies
+PopulateAtomsDeps - INFO - Processing 19 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 19 new dependencies
+PopulateAtomsDeps - INFO - Processing 51 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 51 new dependencies
+PopulateAtomsDeps - INFO - Processing 4 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 4 new dependencies
+PopulateAtomsDeps - INFO - Processing 8 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 8 new dependencies
+PopulateAtomsDeps - INFO - Processing 7 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 7 new dependencies
+PopulateAtomsDeps - INFO - Processing 3 dependencies in batch
+PopulateAtomsDeps - INFO - Inserting 3 new dependencies
+PopulateAtomsDeps - INFO - Optimized: Setting code_id for file molecules in repo 3269
+PopulateAtomsDeps - INFO - Found code_id mappings for 24 files.
+PopulateAtomsDeps - INFO - Successfully batch-updated code_id for 24 file molecules.
+PopulateAtomsDeps - INFO - Reading atomizer log file: logs/atomizer_3269_20250827_115210.log
+PopulateAtomsDeps - INFO - Successfully read 601 characters from atomizer log
+PopulateAtomsDeps - INFO - Inserted combined logs to atomizerlogs table for repo_id 3269
+PopulateAtomsDeps - INFO - Successfully completed populate_atomsdeps_grouped_rust.py for repo_id 3269
+PopulateAtomsDeps - INFO - Processing completed for JSON file: /var/www/html/rust-atomizer/3269.json
+
+Updating repos to atomized
+Restoring specified status
+Restoring parent molecule from atom world
+Restoring parent molecule from atom world #2
+Restoring atom layouts
+Removing old data
+Done atomizing repo ID: 3269
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
