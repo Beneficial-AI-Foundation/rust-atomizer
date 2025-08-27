@@ -1,0 +1,351 @@
+[
+  {
+    "identifier": "bundler/source_line_regex",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn source_line_regex<S: AsRef<str>>(source_regex: S) -> Result<Regex> {\n    Regex::new(\n        format!(\n            \"^{}(?://.*)?$\",\n            source_regex\n                .as_ref()\n                .replace(\"  \", r\"\\s+\")\n                .replace(' ', r\"\\s*\")\n        )\n        .as_str(),\n    )\n    .map_err(|e| anyhow!(e))\n}",
+    "display_name": "source_line_regex",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "bundler/Bundler/usemod",
+    "statement_type": "function",
+    "deps": [
+      "bundler/source_line_regex",
+      "bundler/Bundler/write_line"
+    ],
+    "body": "    fn usemod(\n        &mut self,\n        mod_name: &str,\n        mod_path: &str,\n        mod_import: &str,\n        lvl: usize,\n    ) -> Result<()> {\n        let mod_filenames0 = [\n            format!(\"src/{}.rs\", mod_path),\n            format!(\"src/{}/mod.rs\", mod_path),\n        ];\n        let mod_fd = mod_filenames0\n            .iter()\n            .map(|fn0| {\n                let mod_filename = self.basedir.join(fn0);\n                File::open(mod_filename)\n            })\n            .find(|fd| fd.is_ok())\n            .ok_or_else(|| anyhow!(\"no mod file found\"))??;\n        let mut mod_reader = BufReader::new(mod_fd);\n\n        let mod_re = source_line_regex(r\" (pub  )?mod  (?P<m>.+) ; \")?;\n\n        let mut line = String::new();\n\n        writeln!(self.bundle_file, \"pub mod {} {{\", mod_name)?;\n        self.skip_use.insert(String::from(mod_import));\n\n        while mod_reader.read_line(&mut line)? > 0 {\n            line.truncate(line.trim_end().len());\n            if COMMENT_RE.is_match(&line) || WARN_RE.is_match(&line) {\n            } else if let Some(cap) = USECRATE_RE.captures(&line) {\n                let submodname = cap\n                    .name(\"submod\")\n                    .ok_or_else(|| anyhow!(\"capture not found\"))?\n                    .as_str();\n                write!(self.bundle_file, \"use \")?;\n                for _ in 0..lvl {\n                    write!(self.bundle_file, \"super::\")?;\n                }\n                writeln!(self.bundle_file, \"{};\", submodname)?;\n            } else if let Some(cap) = mod_re.captures(&line) {\n                let submodname = cap\n                    .name(\"m\")\n                    .ok_or_else(|| anyhow!(\"capture not found\"))?\n                    .as_str();\n                if submodname != \"tests\" {\n                    let submodfile = format!(\"{}/{}\", mod_path, submodname);\n                    let submodimport = format!(\"{}::{}\", mod_import, submodname);\n                    self.usemod(\n                        submodname,\n                        submodfile.as_str(),\n                        submodimport.as_str(),\n                        lvl + 1,\n                    )?;\n                }\n            } else {\n                self.write_line(&line)?;\n            }\n            line.clear(); // clear to reuse the buffer\n        }\n\n        writeln!(self.bundle_file, \"}}\")?;\n\n        Ok(())\n    }",
+    "display_name": "usemod",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "bundler/Bundler/librs",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/usemod",
+      "bundler/Bundler/write_line",
+      "bundler/source_line_regex"
+    ],
+    "body": "    fn librs(&mut self) -> Result<()> {\n        let lib_fd = File::open(self.basedir.join(LIBRS_FILENAME))?;\n        let mut lib_reader = BufReader::new(&lib_fd);\n\n        let mod_re = source_line_regex(r\" (pub  )?mod  (?P<m>.+) ; \")?;\n\n        let mut line = String::new();\n        while lib_reader.read_line(&mut line)? > 0 {\n            line.pop();\n            if COMMENT_RE.is_match(&line) || WARN_RE.is_match(&line) {\n            } else if let Some(cap) = mod_re.captures(&line) {\n                let modname = cap\n                    .name(\"m\")\n                    .ok_or_else(|| anyhow!(\"capture not found\"))?\n                    .as_str();\n                if modname != \"tests\" {\n                    self.usemod(modname, modname, modname, 1)?;\n                }\n            } else {\n                self.write_line(&line)?;\n            }\n            line.clear(); // clear to reuse the buffer\n        }\n        Ok(())\n    }",
+    "display_name": "librs",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "build_original_usecrate",
+    "statement_type": "function",
+    "deps": [
+      "build_original"
+    ],
+    "body": "fn build_original_usecrate() -> Result<()> {\n    build_original(\"usecrate\")\n}",
+    "display_name": "build_original_usecrate",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "build_original_complicated",
+    "statement_type": "function",
+    "deps": [
+      "build_original"
+    ],
+    "body": "fn build_original_complicated() -> Result<()> {\n    build_original(\"complicated\")\n}",
+    "display_name": "build_original_complicated",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "golden_hello_world",
+    "statement_type": "function",
+    "deps": [
+      "golden"
+    ],
+    "body": "fn golden_hello_world() -> Result<()> {\n    golden(\"hello-world\")\n}",
+    "display_name": "golden_hello_world",
+    "full_path": "file:///work/3268/tests/golden.rs",
+    "relative_path": "tests/golden.rs",
+    "file_name": "golden.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "build_bundle_usecrate",
+    "statement_type": "function",
+    "deps": [
+      "build_bundle"
+    ],
+    "body": "fn build_bundle_usecrate() -> Result<()> {\n    build_bundle(\"usecrate\")\n}",
+    "display_name": "build_bundle_usecrate",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "main",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/new_fd",
+      "bundler/Bundler/new",
+      "bundler/Bundler/run"
+    ],
+    "body": "pub fn main() -> Result<(), Box<dyn Error>> {\n    let cli = Cli::parse();\n    let bundler = if let Some(ref output) = cli.output {\n        Bundler::new(&cli.main_rs, output)\n    } else {\n        Bundler::new_fd(&cli.main_rs, Box::new(std::io::stdout()))\n    };\n    bundler.run();\n    Ok(())\n}",
+    "display_name": "main",
+    "full_path": "file:///work/3268/src/bin/bundle.rs",
+    "relative_path": "src/bin/bundle.rs",
+    "file_name": "bundle.rs",
+    "parent_folder": "bin"
+  },
+  {
+    "identifier": "build_original",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn build_original(testname: &str) -> Result<()> {\n    let input_path = Path::new(INPUT_DIR).join(testname);\n    let targetdir = TempDir::new()?;\n    let result = Command::new(\"cargo\")\n        .arg(\"check\")\n        .arg(\"-q\")\n        .current_dir(input_path)\n        .env(\"CARGO_TARGET_DIR\", targetdir.path())\n        .spawn()?\n        .wait()?;\n    assert!(result.success());\n    Ok(())\n}",
+    "display_name": "build_original",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/new_fd",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn new_fd(binrs_filename: &'a Path, bundle_file: Box<dyn Write>) -> Bundler<'a> {\n        Bundler {\n            binrs_filename,\n            bundle_filename: None,\n            bundle_file,\n            basedir: PathBuf::default(),\n            _crate_name: String::from(\"\"),\n            skip_use: HashSet::new(),\n            minify: false,\n        }\n    }",
+    "display_name": "new_fd",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "bundler/Bundler/minify_set",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn minify_set(&mut self, enable: bool) {\n        self.minify = enable;\n    }",
+    "display_name": "minify_set",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "bundler/Bundler/crate_name",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn crate_name(&mut self, name: &'a str) {\n        self._crate_name = String::from(name);\n    }",
+    "display_name": "crate_name",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "build_original_basic",
+    "statement_type": "function",
+    "deps": [
+      "build_original"
+    ],
+    "body": "fn build_original_basic() -> Result<()> {\n    build_original(\"basic\")\n}",
+    "display_name": "build_original_basic",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/do_run",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/binrs"
+    ],
+    "body": "    fn do_run(&mut self) -> Result<()> {\n        let canon_binrs = self.binrs_filename.canonicalize().with_context(|| {\n            format!(\n                \"error canonicalizing binrs dir [{}]\",\n                self.binrs_filename.display()\n            )\n        })?;\n        self.basedir = PathBuf::from(\n            canon_binrs\n                .ancestors()\n                .find(|a| a.join(\"Cargo.toml\").is_file())\n                .ok_or_else(|| {\n                    anyhow!(\n                        \"could not find Cargo.toml in ancestors of [{}]\",\n                        canon_binrs.display()\n                    )\n                })?,\n        );\n        let cargo_filename = self.basedir.join(\"Cargo.toml\");\n        let cargo = cargo_toml::Manifest::from_path(&cargo_filename)\n            .with_context(|| format!(\"error parsing {}\", cargo_filename.display()))?;\n        self._crate_name = cargo\n            .package\n            .ok_or_else(|| {\n                anyhow!(\n                    \"Could not get crate name from [{}]\",\n                    cargo_filename.display()\n                )\n            })?\n            .name\n            .replace('-', \"_\");\n        self.binrs()\n            .with_context(|| format!(\"error building bin.rs {}\", self.binrs_filename.display()))?;\n        if let Some(bundle_filename) = self.bundle_filename {\n            println!(\"rerun-if-changed={}\", bundle_filename.display());\n        }\n        self.bundle_file.flush().with_context(|| {\n            format!(\n                \"error while flushing bundle_file {:?}\",\n                self.bundle_filename\n            )\n        })?;\n        Ok(())\n    }",
+    "display_name": "do_run",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "build_bundle_complicated",
+    "statement_type": "function",
+    "deps": [
+      "build_bundle"
+    ],
+    "body": "fn build_bundle_complicated() -> Result<()> {\n    build_bundle(\"complicated\")\n}",
+    "display_name": "build_bundle_complicated",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/write_line",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn write_line(&mut self, line: &str) -> Result<()> {\n        if self.minify {\n            writeln!(\n                self.bundle_file,\n                \"{}\",\n                MINIFY_RE.replace_all(line, \"$contents\")\n            )\n        } else {\n            writeln!(self.bundle_file, \"{}\", line)\n        }\n        .map_err(|e| anyhow!(e))\n    }",
+    "display_name": "write_line",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "build_bundle_basic",
+    "statement_type": "function",
+    "deps": [
+      "build_bundle"
+    ],
+    "body": "fn build_bundle_basic() -> Result<()> {\n    build_bundle(\"basic\")\n}",
+    "display_name": "build_bundle_basic",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "golden",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/run",
+      "bundler/Bundler/crate_name",
+      "bundler/Bundler/new_fd"
+    ],
+    "body": "fn golden(testname: &str) -> Result<()> {\n    let input_path_str = format!(\"{}/{}/src/main.rs\", INPUT_DIR, testname);\n    let input_path = Path::new(&input_path_str);\n    let output_name = Path::new(testname).with_extension(\"rs\");\n    let mut mint = Mint::new(OUTPUT_DIR);\n    let golden = mint.new_goldenfile(&output_name)?;\n    let mut bundler = Bundler::new_fd(&input_path, Box::new(golden));\n    bundler.crate_name(testname);\n    bundler.run();\n    Ok(())\n}",
+    "display_name": "golden",
+    "full_path": "file:///work/3268/tests/golden.rs",
+    "relative_path": "tests/golden.rs",
+    "file_name": "golden.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/binrs",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/write_line",
+      "bundler/source_line_regex",
+      "bundler/Bundler/librs"
+    ],
+    "body": "    fn binrs(&mut self) -> Result<()> {\n        let bin_fd = File::open(self.binrs_filename)?;\n        let mut bin_reader = BufReader::new(&bin_fd);\n\n        let extcrate_re = source_line_regex(format!(r\" extern  crate  {} ; \", self._crate_name))?;\n        let useselfcrate_re =\n            source_line_regex(format!(r\" use  (?P<submod>{}::.*) ; \", self._crate_name))?;\n\n        let mut line = String::new();\n        while bin_reader.read_line(&mut line)? > 0 {\n            line.truncate(line.trim_end().len());\n            if COMMENT_RE.is_match(&line) || WARN_RE.is_match(&line) {\n            } else if extcrate_re.is_match(&line) {\n                writeln!(self.bundle_file, \"pub mod {} {{\", self._crate_name)?;\n                self.librs()?;\n                writeln!(self.bundle_file, \"}}\")?;\n            } else if let Some(cap) = useselfcrate_re.captures(&line) {\n                let submod = cap\n                    .name(\"submod\")\n                    .ok_or_else(|| anyhow!(\"capture not found\"))?\n                    .as_str();\n                writeln!(self.bundle_file, \"use self::{};\", submod)?;\n            } else {\n                self.write_line(&line)?;\n            }\n            line.clear();\n        }\n        Ok(())\n    }",
+    "display_name": "binrs",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "golden_basic",
+    "statement_type": "function",
+    "deps": [
+      "golden"
+    ],
+    "body": "fn golden_basic() -> Result<()> {\n    golden(\"basic\")\n}",
+    "display_name": "golden_basic",
+    "full_path": "file:///work/3268/tests/golden.rs",
+    "relative_path": "tests/golden.rs",
+    "file_name": "golden.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "build_bundle_hello_world",
+    "statement_type": "function",
+    "deps": [
+      "build_bundle"
+    ],
+    "body": "fn build_bundle_hello_world() -> Result<()> {\n    build_bundle(\"hello-world\")\n}",
+    "display_name": "build_bundle_hello_world",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "build_bundle",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/new",
+      "bundler/Bundler/run"
+    ],
+    "body": "fn build_bundle(testname: &str) -> Result<()> {\n    // Create the build directory, with an src subdir:\n    let input_path_str = format!(\"{}/{}/src/main.rs\", INPUT_DIR, testname);\n    let input_path = Path::new(&input_path_str);\n    let tempdir = TempDir::new()?;\n    fs::create_dir_all(tempdir.path().join(\"src\"))?;\n    // Bundle the test input there:\n    let output_path = tempdir.path().join(\"src/main.rs\");\n    let bundler = Bundler::new(&input_path, &output_path);\n    bundler.run();\n    // Create Cargo.toml:\n    let mut fd = fs::File::create(tempdir.path().join(\"Cargo.toml\"))?;\n    write!(\n        fd,\n        \"[package]\\nname = \\\"{}\\\"\\nversion = \\\"0.0.0\\\"\\n\",\n        testname\n    )?;\n    fd.flush()?;\n    // cargo check it:\n    let result = Command::new(\"cargo\")\n        .arg(\"check\")\n        .arg(\"-q\")\n        .current_dir(tempdir.path())\n        .spawn()?\n        .wait()?;\n    assert!(result.success());\n    Ok(())\n}",
+    "display_name": "build_bundle",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/run",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/do_run"
+    ],
+    "body": "    pub fn run(mut self) {\n        self.do_run().unwrap();\n    }",
+    "display_name": "run",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "golden_usecrate",
+    "statement_type": "function",
+    "deps": [
+      "golden"
+    ],
+    "body": "fn golden_usecrate() -> Result<()> {\n    golden(\"usecrate\")\n}",
+    "display_name": "golden_usecrate",
+    "full_path": "file:///work/3268/tests/golden.rs",
+    "relative_path": "tests/golden.rs",
+    "file_name": "golden.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "golden_complicated",
+    "statement_type": "function",
+    "deps": [
+      "golden"
+    ],
+    "body": "fn golden_complicated() -> Result<()> {\n    golden(\"complicated\")\n}",
+    "display_name": "golden_complicated",
+    "full_path": "file:///work/3268/tests/golden.rs",
+    "relative_path": "tests/golden.rs",
+    "file_name": "golden.rs",
+    "parent_folder": "tests"
+  },
+  {
+    "identifier": "bundler/Bundler/new",
+    "statement_type": "function",
+    "deps": [
+      "bundler/Bundler/new_fd"
+    ],
+    "body": "    pub fn new(binrs_filename: &'a Path, bundle_filename: &'a Path) -> Bundler<'a> {\n        let mut bundler = Self::new_fd(\n            binrs_filename,\n            Box::new(BufWriter::new(File::create(bundle_filename).unwrap())),\n        );\n        bundler.bundle_filename = Some(bundle_filename);\n        bundler\n    }",
+    "display_name": "new",
+    "full_path": "file:///work/3268/src/bundler.rs",
+    "relative_path": "src/bundler.rs",
+    "file_name": "bundler.rs",
+    "parent_folder": "src"
+  },
+  {
+    "identifier": "build_original_hello_world",
+    "statement_type": "function",
+    "deps": [
+      "build_original"
+    ],
+    "body": "fn build_original_hello_world() -> Result<()> {\n    build_original(\"hello-world\")\n}",
+    "display_name": "build_original_hello_world",
+    "full_path": "file:///work/3268/tests/build.rs",
+    "relative_path": "tests/build.rs",
+    "file_name": "build.rs",
+    "parent_folder": "tests"
+  }
+]

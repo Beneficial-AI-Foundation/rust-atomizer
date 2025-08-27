@@ -1,7 +1,0 @@
-2025-08-22 09:29:00,470 - PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250822_092900.log
-2025-08-22 09:29:00,471 - PopulateAtomsDeps - INFO - Starting optimized populate_atomsdeps_grouped_rust.py
-2025-08-22 09:29:00,471 - PopulateAtomsDeps - INFO - Parameters: repo_id=3243, json_path=/var/www/html/rust-atomizer/3243.json, user_id=460176
-2025-08-22 09:29:00,471 - PopulateAtomsDeps - INFO - JSON file size: 471963 bytes
-2025-08-22 09:29:00,471 - PopulateAtomsDeps - INFO - JSON file modified: 2025-08-22 09:28:59.951747
-2025-08-22 09:29:00,483 - PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
-2025-08-22 09:29:00,483 - PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules

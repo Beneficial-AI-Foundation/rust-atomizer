@@ -76,9 +76,28 @@ def main():
 
                     env = os.environ.copy()
                     env["DB_PASSWORD"] = os.getenv("DB_PASSWORD")
-                    # export DB_PASSWORD=DdlrsIjzp52YeOs8 && ./run_compose.sh /var/www/html/public/files/uploads/3162 3162 460176 
-                    # export DB_PASSWORD=DdlrsIjzp52YeOs8 && ./run_compose.sh /var/www/html/public/files/uploads/3162 3162 460176 
                     
+                    print("Removing old atoms")
+                    query = """DELETE FROM atoms WHERE repo_id = %s AND statement_type != 'molecule';"""
+                    sql2(connection, query, (repo_id,))
+                    
+                    # print("Removing old codes")
+                    # query = """DELETE FROM codes WHERE repo_id = %s;"""
+                    # sql2(connection, query, (repo_id,))
+                    
+                    print("Removing old snippets")
+                    query = """DELETE FROM atomsnippets WHERE atom_id IN (select id from atoms where repo_id = %s);"""
+                    sql2(connection, query, (repo_id,))
+                    
+                    print("Removing old parent deps")
+                    query = """DELETE FROM atomsdependencies WHERE parentatom_id IN (select id from atoms where repo_id = %s)"""
+                    sql2(connection, query, (repo_id,))
+                    
+                    print("Removing old child deps")
+                    query = """DELETE FROM atomsdependencies WHERE childatom_id IN (select id from atoms where repo_id = %s)"""
+                    sql2(connection, query, (repo_id,))
+
+                    print("Running actual atomizer")
                     # Open pipes manually for stdout and stderr
                     process = subprocess.Popen(
                         ["./run_compose.sh", upload_path, repo_id],
@@ -88,6 +107,7 @@ def main():
                         stderr=subprocess.PIPE
                     )
 
+                    print("Post atomizer cleanup")
                     stdout, stderr = process.communicate()
 
                     print("STDOUT:", stdout.decode())
@@ -95,11 +115,13 @@ def main():
                     
                     cursor = connection.cursor()
                     
+                    print("Updating repos to atomized")
                     query = """
                         UPDATE repos SET status_id = 2 WHERE id = %s;
                     """
                     sql2(connection, query, (repo_id,))
                     
+                    print("Restoring specified status")
                     query = """
                         UPDATE atoms AS a
                         JOIN atomsbup AS b
@@ -115,7 +137,7 @@ def main():
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
-                    
+                    print("Restoring parent molecule from atom world")
                     query = """
                         UPDATE atoms AS a
                         JOIN atomsbup AS b
@@ -136,6 +158,7 @@ def main():
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
+                    print("Restoring parent molecule from atom world #2")
                     query = """
                         UPDATE atoms AS a
                         JOIN atomsbup AS b
@@ -156,7 +179,8 @@ def main():
                         AND p.id <> a.id;          
                     """
                     sql2(connection, query, (repo_id, repo_id,repo_id,))
-
+                    
+                    print("Restoring atom layouts")
                     query = """
                         UPDATE atomlayouts AS al
                         INNER JOIN atomsbup AS b
@@ -171,18 +195,22 @@ def main():
                     """
                     sql2(connection, query, (repo_id,repo_id,))
                     
+                    print("Removing old data")
                     query = """
                         DELETE FROM atomsbup WHERE repo_id = %s
                     """
                     sql2(connection, query, (repo_id,))
                     
                     connection.commit()
+                    print(f"Done atomizing repo ID: {repo['id']}")
                     
             update_rust_atomization_timestamp(connection)
             time.sleep(5)  # Sleep 5 seconds before checking again
 
     except KeyboardInterrupt:
         print("Stopped by user.")
+    except Exception as e:  # catches ValueError, OSError, MySQL errors, etc.
+        print(f"Caught exception: {e}")
     finally:
         connection.close()
 

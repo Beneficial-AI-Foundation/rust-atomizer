@@ -1,0 +1,1543 @@
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3265
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3265
+CONTAINER_PATH: /work/3265
+REPO_ID: 3265
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.1s
+
+#2 [rust-atomizer internal] load build definition from Dockerfile
+#2 transferring dockerfile: 32B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#5 CACHED
+
+#6 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#6 CACHED
+
+#7 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#7 CACHED
+
+#8 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#8 CACHED
+
+#9 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#9 CACHED
+
+#10 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#10 CACHED
+
+#11 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#11 CACHED
+
+#12 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#12 CACHED
+
+#13 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 09:39:46 UTC] [INFO] Starting atomizer for repo_id: 3265, user_id: 460176
+rust-atomizer-1  | [2025-08-27 09:39:46 UTC] [INFO] Running: verus-analyzer scip /work/3265
+rust-atomizer-1  | [2025-08-27 09:40:20 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 09:40:20 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 09:40:20 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 09:40:22 UTC] [INFO] Atoms JSON written to 3265.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3265_20250827_093946.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3265.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3265, user_id=460176 and json_path=/var/www/html/rust-atomizer/3265.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T09:39:44Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Created
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_094022.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3265
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3265.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 512199 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 09:40:22.210855
+PopulateAtomsDeps - INFO - Identified 7 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 7 folders as molecules for repo 3265
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['curve25519-dalek', 'curve25519-dalek/src', 'curve25519-dalek/src/backend', 'curve25519-dalek/src/edwards', 'curve25519-dalek/src/backend/serial', 'curve25519-dalek/src/backend/serial/u64', 'curve25519-dalek/src/backend/serial/scalar_mul', 'curve25519-dalek/src/backend/serial/curve_models']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3266
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3266
+CONTAINER_PATH: /work/3266
+REPO_ID: 3266
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.1s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#5 CACHED
+
+#6 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#6 CACHED
+
+#7 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#7 CACHED
+
+#8 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#8 CACHED
+
+#9 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#9 CACHED
+
+#10 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#11 CACHED
+
+#12 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#12 CACHED
+
+#13 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 09:54:56 UTC] [INFO] Starting atomizer for repo_id: 3266, user_id: 460176
+rust-atomizer-1  | [2025-08-27 09:54:56 UTC] [INFO] Creating Cargo.toml for standalone Rust files in /work/3266...
+rust-atomizer-1  | [2025-08-27 09:54:56 UTC] [INFO] Created Cargo.toml for standalone Rust files
+rust-atomizer-1  | [2025-08-27 09:54:56 UTC] [INFO] Running: verus-analyzer scip /work/3266
+rust-atomizer-1  | [2025-08-27 09:55:09 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 09:55:09 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 09:55:09 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 09:55:09 UTC] [INFO] Atoms JSON written to 3266.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3266_20250827_095456.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3266.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3266, user_id=460176 and json_path=/var/www/html/rust-atomizer/3266.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T09:54:53Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Recreate
+ Container rust-atomizer-rust-atomizer-1  Recreated
+rust-atomizer-1  |     Updating crates.io index
+rust-atomizer-1  |  Downloading crates ...
+rust-atomizer-1  |   Downloaded html-escape v0.2.13
+rust-atomizer-1  |   Downloaded itoa v1.0.15
+rust-atomizer-1  |   Downloaded utf8-width v0.1.7
+rust-atomizer-1  |   Downloaded autocfg v1.4.0
+rust-atomizer-1  |   Downloaded thiserror v1.0.69
+rust-atomizer-1  |   Downloaded thiserror-impl v1.0.69
+rust-atomizer-1  |   Downloaded unicode-ident v1.0.18
+rust-atomizer-1  |   Downloaded ryu v1.0.20
+rust-atomizer-1  |   Downloaded serde_derive v1.0.219
+rust-atomizer-1  |   Downloaded serde v1.0.219
+rust-atomizer-1  |   Downloaded scip v0.5.2
+rust-atomizer-1  |   Downloaded aho-corasick v1.1.3
+rust-atomizer-1  |   Downloaded proc-macro2 v1.0.95
+rust-atomizer-1  |   Downloaded serde_json v1.0.140
+rust-atomizer-1  |   Downloaded quote v1.0.40
+rust-atomizer-1  |   Downloaded once_cell v1.21.3
+rust-atomizer-1  |   Downloaded protobuf v3.7.1
+rust-atomizer-1  |   Downloaded chrono v0.4.41
+rust-atomizer-1  |   Downloaded regex v1.11.1
+rust-atomizer-1  |   Downloaded num-traits v0.2.19
+rust-atomizer-1  |   Downloaded syn v2.0.101
+rust-atomizer-1  |   Downloaded memchr v2.7.4
+rust-atomizer-1  |   Downloaded log v0.4.27
+rust-atomizer-1  |   Downloaded protobuf-support v3.7.1
+rust-atomizer-1  |   Downloaded regex-syntax v0.8.5
+rust-atomizer-1  |   Downloaded iana-time-zone v0.1.63
+rust-atomizer-1  |   Downloaded regex-automata v0.4.9
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_095510.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3266
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3266.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 2143 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 09:55:09.770818
+PopulateAtomsDeps - INFO - Identified 1 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 1 folders as molecules for repo 3266
+PopulateAtomsDeps - INFO - All folders to create (including parents): []
+PopulateAtomsDeps - INFO - Adding 1 new file molecules in batch
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 995, in populate_folder_structure_as_molecules
+    sql2(self.con, batch_query, tuple(params))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3267
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3267
+CONTAINER_PATH: /work/3267
+REPO_ID: 3267
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.0s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#5 CACHED
+
+#6 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#6 CACHED
+
+#7 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#7 CACHED
+
+#8 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#9 CACHED
+
+#10 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#10 CACHED
+
+#11 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#11 CACHED
+
+#12 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#12 CACHED
+
+#13 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 10:46:22 UTC] [INFO] Starting atomizer for repo_id: 3267, user_id: 460176
+rust-atomizer-1  | [2025-08-27 10:46:22 UTC] [INFO] Running: verus-analyzer scip /work/3267
+rust-atomizer-1  | [2025-08-27 10:46:53 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 10:46:53 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 10:46:53 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 10:46:54 UTC] [INFO] Atoms JSON written to 3267.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3267_20250827_104622.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3267.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3267, user_id=460176 and json_path=/var/www/html/rust-atomizer/3267.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T10:46:19Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Recreate
+ Container rust-atomizer-rust-atomizer-1  Recreated
+rust-atomizer-1  |     Updating crates.io index
+rust-atomizer-1  |  Downloading crates ...
+rust-atomizer-1  |   Downloaded log v0.4.27
+rust-atomizer-1  |   Downloaded thiserror-impl v1.0.69
+rust-atomizer-1  |   Downloaded iana-time-zone v0.1.63
+rust-atomizer-1  |   Downloaded utf8-width v0.1.7
+rust-atomizer-1  |   Downloaded thiserror v1.0.69
+rust-atomizer-1  |   Downloaded protobuf-support v3.7.1
+rust-atomizer-1  |   Downloaded unicode-ident v1.0.18
+rust-atomizer-1  |   Downloaded serde_derive v1.0.219
+rust-atomizer-1  |   Downloaded memchr v2.7.4
+rust-atomizer-1  |   Downloaded serde v1.0.219
+rust-atomizer-1  |   Downloaded scip v0.5.2
+rust-atomizer-1  |   Downloaded proc-macro2 v1.0.95
+rust-atomizer-1  |   Downloaded serde_json v1.0.140
+rust-atomizer-1  |   Downloaded aho-corasick v1.1.3
+rust-atomizer-1  |   Downloaded ryu v1.0.20
+rust-atomizer-1  |   Downloaded protobuf v3.7.1
+rust-atomizer-1  |   Downloaded chrono v0.4.41
+rust-atomizer-1  |   Downloaded regex v1.11.1
+rust-atomizer-1  |   Downloaded quote v1.0.40
+rust-atomizer-1  |   Downloaded syn v2.0.101
+rust-atomizer-1  |   Downloaded once_cell v1.21.3
+rust-atomizer-1  |   Downloaded itoa v1.0.15
+rust-atomizer-1  |   Downloaded html-escape v0.2.13
+rust-atomizer-1  |   Downloaded regex-syntax v0.8.5
+rust-atomizer-1  |   Downloaded autocfg v1.4.0
+rust-atomizer-1  |   Downloaded num-traits v0.2.19
+rust-atomizer-1  |   Downloaded regex-automata v0.4.9
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.85s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_104654.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3267
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3267.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 96980 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 10:46:54.482571
+PopulateAtomsDeps - INFO - Identified 3 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 3 folders as molecules for repo 3267
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['benches', 'src', 'src/bin']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3267
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3267
+CONTAINER_PATH: /work/3267
+REPO_ID: 3267
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.0s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#5 CACHED
+
+#6 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#7 CACHED
+
+#8 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#8 CACHED
+
+#9 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#9 CACHED
+
+#10 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#10 CACHED
+
+#11 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#11 CACHED
+
+#12 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#12 CACHED
+
+#13 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 10:52:43 UTC] [INFO] Starting atomizer for repo_id: 3267, user_id: 460176
+rust-atomizer-1  | [2025-08-27 10:52:43 UTC] [INFO] Running: verus-analyzer scip /work/3267
+rust-atomizer-1  | [2025-08-27 10:53:02 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 10:53:02 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 10:53:02 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 10:53:04 UTC] [INFO] Atoms JSON written to 3267.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3267_20250827_105243.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3267.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3267, user_id=460176 and json_path=/var/www/html/rust-atomizer/3267.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T10:52:42Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Created
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_105305.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3267
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3267.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 96980 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 10:53:04.617205
+PopulateAtomsDeps - INFO - Identified 3 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 3 folders as molecules for repo 3267
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['src', 'benches', 'src/bin']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3268
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+STDOUT: SOURCE_PATH: /var/www/html/public/files/uploads/3268
+CONTAINER_PATH: /work/3268
+REPO_ID: 3268
+USER_ID: 460176
+#0 building with "default" instance using docker driver
+
+#1 [rust-atomizer internal] load build definition from Dockerfile
+#1 transferring dockerfile: 32B done
+#1 DONE 0.1s
+
+#2 [rust-atomizer internal] load .dockerignore
+#2 transferring context: 2B 0.0s done
+#2 DONE 0.1s
+
+#3 [rust-atomizer internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [rust-atomizer  1/11] FROM docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [rust-atomizer  6/11] RUN env     TAG="v0.5.2"     OS="$(uname -s | tr '[:upper:]' '[:lower:]')"     ARCH="$(uname -m | sed -e 's/x86_64/amd64/')"     bash -c 'curl -L "https://github.com/sourcegraph/scip/releases/download/$TAG/scip-$OS-$ARCH.tar.gz"'     | tar xzf - scip     && mv scip /usr/local/bin/     && chmod +x /usr/local/bin/scip
+#5 CACHED
+
+#6 [rust-atomizer 10/11] RUN /opt/venv/bin/pip install mysql-connector-python
+#6 CACHED
+
+#7 [rust-atomizer  5/11] RUN curl -L https://github.com/verus-lang/verus-analyzer/releases/latest/download/verus-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c > /usr/local/bin/verus-analyzer     && chmod +x /usr/local/bin/verus-analyzer
+#7 CACHED
+
+#8 [rust-atomizer  7/11] RUN ln -sf /usr/local/bin/verus-analyzer /usr/bin/verus-analyzer &&     ln -sf /usr/local/bin/scip /usr/bin/scip
+#8 CACHED
+
+#9 [rust-atomizer  8/11] RUN cargo --version && which verus-analyzer && which scip && verus-analyzer --version && scip --version
+#9 CACHED
+
+#10 [rust-atomizer  3/11] RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#10 CACHED
+
+#11 [rust-atomizer  9/11] RUN python3 -m venv /opt/venv
+#11 CACHED
+
+#12 [rust-atomizer  2/11] RUN apt-get update && apt-get install -y     python3     python3-pip     python3-venv     curl     git     build-essential     pkg-config     libssl-dev     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [rust-atomizer  4/11] RUN rustup default stable && rustup update
+#13 CACHED
+
+#14 [rust-atomizer 11/11] WORKDIR /work
+#14 CACHED
+
+#15 [rust-atomizer] exporting to image
+#15 exporting layers done
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802
+#15 writing image sha256:9647d24eea684f882230bea3b22ef68e6bbb383646417da8b92550f52a476802 0.0s done
+#15 naming to docker.io/library/rust-atomizer-rust-atomizer done
+#15 DONE 0.1s
+Attaching to rust-atomizer-1
+rust-atomizer-1  | [2025-08-27 10:58:24 UTC] [INFO] Starting atomizer for repo_id: 3268, user_id: 460176
+rust-atomizer-1  | [2025-08-27 10:58:24 UTC] [INFO] Running: verus-analyzer scip /work/3268
+rust-atomizer-1  | [2025-08-27 10:58:51 UTC] [INFO] Running: scip print --json index.scip > index_scip.json
+rust-atomizer-1  | [2025-08-27 10:58:51 UTC] [INFO] Parsing SCIP JSON from index_scip.json...
+rust-atomizer-1  | [2025-08-27 10:58:51 UTC] [INFO] Building call graph...
+rust-atomizer-1  | [2025-08-27 10:58:51 UTC] [INFO] Atoms JSON written to 3268.json
+rust-atomizer-1  | Logs saved to file: logs/atomizer_3268_20250827_105824.log
+[Krust-atomizer-1 exited with code 0
+JSON_PATH: /var/www/html/rust-atomizer/3268.json
+Running scripts/populate_atomsdeps_grouped_rust.py with repo_id=3268, user_id=460176 and json_path=/var/www/html/rust-atomizer/3268.json
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+
+STDERR: time="2025-08-27T10:58:21Z" level=warning msg="/var/www/html/rust-atomizer/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ rust-atomizer  Built
+ Container rust-atomizer-rust-atomizer-1  Recreate
+ Container rust-atomizer-rust-atomizer-1  Recreated
+rust-atomizer-1  |     Updating crates.io index
+rust-atomizer-1  |  Downloading crates ...
+rust-atomizer-1  |   Downloaded html-escape v0.2.13
+rust-atomizer-1  |   Downloaded once_cell v1.21.3
+rust-atomizer-1  |   Downloaded ryu v1.0.20
+rust-atomizer-1  |   Downloaded quote v1.0.40
+rust-atomizer-1  |   Downloaded proc-macro2 v1.0.95
+rust-atomizer-1  |   Downloaded utf8-width v0.1.7
+rust-atomizer-1  |   Downloaded unicode-ident v1.0.18
+rust-atomizer-1  |   Downloaded memchr v2.7.4
+rust-atomizer-1  |   Downloaded serde v1.0.219
+rust-atomizer-1  |   Downloaded chrono v0.4.41
+rust-atomizer-1  |   Downloaded aho-corasick v1.1.3
+rust-atomizer-1  |   Downloaded thiserror-impl v1.0.69
+rust-atomizer-1  |   Downloaded log v0.4.27
+rust-atomizer-1  |   Downloaded thiserror v1.0.69
+rust-atomizer-1  |   Downloaded regex-automata v0.4.9
+rust-atomizer-1  |   Downloaded serde_derive v1.0.219
+rust-atomizer-1  |   Downloaded scip v0.5.2
+rust-atomizer-1  |   Downloaded regex-syntax v0.8.5
+rust-atomizer-1  |   Downloaded protobuf-support v3.7.1
+rust-atomizer-1  |   Downloaded num-traits v0.2.19
+rust-atomizer-1  |   Downloaded protobuf v3.7.1
+rust-atomizer-1  |   Downloaded iana-time-zone v0.1.63
+rust-atomizer-1  |   Downloaded itoa v1.0.15
+rust-atomizer-1  |   Downloaded regex v1.11.1
+rust-atomizer-1  |   Downloaded autocfg v1.4.0
+rust-atomizer-1  |   Downloaded serde_json v1.0.140
+rust-atomizer-1  |   Downloaded syn v2.0.101
+rust-atomizer-1  |     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.46s
+PopulateAtomsDeps - INFO - Logging to file: logs/populate_atoms_20250827_105852.log
+PopulateAtomsDeps - INFO - Starting populate_atomsdeps_grouped_rust.py with parameters:
+PopulateAtomsDeps - INFO -   repo_id: 3268
+PopulateAtomsDeps - INFO -   json_path: /var/www/html/rust-atomizer/3268.json
+PopulateAtomsDeps - INFO -   user_id: 460176
+PopulateAtomsDeps - INFO -   JSON file exists: True
+PopulateAtomsDeps - INFO -   JSON file size: 20340 bytes
+PopulateAtomsDeps - INFO -   JSON file modified: 2025-08-27 10:58:51.895453
+PopulateAtomsDeps - INFO - Identified 3 folders containing Rust files
+PopulateAtomsDeps - INFO - Populating folder structure with 3 folders as molecules for repo 3268
+PopulateAtomsDeps - INFO - All folders to create (including parents): ['src', 'tests', 'src/bin']
+Traceback (most recent call last):
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 1225, in <module>
+    files_ids_dict = populate_atoms_deps.populate_folder_structure_as_molecules(user_id, repo_id, folders_to_files)
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 920, in populate_folder_structure_as_molecules
+    sql2(self.con, insert_query, (0, repo_id, folder_name, folder_full_identifier, "folder", parent_id, "molecule", user_id))
+  File "scripts/populate_atomsdeps_grouped_rust.py", line 34, in sql2
+    raise Exception("Couldn't reconnect to Mysql DB.")
+Exception: Couldn't reconnect to Mysql DB.
+
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Updated rust_atomization timestamp.
+Found 1 repos that are unatomized
+Atomizing repo ID: 3264
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Found 1 repos that are unatomized
+Atomizing repo ID: 3264
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
+Found 1 repos that are unatomized
+Atomizing repo ID: 3264
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
+Found 1 repos that are unatomized
+Atomizing repo ID: 3264
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
+Found 1 repos that are unatomized
+Atomizing repo ID: 3264
+Removing old atoms
+Removing old snippets
+Removing old parent deps
+Removing old child deps
+Running actual atomizer
+Post atomizer cleanup
