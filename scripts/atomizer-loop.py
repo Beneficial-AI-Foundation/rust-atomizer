@@ -99,6 +99,7 @@ def main():
 
                     print("Running actual atomizer")
                     # Open pipes manually for stdout and stderr
+                    connection.commit()
                     process = subprocess.Popen(
                         ["./run_compose.sh", upload_path, repo_id],
                         cwd=working_dir,
@@ -107,6 +108,7 @@ def main():
                         stderr=subprocess.PIPE
                     )
 
+                    connection.commit()
                     print("Post atomizer cleanup")
                     stdout, stderr = process.communicate()
 
