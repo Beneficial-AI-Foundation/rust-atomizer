@@ -15,6 +15,9 @@ html-escape = "0.2.13"
 chrono = { version = "0.4", features = ["serde"] }
 log = "0.4"
 
+[dev-dependencies]
+tempfile = "3"
+
 [[bin]]
 name = "write_atoms"
 path = "src/bin/write_atoms.rs"
