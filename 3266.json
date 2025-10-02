@@ -1,0 +1,63 @@
+[
+  {
+    "identifier": "random_string",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn random_string(len: usize) -> String {\n    let charset: Vec<char> = \"abcdefghijklmnopqrstuvwxyz\".chars().collect();\n    let mut rng = rand::thread_rng();\n    (0..len).map(|_| charset[rng.gen_range(0..charset.len())]).collect()\n}",
+    "display_name": "random_string",
+    "full_path": "file:///work/3266/Test.rs",
+    "relative_path": "Test.rs",
+    "file_name": "Test.rs",
+    "parent_folder": "root"
+  },
+  {
+    "identifier": "main",
+    "statement_type": "function",
+    "deps": [
+      "send_message",
+      "generate_key",
+      "encrypt"
+    ],
+    "body": "fn main() {\n    let key = generate_key();\n    let message = \"Hello, Rust!\";\n    let encrypted = encrypt(message, &key);\n    let sent = send_message(&encrypted);\n    println!(\"Message sent: {}\", sent);\n}",
+    "display_name": "main",
+    "full_path": "file:///work/3266/Test.rs",
+    "relative_path": "Test.rs",
+    "file_name": "Test.rs",
+    "parent_folder": "root"
+  },
+  {
+    "identifier": "generate_key",
+    "statement_type": "function",
+    "deps": [
+      "random_string"
+    ],
+    "body": "fn generate_key() -> String {\n    random_string(16)\n}",
+    "display_name": "generate_key",
+    "full_path": "file:///work/3266/Test.rs",
+    "relative_path": "Test.rs",
+    "file_name": "Test.rs",
+    "parent_folder": "root"
+  },
+  {
+    "identifier": "send_message",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn send_message(msg: &str) -> bool {\n    println!(\"Sending: {}\", msg);\n    true\n}",
+    "display_name": "send_message",
+    "full_path": "file:///work/3266/Test.rs",
+    "relative_path": "Test.rs",
+    "file_name": "Test.rs",
+    "parent_folder": "root"
+  },
+  {
+    "identifier": "encrypt",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn encrypt(message: &str, key: &str) -> String {\n    format!(\"{}:{}\", message, key)\n}",
+    "display_name": "encrypt",
+    "full_path": "file:///work/3266/Test.rs",
+    "relative_path": "Test.rs",
+    "file_name": "Test.rs",
+    "parent_folder": "root"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "32199": {
+    "text": "use prusti_contracts::*;\r\n\r\n#[requires(x >= 0)]\r\n#[ensures(result >= x)]\r\nfn add_one(x: i32) -> i32 {\r\n    x + 1\r\n}\r\n\r\nfn main() {\r\n    let y = add_one(5);\r\n    println!(\"Result: {}\", y);\r\n}",
+    "filename": "rust.rs",
+    "filepath": null,
+    "folder_id": null,
+    "user_id": 460154
+  }
+}
