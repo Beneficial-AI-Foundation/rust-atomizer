@@ -1,0 +1,317 @@
+[
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core index/ops/Index",
+    "statement_type": "function",
+    "deps": [],
+    "body": "",
+    "display_name": "Index",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/montgomery_square",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/square_internal",
+      "Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn montgomery_square(&self) -> (result: Scalar52)\n    requires\n        limbs_bounded(self),\n    ensures\n        limbs_bounded(&result),\n        (to_nat(&result.limbs) * montgomery_radix()) % group_order() == (to_nat(&self.limbs) * to_nat(&self.limbs)) % group_order(),\n    {\n        Scalar52::montgomery_reduce(&Scalar52::square_internal(self))\n    }",
+    "display_name": "montgomery_square",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/from_bytes_wide",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/add",
+      "Scalar52/montgomery_mul"
+    ],
+    "body": "    pub fn from_bytes_wide(bytes: &[u8; 64]) -> (s: Scalar52)\n    ensures\n        limbs_bounded(&s),\n        to_nat(&s.limbs) == bytes_wide_to_nat(bytes) % group_order(),\n    {\n        assume(false); // TODO: complete the proof\n        let mut words = [0u64; 8];\n        for i in 0..8 {\n            for j in 0..8 {\n                words[i] |= (bytes[(i * 8) + j] as u64) << (j * 8);\n            }\n        }\n\n        let mask = (1u64 << 52) - 1;\n        let mut lo = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        let mut hi = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n\n        lo[0] =   words[0]                             & mask;\n        lo[1] = ((words[0] >> 52) | (words[ 1] << 12)) & mask;\n        lo[2] = ((words[1] >> 40) | (words[ 2] << 24)) & mask;\n        lo[3] = ((words[2] >> 28) | (words[ 3] << 36)) & mask;\n        lo[4] = ((words[3] >> 16) | (words[ 4] << 48)) & mask;\n        hi[0] =  (words[4] >>  4)                      & mask;\n        hi[1] = ((words[4] >> 56) | (words[ 5] <<  8)) & mask;\n        hi[2] = ((words[5] >> 44) | (words[ 6] << 20)) & mask;\n        hi[3] = ((words[6] >> 32) | (words[ 7] << 32)) & mask;\n        hi[4] =   words[7] >> 20                             ;\n\n        lo = Scalar52::montgomery_mul(&lo, &constants::R);  // (lo * R) / R = lo\n        hi = Scalar52::montgomery_mul(&hi, &constants::RR); // (hi * R^2) / R = hi * R\n\n        Scalar52::add(&hi, &lo)\n    }",
+    "display_name": "from_bytes_wide",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/wrapping_sub",
+    "statement_type": "function",
+    "deps": [],
+    "body": "",
+    "display_name": "wrapping_sub",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/montgomery_mul",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/mul_internal",
+      "Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn montgomery_mul(a: &Scalar52, b: &Scalar52) -> (result: Scalar52)\n    requires\n        limbs_bounded(a),\n        limbs_bounded(b),\n    ensures\n        limbs_bounded(&result),\n        (to_nat(&result.limbs) * montgomery_radix()) % group_order() == (to_nat(&a.limbs) * to_nat(&b.limbs)) % group_order(),\n    {\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(a, b))\n    }",
+    "display_name": "montgomery_mul",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/Debug/fmt",
+    "statement_type": "function",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core index/ops/Index"
+    ],
+    "body": "    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {\n        write!(f, \"Scalar52: {:?}\", self.limbs)\n    }",
+    "display_name": "fmt",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/sub",
+    "statement_type": "function",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core num/wrapping_sub"
+    ],
+    "body": "    pub fn sub(a: &Scalar52, b: &Scalar52) -> (s: Scalar52)\n    requires\n        limbs_bounded(a),\n        limbs_bounded(b),\n        // Without the following condition, all we can prove is something like:\n        // to_nat(&a.limbs) >= to_nat(&b.limbs) ==> to_nat(&s.limbs) == to_nat(&a.limbs) - to_nat(&b.limbs),\n        // to_nat(&a.limbs) < to_nat(&b.limbs) ==> to_nat(&s.limbs) == (to_nat(&a.limbs) - to_nat(&b.limbs) + pow2(260) + group_order()) % (pow2(260) as int),\n        // In the 2nd case, `sub` doesn't always do subtraction mod group_order\n        -group_order() <= to_nat(&a.limbs) - to_nat(&b.limbs) < group_order(),\n    ensures\n        to_nat(&s.limbs) == (to_nat(&a.limbs) - to_nat(&b.limbs)) % (group_order() as int),\n        limbs_bounded(&s),\n    {\n        let mut difference = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        proof { assert(1u64 << 52 > 0) by (bit_vector);}\n        let mask = (1u64 << 52) - 1;\n\n        // a - b\n        let mut borrow: u64 = 0;\n        assert(seq_u64_to_nat(a.limbs@.subrange(0, 0 as int)) - seq_u64_to_nat(b.limbs@.subrange(0, 0 as int )) ==\n                seq_u64_to_nat(difference.limbs@.subrange(0, 0 as int )));\n        assert( (borrow >> 63) == 0 ) by (bit_vector)\n            requires borrow == 0;\n        assert(seq_u64_to_nat(a.limbs@.subrange(0, 0 as int)) - seq_u64_to_nat(b.limbs@.subrange(0, 0 as int )) ==\n                seq_u64_to_nat(difference.limbs@.subrange(0, 0 as int )) - (borrow >> 63) * pow2((52 * (0) as nat)));\n        for i in 0..5\n            invariant\n                      limbs_bounded(b),\n                      limbs_bounded(a),\n                      forall|j: int| 0 <= j < i ==> difference.limbs[j] < (1u64 << 52),\n                      mask == (1u64 << 52) - 1,\n                      seq_u64_to_nat(a.limbs@.subrange(0, i as int)) - seq_u64_to_nat(b.limbs@.subrange(0, i as int )) ==\n                                    seq_u64_to_nat(difference.limbs@.subrange(0, i as int )) - (borrow >> 63) * pow2((52 * (i) as nat))\n        {\n            proof { assert ((borrow >> 63) < 2) by (bit_vector); }\n            let ghost old_borrow = borrow;\n            borrow = a.limbs[i].wrapping_sub(b.limbs[i] + (borrow >> 63));\n            let ghost difference_loop1_start = difference;\n            difference.limbs[i] = borrow & mask;\n            assert(difference_loop1_start.limbs@.subrange(0, i as int) == difference.limbs@.subrange(0, i as int));\n            assert(\n            seq_u64_to_nat(a.limbs@.subrange(0, i as int)) - seq_u64_to_nat(b.limbs@.subrange(0, i as int )) ==\n                        seq_u64_to_nat(difference_loop1_start.limbs@.subrange(0, i as int )) - (old_borrow >> 63) * pow2((52 * (i) as nat)));\n            proof{\n                lemma_sub_loop1_invariant(difference, borrow, i, a, b, old_borrow, mask, difference_loop1_start);\n            }\n            proof { lemma_borrow_and_mask_bounded(borrow, mask); }\n        }\n\n        assert(seq_u64_to_nat(a.limbs@.subrange(0, 5 as int)) - seq_u64_to_nat(b.limbs@.subrange(0, 5 as int )) ==\n                seq_u64_to_nat(difference.limbs@.subrange(0, 5 as int )) - (borrow >> 63) * pow2((52 * (5) as nat)) );\n        // conditionally add l if the difference is negative\n        assert(borrow >> 63 == 1 || borrow >> 63 == 0) by (bit_vector);\n        let mut carry: u64 = 0;\n        let ghost difference_after_loop1 = difference;\n        assert(seq_u64_to_nat(difference_after_loop1.limbs@.subrange(0, 0 as int)) == 0);\n        assert(seq_u64_to_nat(constants::L.limbs@.subrange(0, 0 as int)) == 0);\n        assert(seq_u64_to_nat(difference.limbs@.subrange(0, 0 as int)) == 0);\n        assert(carry >> 52 == 0) by (bit_vector)\n            requires carry == 0;\n        for i in 0..5\n            invariant\n                      forall|j: int| 0 <= j < 5 ==> difference.limbs[j] < (1u64 << 52),  // from first loop\n                      forall|j: int| i <= j < 5 ==> difference.limbs[j] == difference_after_loop1.limbs[j],\n                      mask == (1u64 << 52) - 1,\n                      i == 0 ==> carry == 0,\n                      i >= 1 ==> (carry >> 52) < 2,\n                      (i >=1 && borrow >> 63 == 0) ==> carry == difference.limbs[i-1],\n                      borrow >> 63 == 0 ==> difference_after_loop1 == difference,\n                      borrow >> 63 == 1 ==>\n                          seq_u64_to_nat(difference_after_loop1.limbs@.subrange(0, i as int)) + seq_u64_to_nat(constants::L.limbs@.subrange(0, i as int)) ==\n                          seq_u64_to_nat(difference.limbs@.subrange(0, i as int)) + (carry >> 52) * pow2(52 * i as nat)\n\n        {\n            let ghost old_carry = carry;\n            let underflow = Choice::from((borrow >> 63) as u8);\n            let addend = select(&0, &constants::L.limbs[i], underflow);\n            if borrow >> 63 == 0 {\n                assert(addend == 0);\n            }\n            if borrow >> 63 == 1 {\n                assert(addend == constants::L.limbs[i as int]);\n            }\n            proof {lemma_scalar_subtract_no_overflow(carry, difference.limbs[i as int], addend, i as u32, &constants::L);}\n            carry = (carry >> 52) + difference.limbs[i] + addend;\n            let ghost difference_loop2_start = difference;\n            difference.limbs[i] = carry & mask;\n            proof {\n                lemma_carry_bounded_after_mask(carry, mask);\n                assert(difference_loop2_start.limbs@.subrange(0, i as int) == difference.limbs@.subrange(0, i as int));\n                lemma_sub_loop2_invariant(difference, i, a, b, mask, difference_after_loop1, difference_loop2_start, carry, old_carry, addend, borrow);\n            }\n        }\n        proof { lemma_sub_correct_after_loops(difference, carry, a, b, difference_after_loop1, borrow);}\n        difference\n    }",
+    "display_name": "sub",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/montgomery_reduce",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/part2",
+      "Scalar52/part1",
+      "m",
+      "Scalar52/sub"
+    ],
+    "body": "    pub (crate) fn montgomery_reduce(limbs: &[u128; 9]) -> (result: Scalar52)\n    ensures\n        (to_nat(&result.limbs) * montgomery_radix()) % group_order() == slice128_to_nat(limbs) % group_order(),\n        limbs_bounded(&result),\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n\n\n        // note: l[3] is zero, so its multiples can be skipped\n        let l = &constants::L;\n\n        // the first half computes the Montgomery adjustment factor n, and begins adding n*l to make limbs divisible by R\n        let (carry, n0) = Self::part1(limbs[0]);\n        let (carry, n1) = Self::part1(carry + limbs[1] + m(n0, l.limbs[1]));\n        let (carry, n2) = Self::part1(carry + limbs[2] + m(n0, l.limbs[2]) + m(n1, l.limbs[1]));\n        let (carry, n3) = Self::part1(carry + limbs[3] + m(n1, l.limbs[2]) + m(n2, l.limbs[1]));\n        let (carry, n4) = Self::part1(carry + limbs[4] + m(n0, l.limbs[4]) + m(n2, l.limbs[2]) + m(n3, l.limbs[1]));\n\n        // limbs is divisible by R now, so we can divide by R by simply storing the upper half as the result\n        let (carry, r0) = Self::part2(carry + limbs[5] + m(n1, l.limbs[4]) + m(n3, l.limbs[2]) + m(n4, l.limbs[1]));\n        let (carry, r1) = Self::part2(carry + limbs[6] + m(n2, l.limbs[4]) + m(n4, l.limbs[2]));\n        let (carry, r2) = Self::part2(carry + limbs[7] + m(n3, l.limbs[4]));\n        let (carry, r3) = Self::part2(carry + limbs[8] + m(n4, l.limbs[4]));\n        let r4 = carry as u64;\n\n        // result may be >= l, so attempt to subtract l\n        Scalar52::sub(&Scalar52 { limbs: [r0, r1, r2, r3, r4] }, l)\n    }",
+    "display_name": "montgomery_reduce",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/add",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/sub"
+    ],
+    "body": "    pub fn add(a: &Scalar52, b: &Scalar52) -> (s: Scalar52)\n    requires\n        limbs_bounded(a),\n        limbs_bounded(b),\n    ensures\n        to_nat(&s.limbs) == (to_nat(&a.limbs) + to_nat(&b.limbs)) % group_order(),\n    {\n        let mut sum = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        proof { assert(1u64 << 52 > 0) by (bit_vector); }\n        let mask = (1u64 << 52) - 1;\n\n        // a + b\n        let mut carry: u64 = 0;\n        for i in 0..5\n           invariant\n                    forall|j: int| 0 <= j < i ==> sum.limbs[j] < 1u64 << 52,\n                    limbs_bounded(a),\n                    limbs_bounded(b),\n                    mask == (1u64 << 52) - 1,\n                    i == 0 ==> carry == 0,\n                    i >= 1 ==> (carry >> 52) < 2,\n        {\n            proof {lemma_add_loop_bounds(i as int, carry, a.limbs[i as int], b.limbs[i as int]);}\n            carry = a.limbs[i] + b.limbs[i] + (carry >> 52);\n            sum.limbs[i] = carry & mask;\n            proof {lemma_add_carry_and_sum_bounds(carry, mask);}\n        }\n\n        // subtract l if the sum is >= l\n        proof { lemma_l_value_properties(&constants::L, &sum); }\n        assume(to_nat(&sum.limbs) < 2 * group_order());\n        assert(group_order() > to_nat(&sum.limbs) - group_order() >= -group_order());\n        proof{lemma_l_equals_group_order();}\n        let result = Scalar52::sub(&sum, &constants::L);\n        assume(to_nat(&result.limbs) == (to_nat(&a.limbs) + to_nat(&b.limbs)) % group_order());\n        result\n\n    }",
+    "display_name": "add",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/square",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/square_internal",
+      "Scalar52/mul_internal",
+      "Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn square(&self) -> (result: Scalar52)\n    requires\n        limbs_bounded(self),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&self.limbs) * to_nat(&self.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        let aa = Scalar52::montgomery_reduce(&Scalar52::square_internal(self));\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(&aa, &constants::RR))\n    }",
+    "display_name": "square",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/square_internal",
+    "statement_type": "function",
+    "deps": [
+      "m"
+    ],
+    "body": "    pub (crate) fn square_internal(a: &Scalar52) -> (z: [u128; 9])\n    requires\n        limbs_bounded(a),\n    ensures\n        slice128_to_nat(&z) == to_nat(&a.limbs) * to_nat(&a.limbs),\n    {\n        proof {lemma_square_internal_no_overflow()}\n\n        let mut z = [0u128; 9];\n        z[0] = m(a.limbs[0], a.limbs[0]);\n        z[1] = m(a.limbs[0], a.limbs[1]) * 2;\n        z[2] = m(a.limbs[0], a.limbs[2]) * 2 + m(a.limbs[1], a.limbs[1]);\n        z[3] = m(a.limbs[0], a.limbs[3]) * 2 + m(a.limbs[1], a.limbs[2]) * 2;\n        z[4] = m(a.limbs[0], a.limbs[4]) * 2 + m(a.limbs[1], a.limbs[3]) * 2 + m(a.limbs[2], a.limbs[2]);\n        z[5] =                 m(a.limbs[1], a.limbs[4]) * 2 + m(a.limbs[2], a.limbs[3]) * 2;\n        z[6] =                                 m(a.limbs[2], a.limbs[4]) * 2 + m(a.limbs[3], a.limbs[3]);\n        z[7] =                                                 m(a.limbs[3], a.limbs[4]) * 2;\n        z[8] =                                                                 m(a.limbs[4], a.limbs[4]);\n\n        proof {lemma_square_internal_correct(&a.limbs, &z);}\n\n        z\n    }",
+    "display_name": "square_internal",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut",
+    "statement_type": "function",
+    "deps": [],
+    "body": "",
+    "display_name": "IndexMut",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/IndexMut/index_mut",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn index_mut(&mut self, _index: usize) -> &mut u64 {\n        &mut (self.limbs[_index])\n    }",
+    "display_name": "index_mut",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/part1",
+    "statement_type": "function",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core num/wrapping_mul",
+      "m"
+    ],
+    "body": "    fn part1(sum: u128) -> (res: (u128, u64))\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n        let p = (sum as u64).wrapping_mul(constants::LFACTOR) & ((1u64 << 52) - 1);\n        let carry = (sum + m(p, constants::L.limbs[0])) >> 52;\n        (carry, p)\n    }",
+    "display_name": "part1",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/Index/index",
+    "statement_type": "function",
+    "deps": [
+      "core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut"
+    ],
+    "body": "    fn index(&self, _index: usize) -> &u64 {\n        &(self.limbs[_index])\n    }",
+    "display_name": "index",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/from_bytes",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn from_bytes(bytes: &[u8; 32]) -> (s: Scalar52)\n    ensures bytes_to_nat(bytes) == to_nat(&s.limbs)\n    {\n        let mut words = [0u64; 4];\n        for i in 0..4\n            invariant 0 <= i <= 4 // proof\n        {\n            for j in 0..8\n                invariant 0 <= j <= 8 && i < 4\n            {\n                proof {\n                    assert(i < 4 && j < 8);\n                    assert((i as u64)*8u64 < 32u64);\n                    let idx = (i as u64) * 8 + (j as u64);\n                    assert(idx < 32);\n                }\n                words[i] |= (bytes[(i * 8) + j] as u64) << (j * 8);\n            }\n        }\n        //TODO: prove that bytes_to_nat(bytes) == words_to_nat(&words)\n        assume(bytes_to_nat(bytes) == words_to_nat(&words));\n        proof {\n            assert(1u64 << 52 > 0) by (bit_vector);\n            assert(1u64 << 48 > 0) by (bit_vector);\n            // TODO: prove property about words array\n        }\n\n        let mask = (1u64 << 52) - 1;\n        let top_mask = (1u64 << 48) - 1;\n        let mut s = Scalar52 { limbs: [0u64, 0u64, 0u64, 0u64, 0u64] };\n        //test workflow graphs\n        s.limbs[0] =   words[0]                            & mask;\n        s.limbs[1] = ((words[0] >> 52) | (words[1] << 12)) & mask;\n        s.limbs[2] = ((words[1] >> 40) | (words[2] << 24)) & mask;\n        s.limbs[3] = ((words[2] >> 28) | (words[3] << 36)) & mask;\n        s.limbs[4] =  (words[3] >> 16)                     & top_mask;\n\n        assume(false); // TODO: complete the proof\n\n        s\n    }",
+    "display_name": "from_bytes",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/mul_internal",
+    "statement_type": "function",
+    "deps": [
+      "m"
+    ],
+    "body": "    pub (crate) fn mul_internal(a: &Scalar52, b: &Scalar52) -> (z: [u128; 9])\n    requires\n        limbs_bounded(a),\n        limbs_bounded(b),\n    ensures\n        slice128_to_nat(&z) == to_nat(&a.limbs) * to_nat(&b.limbs),\n    {\n        proof {lemma_mul_internal_no_overflow()}\n\n        let mut z = [0u128; 9];\n\n        z[0] = m(a.limbs[0], b.limbs[0]);\n        z[1] = m(a.limbs[0], b.limbs[1]) + m(a.limbs[1], b.limbs[0]);\n        z[2] = m(a.limbs[0], b.limbs[2]) + m(a.limbs[1], b.limbs[1]) + m(a.limbs[2], b.limbs[0]);\n        z[3] = m(a.limbs[0], b.limbs[3]) + m(a.limbs[1], b.limbs[2]) + m(a.limbs[2], b.limbs[1]) + m(a.limbs[3], b.limbs[0]);\n        z[4] = m(a.limbs[0], b.limbs[4]) + m(a.limbs[1], b.limbs[3]) + m(a.limbs[2], b.limbs[2]) + m(a.limbs[3], b.limbs[1]) + m(a.limbs[4], b.limbs[0]);\n        z[5] =                 m(a.limbs[1], b.limbs[4]) + m(a.limbs[2], b.limbs[3]) + m(a.limbs[3], b.limbs[2]) + m(a.limbs[4], b.limbs[1]);\n        z[6] =                                 m(a.limbs[2], b.limbs[4]) + m(a.limbs[3], b.limbs[3]) + m(a.limbs[4], b.limbs[2]);\n        z[7] =                                                 m(a.limbs[3], b.limbs[4]) + m(a.limbs[4], b.limbs[3]);\n        z[8] =                                                                 m(a.limbs[4], b.limbs[4]);\n\n        proof {lemma_mul_internal_correct(&a.limbs, &b.limbs, &z);}\n\n        z\n    }",
+    "display_name": "mul_internal",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/as_montgomery",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/montgomery_mul"
+    ],
+    "body": "    pub fn as_montgomery(&self) -> (result: Scalar52)\n    requires\n        limbs_bounded(self),\n    ensures\n        limbs_bounded(&result),\n        to_nat(&result.limbs) == (to_nat(&self.limbs) * montgomery_radix()) % group_order(),\n    {\n        proof {\n            lemma_rr_limbs_bounded();\n        }\n        let result = Scalar52::montgomery_mul(self, &constants::RR);\n        assume(to_nat(&result.limbs) == (to_nat(&self.limbs) * montgomery_radix()) % group_order());\n        result\n    }",
+    "display_name": "as_montgomery",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core fmt/Debug",
+    "statement_type": "function",
+    "deps": [],
+    "body": "",
+    "display_name": "Debug",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/to_bytes",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    pub fn to_bytes(self) -> (s: [u8; 32])\n    ensures bytes_to_nat(&s) == to_nat(&self.limbs)\n    {\n        let mut s = [0u8; 32];\n\n        s[ 0] =  (self.limbs[ 0] >>  0)                      as u8;\n        s[ 1] =  (self.limbs[ 0] >>  8)                      as u8;\n        s[ 2] =  (self.limbs[ 0] >> 16)                      as u8;\n        s[ 3] =  (self.limbs[ 0] >> 24)                      as u8;\n        s[ 4] =  (self.limbs[ 0] >> 32)                      as u8;\n        s[ 5] =  (self.limbs[ 0] >> 40)                      as u8;\n        s[ 6] = ((self.limbs[ 0] >> 48) | (self.limbs[ 1] << 4)) as u8;\n        s[ 7] =  (self.limbs[ 1] >>  4)                      as u8;\n        s[ 8] =  (self.limbs[ 1] >> 12)                      as u8;\n        s[ 9] =  (self.limbs[ 1] >> 20)                      as u8;\n        s[10] =  (self.limbs[ 1] >> 28)                      as u8;\n        s[11] =  (self.limbs[ 1] >> 36)                      as u8;\n        s[12] =  (self.limbs[ 1] >> 44)                      as u8;\n        s[13] =  (self.limbs[ 2] >>  0)                      as u8;\n        s[14] =  (self.limbs[ 2] >>  8)                      as u8;\n        s[15] =  (self.limbs[ 2] >> 16)                      as u8;\n        s[16] =  (self.limbs[ 2] >> 24)                      as u8;\n        s[17] =  (self.limbs[ 2] >> 32)                      as u8;\n        s[18] =  (self.limbs[ 2] >> 40)                      as u8;\n        s[19] = ((self.limbs[ 2] >> 48) | (self.limbs[ 3] << 4)) as u8;\n        s[20] =  (self.limbs[ 3] >>  4)                      as u8;\n        s[21] =  (self.limbs[ 3] >> 12)                      as u8;\n        s[22] =  (self.limbs[ 3] >> 20)                      as u8;\n        s[23] =  (self.limbs[ 3] >> 28)                      as u8;\n        s[24] =  (self.limbs[ 3] >> 36)                      as u8;\n        s[25] =  (self.limbs[ 3] >> 44)                      as u8;\n        s[26] =  (self.limbs[ 4] >>  0)                      as u8;\n        s[27] =  (self.limbs[ 4] >>  8)                      as u8;\n        s[28] =  (self.limbs[ 4] >> 16)                      as u8;\n        s[29] =  (self.limbs[ 4] >> 24)                      as u8;\n        s[30] =  (self.limbs[ 4] >> 32)                      as u8;\n        s[31] =  (self.limbs[ 4] >> 40)                      as u8;\n\n        assume(false); // TODO: complete the proof\n\n        s\n    }",
+    "display_name": "to_bytes",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "core https:/github.com/rust_lang/rust/library/core num/wrapping_mul",
+    "statement_type": "function",
+    "deps": [],
+    "body": "",
+    "display_name": "wrapping_mul",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "m",
+    "statement_type": "function",
+    "deps": [],
+    "body": "fn m(x: u64, y: u64) -> (z: u128)\nrequires\n    x < (1u64 << 52),\n    y < (1u64 << 52),\nensures\n    z < (1u128 << 104),\n    z == x * y\n{\n    proof {lemma_52_52(x, y);}\n    (x as u128) * (y as u128)\n}",
+    "display_name": "m",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/part2",
+    "statement_type": "function",
+    "deps": [],
+    "body": "    fn part2(sum: u128) -> (res: (u128, u64))\n    {\n        assume(false); // TODO: Add proper bounds checking and proofs\n        let w = (sum as u64) & ((1u64 << 52) - 1);\n        let carry = sum >> 52;\n        (carry, w)\n    }",
+    "display_name": "part2",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/mul",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/montgomery_reduce",
+      "Scalar52/mul_internal"
+    ],
+    "body": "    pub fn mul(a: &Scalar52, b: &Scalar52) -> (result: Scalar52)\n    requires\n        limbs_bounded(a),\n        limbs_bounded(b),\n    ensures\n        to_nat(&result.limbs) == (to_nat(&a.limbs) * to_nat(&b.limbs)) % group_order(),\n    {\n        assume(false); // TODO: Add proper Montgomery arithmetic proofs\n        let ab = Scalar52::montgomery_reduce(&Scalar52::mul_internal(a, b));\n        Scalar52::montgomery_reduce(&Scalar52::mul_internal(&ab, &constants::RR))\n    }",
+    "display_name": "mul",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  },
+  {
+    "identifier": "Scalar52/from_montgomery",
+    "statement_type": "function",
+    "deps": [
+      "Scalar52/montgomery_reduce"
+    ],
+    "body": "    pub fn from_montgomery(&self) -> (result: Scalar52)\n    requires\n        limbs_bounded(self),\n    ensures\n        limbs_bounded(&result),\n        (to_nat(&result.limbs) * montgomery_radix()) % group_order() == to_nat(&self.limbs) % group_order(),\n    {\n        let mut limbs = [0u128; 9];\n        #[allow(clippy::needless_range_loop)]\n        for i in 0..5\n            invariant\n                forall|j: int| #![auto] 0 <= j < i ==> limbs[j] == self.limbs[j] as u128,\n                forall|j: int| #![auto] i <= j < 9 ==> limbs[j] == 0,\n        {\n            limbs[i] = self.limbs[i] as u128;\n        }\n        let result = Scalar52::montgomery_reduce(&limbs);\n        proof {\n            lemma_from_montgomery_limbs_conversion(&limbs, &self.limbs);\n        }\n        result\n    }",
+    "display_name": "from_montgomery",
+    "full_path": "file:///work/temp/scalar.rs",
+    "relative_path": "scalar.rs",
+    "file_name": "scalar.rs",
+    "parent_folder": "temp"
+  }
+]

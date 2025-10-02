@@ -1,0 +1,281 @@
+[
+  {
+    "identifier": "incr_ignore_input_mut_borrow",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn incr_ignore_input_mut_borrow(a: &mut u32, mut i: u32) {\n    *a += 1;\n    while i > 0 {\n        i -= 1;\n    }\n}",
+    "display_name": "incr_ignore_input_mut_borrow",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_loop_pair",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_shared_loop_pair<'a, 'b, T>(\n    mut ls0: &'a List<T>,\n    mut ls1: &'b List<T>,\n    mut i: u32,\n) -> (&'a T, &'b T) {\n    loop {\n        match (ls0, ls1) {\n            (List::Nil, _) | (_, List::Nil) => {\n                panic!()\n            }\n            (List::Cons(x0, tl0), List::Cons(x1, tl1)) => {\n                if i == 0 {\n                    return (x0, x1);\n                } else {\n                    ls0 = tl0;\n                    ls1 = tl1;\n                    i -= 1;\n                }\n            }\n        }\n    }\n}",
+    "display_name": "list_nth_shared_loop_pair",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_mut_loop_pair",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_shared_mut_loop_pair<'a, 'b, T>(\n    mut ls0: &'a List<T>,\n    mut ls1: &'b mut List<T>,\n    mut i: u32,\n) -> (&'a T, &'b mut T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_shared_mut_loop_pair",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "ignore_input_shared_borrow",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn ignore_input_shared_borrow(_a: &mut u32, mut i: u32) {\n    while i > 0 {\n        i -= 1;\n    }\n}",
+    "display_name": "ignore_input_shared_borrow",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "id_mut",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn id_mut<T>(ls: &mut List<T>) -> &mut List<T> {\n    ls\n}",
+    "display_name": "id_mut",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_loop_pair",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_mut_loop_pair<'a, 'b, T>(\n    mut ls0: &'a mut List<T>,\n    mut ls1: &'b mut List<T>,\n    mut i: u32,\n) -> (&'a mut T, &'b mut T) {\n    loop {\n        match (ls0, ls1) {\n            (List::Nil, _) | (_, List::Nil) => {\n                panic!()\n            }\n            (List::Cons(x0, tl0), List::Cons(x1, tl1)) => {\n                if i == 0 {\n                    return (x0, x1);\n                } else {\n                    ls0 = tl0;\n                    ls1 = tl1;\n                    i -= 1;\n                }\n            }\n        }\n    }\n}",
+    "display_name": "list_nth_mut_loop_pair",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_shared_loop_pair_merge",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_mut_shared_loop_pair_merge<'a, T>(\n    mut ls0: &'a mut List<T>,\n    mut ls1: &'a List<T>,\n    mut i: u32,\n) -> (&'a mut T, &'a T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_mut_shared_loop_pair_merge",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_loop",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_mut_loop<T>(mut ls: &mut List<T>, mut i: u32) -> &mut T {\n    while let List::Cons(x, tl) = ls {\n        if i == 0 {\n            return x;\n        } else {\n            ls = tl;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_mut_loop",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "sum",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn sum(max: u32) -> u32 {\n    let mut i = 0;\n    let mut s = 0;\n    while i < max {\n        s += i;\n        i += 1;\n    }\n\n    s *= 2;\n    s\n}",
+    "display_name": "sum",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_mem",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_mem(x: &u32, mut ls: &List<u32>) -> bool {\n    while let List::Cons(y, tl) = ls {\n        if *y == *x {\n            return true;\n        } else {\n            ls = tl;\n        }\n    }\n    false\n}",
+    "display_name": "list_mem",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "clear",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn clear(v: &mut Vec<u32>) {\n    let mut i = 0;\n    while i < v.len() {\n        v[i] = 0;\n        i += 1;\n    }\n}",
+    "display_name": "clear",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_shared_loop_pair",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_mut_shared_loop_pair<'a, 'b, T>(\n    mut ls0: &'a mut List<T>,\n    mut ls1: &'b List<T>,\n    mut i: u32,\n) -> (&'a mut T, &'b T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_mut_shared_loop_pair",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "id_shared",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn id_shared<T>(ls: &List<T>) -> &List<T> {\n    ls\n}",
+    "display_name": "id_shared",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "get_elem_mut",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn get_elem_mut(slots: &mut Vec<List<usize>>, x: usize) -> &mut usize {\n    let mut ls = &mut slots[0];\n    loop {\n        match ls {\n            List::Nil => panic!(),\n            List::Cons(y, tl) => {\n                if *y == x {\n                    return y;\n                } else {\n                    ls = tl;\n                }\n            }\n        }\n    }\n}",
+    "display_name": "get_elem_mut",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_loop_with_id",
+    "statement_type": "function",
+    "deps": [
+      "id_shared"
+    ],
+    "body": "pub fn list_nth_shared_loop_with_id<T>(ls: &List<T>, mut i: u32) -> &T {\n    let mut ls = id_shared(ls);\n    while let List::Cons(x, tl) = ls {\n        if i == 0 {\n            return x;\n        } else {\n            ls = tl;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_shared_loop_with_id",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_mut_loop_pair_merge",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_shared_mut_loop_pair_merge<'a, T>(\n    mut ls0: &'a List<T>,\n    mut ls1: &'a mut List<T>,\n    mut i: u32,\n) -> (&'a T, &'a mut T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_shared_mut_loop_pair_merge",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "sum_with_mut_borrows",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn sum_with_mut_borrows(max: u32) -> u32 {\n    let mut i = 0;\n    let mut s = 0;\n    while i < max {\n        let ms = &mut s;\n        *ms += i;\n        let mi = &mut i;\n        *mi += 1;\n    }\n\n    s *= 2;\n    s\n}",
+    "display_name": "sum_with_mut_borrows",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_loop_with_id",
+    "statement_type": "function",
+    "deps": [
+      "id_mut"
+    ],
+    "body": "pub fn list_nth_mut_loop_with_id<T>(ls: &mut List<T>, mut i: u32) -> &mut T {\n    let mut ls = id_mut(ls);\n    while let List::Cons(x, tl) = ls {\n        if i == 0 {\n            return x;\n        } else {\n            ls = tl;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_mut_loop_with_id",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "sum_array",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn sum_array<const N: usize>(a: [u32; N]) -> u32 {\n    let mut i = 0;\n    let mut s = 0;\n    while i < N {\n        s += a[i];\n        i += 1;\n    }\n    s\n}",
+    "display_name": "sum_array",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_loop_pair_merge",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_shared_loop_pair_merge<'a, T>(\n    mut ls0: &'a List<T>,\n    mut ls1: &'a List<T>,\n    mut i: u32,\n) -> (&'a T, &'a T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_shared_loop_pair_merge",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_shared_loop",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_shared_loop<T>(mut ls: &List<T>, mut i: u32) -> &T {\n    while let List::Cons(x, tl) = ls {\n        if i == 0 {\n            return x;\n        } else {\n            ls = tl;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_shared_loop",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "ignore_input_mut_borrow",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn ignore_input_mut_borrow(_a: &mut u32, mut i: u32) {\n    while i > 0 {\n        i -= 1;\n    }\n}",
+    "display_name": "ignore_input_mut_borrow",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "sum_with_shared_borrows",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn sum_with_shared_borrows(max: u32) -> u32 {\n    let mut i = 0;\n    let mut s = 0;\n    while i < max {\n        i += 1;\n        // We changed the order compared to [sum_with_mut_borrows]:\n        // we want to have a shared borrow surviving until the end\n        // of the iteration.\n        let mi = &i;\n        s += *mi;\n    }\n\n    s *= 2;\n    s\n}",
+    "display_name": "sum_with_shared_borrows",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "get_elem_shared",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn get_elem_shared(slots: &Vec<List<usize>>, x: usize) -> &usize {\n    let mut ls = &slots[0];\n    loop {\n        match ls {\n            List::Nil => panic!(),\n            List::Cons(y, tl) => {\n                if *y == x {\n                    return y;\n                } else {\n                    ls = tl;\n                }\n            }\n        }\n    }\n}",
+    "display_name": "get_elem_shared",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  },
+  {
+    "identifier": "list_nth_mut_loop_pair_merge",
+    "statement_type": "function",
+    "deps": [],
+    "body": "pub fn list_nth_mut_loop_pair_merge<'a, T>(\n    mut ls0: &'a mut List<T>,\n    mut ls1: &'a mut List<T>,\n    mut i: u32,\n) -> (&'a mut T, &'a mut T) {\n    while let (List::Cons(x0, tl0), List::Cons(x1, tl1)) = (ls0, ls1) {\n        if i == 0 {\n            return (x0, x1);\n        } else {\n            ls0 = tl0;\n            ls1 = tl1;\n            i -= 1;\n        }\n    }\n    panic!()\n}",
+    "display_name": "list_nth_mut_loop_pair_merge",
+    "full_path": "file:///work/3089/RUST_loops_Sofia.rs",
+    "relative_path": "RUST_loops_Sofia.rs",
+    "file_name": "RUST_loops_Sofia.rs",
+    "parent_folder": "3089"
+  }
+]

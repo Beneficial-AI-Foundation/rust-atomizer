@@ -1,0 +1,600 @@
+{
+  "single_rust.rs": [
+    {
+      "identifier": "impl/SpecificServiceId/parse_from_service_id_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_binary"
+      ],
+      "body": "    pub fn parse_from_service_id_binary(bytes: &[u8]) -> Option<Self> {\n        ServiceId::parse_from_service_id_binary(bytes)?\n            .try_into()\n            .ok()\n    }",
+      "display_name": "parse_from_service_id_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/array_prepend",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn array_prepend(tag: u8, uuid_bytes: &[u8; 16]) -> [u8; 17] {\n        let mut result = [tag; 17];\n        result[1..].copy_from_slice(uuid_bytes);\n        result\n    }",
+      "display_name": "array_prepend",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/case_insensitive",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_string",
+        "impl/ServiceId/raw_uuid"
+      ],
+      "body": "    fn case_insensitive() {\n        let uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n        let mut buffer = [0u8; 40]; // exactly fits \"PNI:{uuid}\"\n\n        let service_id =\n            ServiceId::parse_from_service_id_string(uuid.hyphenated().encode_upper(&mut buffer))\n                .expect(\"can decode uppercase\");\n        assert_eq!(uuid, service_id.raw_uuid());\n\n        let service_id =\n            ServiceId::parse_from_service_id_string(uuid.hyphenated().encode_lower(&mut buffer))\n                .expect(\"can decode lowercase\");\n        assert_eq!(uuid, service_id.raw_uuid());\n\n        buffer[..4].copy_from_slice(b\"PNI:\");\n        uuid.hyphenated().encode_upper(&mut buffer[4..]);\n        let service_id = ServiceId::parse_from_service_id_string(\n            std::str::from_utf8(&buffer).expect(\"valid UTF-8\"),\n        )\n        .expect(\"can decode uppercase PNI\");\n        assert_eq!(uuid, service_id.raw_uuid());\n\n        uuid.hyphenated().encode_lower(&mut buffer[4..]);\n        let service_id = ServiceId::parse_from_service_id_string(\n            std::str::from_utf8(&buffer).expect(\"valid UTF-8\"),\n        )\n        .expect(\"can decode lowercase PNI\");\n        assert_eq!(uuid, service_id.raw_uuid());\n    }",
+      "display_name": "case_insensitive",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/Hash/hash",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {\n        state.write(self.0.as_bytes());\n    }",
+      "display_name": "hash",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/_/From>/from",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn from(value: SpecificServiceId<KIND>) -> Self {\n        value.0\n    }",
+      "display_name": "from",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/raw_uuid",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn raw_uuid(self) -> Uuid {\n        match self {\n            ServiceId::Aci(aci) => aci.into(),\n            ServiceId::Pni(pni) => pni.into(),\n        }\n    }",
+      "display_name": "raw_uuid",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/service_id_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/service_id_binary"
+      ],
+      "body": "    pub fn service_id_binary(&self) -> Vec<u8> {\n        ServiceId::from(*self).service_id_binary()\n    }",
+      "display_name": "service_id_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "try_parse_hyphenated",
+      "statement_type": "function",
+      "deps": [],
+      "body": "        fn try_parse_hyphenated(input: &str) -> Option<Uuid> {\n            // uuid::Uuid supports multiple UUID formats; we only want to support the \"hyphenated\"\n            // form.\n            if input.len() != uuid::fmt::Hyphenated::LENGTH {\n                return None;\n            }\n            Uuid::try_parse(input).ok()\n        }",
+      "display_name": "try_parse_hyphenated",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ProtocolAddress/new",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn new(name: String, device_id: DeviceId) -> Self {\n        ProtocolAddress { name, device_id }\n    }",
+      "display_name": "new",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/PartialEq>/eq",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn eq(&self, other: &SpecificServiceId<KIND>) -> bool {\n        *self == ServiceId::from(*other)\n    }",
+      "display_name": "eq",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/round_trip_test",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/raw_uuid",
+        "impl/ServiceId/kind",
+        "impl/SpecificServiceId/From/from",
+        "impl/SpecificServiceId/TryFrom/try_from"
+      ],
+      "body": "    fn round_trip_test<SerializedOwned, SerializedBorrowed>(\n        uuid: Uuid,\n        serialize: fn(&ServiceId) -> SerializedOwned,\n        serialize_aci: fn(&Aci) -> SerializedOwned,\n        serialize_pni: fn(&Pni) -> SerializedOwned,\n        deserialize: fn(&SerializedBorrowed) -> Option<ServiceId>,\n        deserialize_aci: fn(&SerializedBorrowed) -> Option<Aci>,\n        deserialize_pni: fn(&SerializedBorrowed) -> Option<Pni>,\n        expected_aci: &SerializedBorrowed,\n        expected_pni: &SerializedBorrowed,\n    ) where\n        SerializedOwned: Borrow<SerializedBorrowed>,\n        SerializedBorrowed: Eq + fmt::Debug + ?Sized,\n    {\n        {\n            let aci = Aci::from(uuid);\n            let serialized = serialize_aci(&aci);\n            assert_eq!(expected_aci, serialized.borrow());\n            assert_eq!(\n                serialized.borrow(),\n                serialize(&ServiceId::from(aci)).borrow()\n            );\n            let deserialized = deserialize(serialized.borrow()).expect(\"just serialized\");\n            assert_eq!(ServiceIdKind::Aci, deserialized.kind());\n            assert_eq!(uuid, deserialized.raw_uuid());\n            assert_eq!(aci, Aci::try_from(deserialized).expect(\"type matches\"));\n            assert_eq!(Some(aci), deserialize_aci(serialized.borrow()));\n            assert_eq!(None, deserialize_pni(serialized.borrow()));\n        }\n        {\n            let pni = Pni::from(uuid);\n            let serialized = serialize_pni(&pni);\n            assert_eq!(expected_pni, serialized.borrow());\n            assert_eq!(\n                serialized.borrow(),\n                serialize(&ServiceId::from(pni)).borrow()\n            );\n            let deserialized = deserialize(serialized.borrow()).expect(\"just serialized\");\n            assert_eq!(ServiceIdKind::Pni, deserialized.kind());\n            assert_eq!(uuid, deserialized.raw_uuid());\n            assert_eq!(pni, Pni::try_from(deserialized).expect(\"type matches\"));\n            assert_eq!(Some(pni), deserialize_pni(serialized.borrow()));\n            assert_eq!(None, deserialize_aci(serialized.borrow()));\n        }\n    }",
+      "display_name": "round_trip_test",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/round_trip_service_id_fixed_width_binary",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn round_trip_service_id_fixed_width_binary() {\n        proptest!(|(uuid_bytes: [u8; 16])| {\n            let uuid = Uuid::from_bytes(uuid_bytes);\n            round_trip_test(\n                uuid,\n                ServiceId::service_id_fixed_width_binary,\n                Aci::service_id_fixed_width_binary,\n                Pni::service_id_fixed_width_binary,\n                ServiceId::parse_from_service_id_fixed_width_binary,\n                Aci::parse_from_service_id_fixed_width_binary,\n                Pni::parse_from_service_id_fixed_width_binary,\n                &array_prepend(0x00, uuid.as_bytes()),\n                &array_prepend(0x01, uuid.as_bytes()),\n            );\n        });\n    }",
+      "display_name": "round_trip_service_id_fixed_width_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/ordering_consistency",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn ordering_consistency() {\n        proptest!(|(\n            left_uuid_bytes: [u8; 16],\n            left_raw_kind in 0..=1,\n            right_uuid_bytes: [u8; 16],\n            right_raw_kind in 0..=1\n        )| {\n            let service_id_constructor = |raw_type| match raw_type {\n                0 => |uuid: Uuid| ServiceId::Aci(uuid.into()),\n                1 => |uuid: Uuid| ServiceId::Pni(uuid.into()),\n                _ => unreachable!(\"unexpected raw type {raw_type}\"),\n            };\n\n            let left_uuid = Uuid::from_bytes(left_uuid_bytes);\n            let left_service_id = service_id_constructor(left_raw_kind)(left_uuid);\n            let right_uuid = Uuid::from_bytes(right_uuid_bytes);\n            let right_service_id = service_id_constructor(right_raw_kind)(right_uuid);\n\n            assert_eq!(\n                left_service_id.cmp(&right_service_id),\n                left_service_id.service_id_fixed_width_binary()\n                    .cmp(&right_service_id.service_id_fixed_width_binary()),\n                \"didn't match Service-Id-FixedWidthBinary ordering ({left_service_id:?} vs {right_service_id:?})\",\n            );\n\n            if left_raw_kind == right_raw_kind {\n                assert_eq!(\n                    left_service_id.cmp(&right_service_id),\n                    left_service_id.service_id_string().cmp(&right_service_id.service_id_string()),\n                    \"same-kind ServiceIds didn't match Service-Id-String ordering ({left_service_id:?} vs {right_service_id:?})\",\n                );\n            }\n        })\n    }",
+      "display_name": "ordering_consistency",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/service_id_fixed_width_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/service_id_fixed_width_binary"
+      ],
+      "body": "    pub fn service_id_fixed_width_binary(&self) -> ServiceIdFixedWidthBinaryBytes {\n        ServiceId::from(*self).service_id_fixed_width_binary()\n    }",
+      "display_name": "service_id_fixed_width_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ProtocolAddress/device_id",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn device_id(&self) -> DeviceId {\n        self.device_id\n    }",
+      "display_name": "device_id",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceIdKind/Display/fmt",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {\n        match self {\n            ServiceIdKind::Aci => f.write_str(\"ACI\"),\n            ServiceIdKind::Pni => f.write_str(\"PNI\"),\n        }\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/u8/From/from",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn from(value: ServiceIdKind) -> Self {\n        value as u8\n    }",
+      "display_name": "from",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/round_trip_service_id_binary",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn round_trip_service_id_binary() {\n        proptest!(|(uuid_bytes: [u8; 16])| {\n            let uuid = Uuid::from_bytes(uuid_bytes);\n            round_trip_test(\n                uuid,\n                ServiceId::service_id_binary,\n                Aci::service_id_binary,\n                Pni::service_id_binary,\n                ServiceId::parse_from_service_id_binary,\n                Aci::parse_from_service_id_binary,\n                Pni::parse_from_service_id_binary,\n                uuid.as_bytes(),\n                &array_prepend(0x01, uuid.as_bytes()),\n            );\n        });\n    }",
+      "display_name": "round_trip_service_id_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/parse_from_service_id_fixed_width_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_fixed_width_binary"
+      ],
+      "body": "    pub fn parse_from_service_id_fixed_width_binary(\n        bytes: &ServiceIdFixedWidthBinaryBytes,\n    ) -> Option<Self> {\n        ServiceId::parse_from_service_id_fixed_width_binary(bytes)?\n            .try_into()\n            .ok()\n    }",
+      "display_name": "parse_from_service_id_fixed_width_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/TryFrom/try_from",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/kind",
+        "impl/ServiceId/raw_uuid",
+        "impl/u8/From/from"
+      ],
+      "body": "    fn try_from(value: ServiceId) -> Result<Self, Self::Error> {\n        if u8::from(value.kind()) == KIND {\n            Ok(value.raw_uuid().into())\n        } else {\n            Err(WrongKindOfServiceIdError {\n                expected: KIND\n                    .try_into()\n                    .expect(\"invalid kind, not covered in ServiceIdKind\"),\n                actual: value.kind(),\n            })\n        }\n    }",
+      "display_name": "try_from",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/logging",
+      "statement_type": "function",
+      "deps": [
+        "impl/SpecificServiceId/From/from"
+      ],
+      "body": "    fn logging() {\n        let uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n        let aci = Aci::from(uuid);\n        assert_eq!(\n            \"<ACI:8c78cd2a-16ff-427d-83dc-1a5e36ce713d>\",\n            format!(\"{:?}\", aci)\n        );\n        assert_eq!(\n            \"<ACI:8c78cd2a-16ff-427d-83dc-1a5e36ce713d>\",\n            format!(\"{:?}\", ServiceId::from(aci))\n        );\n        let pni = Pni::from(uuid);\n        assert_eq!(\n            \"<PNI:8c78cd2a-16ff-427d-83dc-1a5e36ce713d>\",\n            format!(\"{:?}\", pni)\n        );\n        assert_eq!(\n            \"<PNI:8c78cd2a-16ff-427d-83dc-1a5e36ce713d>\",\n            format!(\"{:?}\", ServiceId::from(pni))\n        );\n    }",
+      "display_name": "logging",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/service_id_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/service_id_fixed_width_binary"
+      ],
+      "body": "    pub fn service_id_binary(&self) -> Vec<u8> {\n        if let Self::Aci(aci) = self {\n            aci.0.as_bytes().to_vec()\n        } else {\n            self.service_id_fixed_width_binary().to_vec()\n        }\n    }",
+      "display_name": "service_id_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/rejects_invalid_binary_lengths",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_binary"
+      ],
+      "body": "    fn rejects_invalid_binary_lengths() {\n        let uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n        assert!(ServiceId::parse_from_service_id_binary(&[]).is_none());\n        assert!(ServiceId::parse_from_service_id_binary(&[1]).is_none());\n        assert!(ServiceId::parse_from_service_id_binary(&uuid.as_bytes()[1..]).is_none());\n        assert!(ServiceId::parse_from_service_id_binary(&[1; 18]).is_none());\n    }",
+      "display_name": "rejects_invalid_binary_lengths",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/PartialEq/eq",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn eq(&self, other: &ServiceId) -> bool {\n        ServiceId::from(*self) == *other\n    }",
+      "display_name": "eq",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/parse_from_service_id_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_fixed_width_binary",
+        "impl/ServiceId/kind"
+      ],
+      "body": "    pub fn parse_from_service_id_binary(bytes: &[u8]) -> Option<Self> {\n        match bytes.len() {\n            16 => Some(Self::Aci(Uuid::from_slice(bytes).ok()?.into())),\n            17 => {\n                let result = Self::parse_from_service_id_fixed_width_binary(\n                    bytes.try_into().expect(\"already measured\"),\n                )?;\n                if result.kind() == ServiceIdKind::Aci {\n                    // The ACI is unmarked in the standard binary format, so this is an error.\n                    None\n                } else {\n                    Some(result)\n                }\n            }\n            _ => None,\n        }\n    }",
+      "display_name": "parse_from_service_id_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/to_protocol_address",
+      "statement_type": "function",
+      "deps": [
+        "impl/ProtocolAddress/new",
+        "impl/ServiceId/service_id_string"
+      ],
+      "body": "    pub fn to_protocol_address(&self, device_id: DeviceId) -> ProtocolAddress {\n        ProtocolAddress::new(self.service_id_string(), device_id)\n    }",
+      "display_name": "to_protocol_address",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceIdKind/Debug/fmt",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {\n        write!(f, \"{self}\")\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/parse_from_service_id_string",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_string"
+      ],
+      "body": "    pub fn parse_from_service_id_string(input: &str) -> Option<Self> {\n        ServiceId::parse_from_service_id_string(input)?\n            .try_into()\n            .ok()\n    }",
+      "display_name": "parse_from_service_id_string",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/service_id_fixed_width_binary",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/kind",
+        "impl/ServiceId/raw_uuid"
+      ],
+      "body": "    pub fn service_id_fixed_width_binary(&self) -> ServiceIdFixedWidthBinaryBytes {\n        let mut result = [0; 17];\n        result[0] = self.kind().into();\n        result[1..].copy_from_slice(self.raw_uuid().as_bytes());\n        result\n    }",
+      "display_name": "service_id_fixed_width_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/from_uuid_bytes",
+      "statement_type": "function",
+      "deps": [
+        "impl/SpecificServiceId/from_uuid"
+      ],
+      "body": "    pub const fn from_uuid_bytes(bytes: [u8; 16]) -> Self {\n        Self::from_uuid(uuid::Uuid::from_bytes(bytes))\n    }",
+      "display_name": "from_uuid_bytes",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/accepts_ios_system_story_aci",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_string",
+        "impl/ServiceId/kind",
+        "impl/ServiceId/raw_uuid"
+      ],
+      "body": "    fn accepts_ios_system_story_aci() {\n        // This is not technically a valid UUID, but we need to handle it anyway, at least on iOS.\n        let service_id =\n            ServiceId::parse_from_service_id_string(\"00000000-0000-0000-0000-000000000001\")\n                .expect(\"can decode\");\n        assert_eq!(\n            &const_str::hex!(\"00000000 0000 0000 0000 000000000001\"),\n            service_id.raw_uuid().as_bytes(),\n        );\n        assert_eq!(ServiceIdKind::Aci, service_id.kind());\n    }",
+      "display_name": "accepts_ios_system_story_aci",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/round_trip_service_id_string",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn round_trip_service_id_string() {\n        proptest!(|(uuid_bytes: [u8; 16])| {\n            let uuid = Uuid::from_bytes(uuid_bytes);\n            round_trip_test(\n                uuid,\n                ServiceId::service_id_string,\n                Aci::service_id_string,\n                Pni::service_id_string,\n                ServiceId::parse_from_service_id_string,\n                Aci::parse_from_service_id_string,\n                Pni::parse_from_service_id_string,\n                &uuid.hyphenated().to_string(),\n                &format!(\"PNI:{}\", uuid.hyphenated()),\n            );\n        });\n    }",
+      "display_name": "round_trip_service_id_string",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/ordering",
+      "statement_type": "function",
+      "deps": [
+        "impl/SpecificServiceId/from_uuid"
+      ],
+      "body": "    fn ordering() {\n        let test_uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n\n        let mut ids: [ServiceId; 4] = [\n            Aci::from_uuid(Uuid::nil()).into(),\n            Aci::from_uuid(test_uuid).into(),\n            Pni::from_uuid(Uuid::nil()).into(),\n            Pni::from_uuid(test_uuid).into(),\n        ];\n        let original = ids;\n        ids.shuffle(&mut rng());\n        ids.sort();\n        assert_eq!(original, ids);\n    }",
+      "display_name": "ordering",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/Debug/fmt",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/raw_uuid",
+        "impl/ServiceId/kind"
+      ],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {\n        write!(f, \"<{}:{}>\", self.kind(), self.raw_uuid())\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/parse_from_service_id_fixed_width_binary",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn parse_from_service_id_fixed_width_binary(\n        bytes: &ServiceIdFixedWidthBinaryBytes,\n    ) -> Option<Self> {\n        let uuid = Uuid::from_slice(&bytes[1..]).ok()?;\n        match ServiceIdKind::try_from(bytes[0]).ok()? {\n            ServiceIdKind::Aci => Some(Self::Aci(uuid.into())),\n            ServiceIdKind::Pni => Some(Self::Pni(uuid.into())),\n        }\n    }",
+      "display_name": "parse_from_service_id_fixed_width_binary",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/service_id_string",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/raw_uuid",
+        "impl/ServiceId/kind"
+      ],
+      "body": "    pub fn service_id_string(&self) -> String {\n        if let Self::Aci(aci) = self {\n            aci.0.to_string()\n        } else {\n            format!(\"{}:{}\", self.kind(), self.raw_uuid())\n        }\n    }",
+      "display_name": "service_id_string",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/rejects_invalid_uuid_strings",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_string"
+      ],
+      "body": "    fn rejects_invalid_uuid_strings() {\n        assert!(ServiceId::parse_from_service_id_string(\"\").is_none());\n        assert!(ServiceId::parse_from_service_id_string(\"11\").is_none());\n        assert!(\n            ServiceId::parse_from_service_id_string(\"8c78cd2a16ff427d83dc1a5e36ce713d\").is_none()\n        );\n        assert!(\n            ServiceId::parse_from_service_id_string(\"{8c78cd2a-16ff-427d-83dc-1a5e36ce713d}\")\n                .is_none()\n        );\n\n        assert!(ServiceId::parse_from_service_id_string(\"PNI:\").is_none());\n        assert!(ServiceId::parse_from_service_id_string(\"PNI:11\").is_none());\n        assert!(\n            ServiceId::parse_from_service_id_string(\"PNI:8c78cd2a16ff427d83dc1a5e36ce713d\")\n                .is_none()\n        );\n        assert!(ServiceId::parse_from_service_id_string(\n            \"PNI:{8c78cd2a-16ff-427d-83dc-1a5e36ce713d}\"\n        )\n        .is_none());\n    }",
+      "display_name": "rejects_invalid_uuid_strings",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/DeviceId/Display/fmt",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        write!(f, \"{}\", self.0)\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ProtocolAddress/Display/fmt",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        write!(f, \"{}.{}\", self.name, self.device_id)\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/kind",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn kind(&self) -> ServiceIdKind {\n        match self {\n            ServiceId::Aci(_) => ServiceIdKind::Aci,\n            ServiceId::Pni(_) => ServiceIdKind::Pni,\n        }\n    }",
+      "display_name": "kind",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/Debug/fmt",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/Debug/fmt"
+      ],
+      "body": "    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {\n        ServiceId::from(*self).fmt(f)\n    }",
+      "display_name": "fmt",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/from_uuid",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    const fn from_uuid(uuid: Uuid) -> Self {\n        Self(uuid)\n    }",
+      "display_name": "from_uuid",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/service_id_string",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/service_id_string"
+      ],
+      "body": "    pub fn service_id_string(&self) -> String {\n        ServiceId::from(*self).service_id_string()\n    }",
+      "display_name": "service_id_string",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ServiceId/parse_from_service_id_string",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn parse_from_service_id_string(input: &str) -> Option<Self> {\n        fn try_parse_hyphenated(input: &str) -> Option<Uuid> {\n            // uuid::Uuid supports multiple UUID formats; we only want to support the \"hyphenated\"\n            // form.\n            if input.len() != uuid::fmt::Hyphenated::LENGTH {\n                return None;\n            }\n            Uuid::try_parse(input).ok()\n        }\n\n        if let Some(uuid_string) = input.strip_prefix(\"PNI:\") {\n            let uuid = try_parse_hyphenated(uuid_string)?;\n            Some(Self::Pni(uuid.into()))\n        } else {\n            let uuid = try_parse_hyphenated(input)?;\n            Some(Self::Aci(uuid.into()))\n        }\n    }",
+      "display_name": "parse_from_service_id_string",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/conversions",
+      "statement_type": "function",
+      "deps": [
+        "impl/SpecificServiceId/TryFrom/try_from",
+        "impl/ServiceId/kind",
+        "impl/SpecificServiceId/From/from"
+      ],
+      "body": "    fn conversions() {\n        let uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n\n        let aci = Aci::from(uuid);\n        assert_eq!(uuid, Uuid::from(aci));\n        let aci_service_id = ServiceId::from(aci);\n        assert_eq!(aci, aci_service_id);\n        assert_eq!(aci_service_id, aci);\n        assert_eq!(Ok(aci), Aci::try_from(aci_service_id));\n        assert_eq!(\n            Err(WrongKindOfServiceIdError {\n                expected: ServiceIdKind::Pni,\n                actual: ServiceIdKind::Aci\n            }),\n            Pni::try_from(aci_service_id)\n        );\n        assert_eq!(ServiceIdKind::Aci, aci_service_id.kind());\n\n        let pni = Pni::from(uuid);\n        assert_eq!(uuid, Uuid::from(pni));\n        let pni_service_id = ServiceId::from(pni);\n        assert_eq!(pni, pni_service_id);\n        assert_eq!(pni_service_id, pni);\n        assert_eq!(Ok(pni), Pni::try_from(pni_service_id));\n        assert_eq!(\n            Err(WrongKindOfServiceIdError {\n                expected: ServiceIdKind::Aci,\n                actual: ServiceIdKind::Pni\n            }),\n            Aci::try_from(pni_service_id)\n        );\n        assert_eq!(ServiceIdKind::Pni, pni_service_id.kind());\n\n        assert_ne!(aci_service_id, pni_service_id);\n    }",
+      "display_name": "conversions",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "service_id_tests/rejects_invalid_types",
+      "statement_type": "function",
+      "deps": [
+        "impl/ServiceId/parse_from_service_id_binary",
+        "impl/ServiceId/parse_from_service_id_string",
+        "service_id_tests/array_prepend",
+        "impl/ServiceId/parse_from_service_id_fixed_width_binary"
+      ],
+      "body": "    fn rejects_invalid_types() {\n        let uuid = uuid::uuid!(\"8c78cd2a-16ff-427d-83dc-1a5e36ce713d\");\n        assert!(\n            ServiceId::parse_from_service_id_binary(&array_prepend(0xFF, uuid.as_bytes()))\n                .is_none()\n        );\n        assert!(\n            ServiceId::parse_from_service_id_fixed_width_binary(&array_prepend(\n                0xFF,\n                uuid.as_bytes()\n            ))\n            .is_none()\n        );\n        assert!(ServiceId::parse_from_service_id_string(\"BAD:{uuid}\").is_none());\n        assert!(ServiceId::parse_from_service_id_string(\"PNI{uuid}\").is_none());\n        assert!(ServiceId::parse_from_service_id_string(\"PNI {uuid}\").is_none());\n        assert!(ServiceId::parse_from_service_id_string(\"PNI{uuid} \").is_none());\n\n        // ACIs are only prefixed in the fixed-width format.\n        assert!(\n            ServiceId::parse_from_service_id_binary(&array_prepend(0x00, uuid.as_bytes()))\n                .is_none()\n        );\n        assert!(ServiceId::parse_from_service_id_string(\"ACI:{uuid}\").is_none());\n    }",
+      "display_name": "rejects_invalid_types",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/SpecificServiceId/From/from",
+      "statement_type": "function",
+      "deps": [
+        "impl/SpecificServiceId/from_uuid"
+      ],
+      "body": "    fn from(value: Uuid) -> Self {\n        Self::from_uuid(value)\n    }",
+      "display_name": "from",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    },
+    {
+      "identifier": "impl/ProtocolAddress/name",
+      "statement_type": "function",
+      "deps": [],
+      "body": "    pub fn name(&self) -> &str {\n        &self.name\n    }",
+      "display_name": "name",
+      "full_path": "file:///work/2961/single_rust.rs",
+      "relative_path": "single_rust.rs",
+      "file_name": "single_rust.rs",
+      "parent_folder": "2961"
+    }
+  ]
+}

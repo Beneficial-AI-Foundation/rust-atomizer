@@ -1,0 +1,26 @@
+identifier,display_name,relative_path,deps
+core https:/github.com/rust_lang/rust/library/core index/ops/Index,Index,scalar.rs,
+Scalar52/montgomery_square,montgomery_square,scalar.rs,Scalar52/square_internal; Scalar52/montgomery_reduce
+Scalar52/from_bytes_wide,from_bytes_wide,scalar.rs,Scalar52/add; Scalar52/montgomery_mul
+core https:/github.com/rust_lang/rust/library/core num/wrapping_sub,wrapping_sub,scalar.rs,
+Scalar52/montgomery_mul,montgomery_mul,scalar.rs,Scalar52/mul_internal; Scalar52/montgomery_reduce
+Scalar52/Debug/fmt,fmt,scalar.rs,core https:/github.com/rust_lang/rust/library/core index/ops/Index
+Scalar52/sub,sub,scalar.rs,core https:/github.com/rust_lang/rust/library/core num/wrapping_sub
+Scalar52/montgomery_reduce,montgomery_reduce,scalar.rs,Scalar52/part2; Scalar52/part1; m; Scalar52/sub
+Scalar52/add,add,scalar.rs,Scalar52/sub
+Scalar52/square,square,scalar.rs,Scalar52/square_internal; Scalar52/mul_internal; Scalar52/montgomery_reduce
+Scalar52/square_internal,square_internal,scalar.rs,m
+core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut,IndexMut,scalar.rs,
+Scalar52/IndexMut/index_mut,index_mut,scalar.rs,
+Scalar52/part1,part1,scalar.rs,core https:/github.com/rust_lang/rust/library/core num/wrapping_mul; m
+Scalar52/Index/index,index,scalar.rs,core https:/github.com/rust_lang/rust/library/core index/ops/IndexMut
+Scalar52/from_bytes,from_bytes,scalar.rs,
+Scalar52/mul_internal,mul_internal,scalar.rs,m
+Scalar52/as_montgomery,as_montgomery,scalar.rs,Scalar52/montgomery_mul
+core https:/github.com/rust_lang/rust/library/core fmt/Debug,Debug,scalar.rs,
+Scalar52/to_bytes,to_bytes,scalar.rs,
+core https:/github.com/rust_lang/rust/library/core num/wrapping_mul,wrapping_mul,scalar.rs,
+m,m,scalar.rs,
+Scalar52/part2,part2,scalar.rs,
+Scalar52/mul,mul,scalar.rs,Scalar52/montgomery_reduce; Scalar52/mul_internal
+Scalar52/from_montgomery,from_montgomery,scalar.rs,Scalar52/montgomery_reduce

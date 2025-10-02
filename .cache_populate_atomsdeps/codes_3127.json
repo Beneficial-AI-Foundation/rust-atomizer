@@ -1,0 +1,9 @@
+{
+  "51593": {
+    "text": " use vstd::prelude::*;\r\n\r\n  verus! {\r\n\r\n  spec fn sum_spec(n: nat) -> nat\r\n      decreases n\r\n  {\r\n      if n == 0 { 0 } else { n + sum_spec((n - 1) as nat) }\r\n  }\r\n\r\n  proof fn sum_proof(n: nat)\r\n      ensures sum_spec(n) == n * (n + 1) / 2\r\n  {\r\n      if n == 0 {\r\n          assert(sum_spec(0) == 0);\r\n      } else {\r\n          sum_proof((n - 1) as nat);\r\n          assert(sum_spec(n) == n + sum_spec((n - 1) as nat));\r\n      }\r\n  }\r\n\r\n  fn compute_sum(n: u32) -> (sum: u32)\r\n      requires n <= 100\r\n      ensures sum == sum_spec(n as nat)\r\n  {\r\n      let mut i = 0;\r\n      let mut s = 0;\r\n      while i < n\r\n          invariant\r\n              i <= n,\r\n              s == sum_spec(i as nat)\r\n      {\r\n          i = i + 1;\r\n          s = s + i;\r\n      }\r\n      s\r\n  }\r\n\r\n  } // verus!",
+    "filename": "test.rs",
+    "filepath": null,
+    "folder_id": null,
+    "user_id": 460179
+  }
+}
