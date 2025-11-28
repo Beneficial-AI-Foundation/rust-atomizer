@@ -59,6 +59,31 @@ Run the analysis on a Rust repository:
 ./run_compose.sh /path/to/my-rust-project 123 789
 ```
 
+### Direct Usage (Without Docker)
+
+You can also run the `write_atoms` binary directly without Docker if you have the prerequisites installed locally:
+
+```bash
+cargo run --bin write_atoms <path-to-folder> <repo_id> [user_id]
+```
+
+**Prerequisites for direct usage:**
+- Rust toolchain installed
+- `verus-analyzer` installed and in your PATH
+- `scip` CLI tool installed and in your PATH
+
+**Arguments:**
+- `<path-to-folder>`: Path to the folder containing Rust source code
+- `<repo_id>`: Repository identifier (used for logging)
+- `[user_id]`: Optional user identifier (defaults to `460176`)
+
+**Example:**
+```bash
+cargo run --bin write_atoms ./curve25519-dalek curve25519-dalek
+```
+
+**Output location:** The generated JSON file is saved in the **current working directory** (where you run the command from) as `<folder_name>.json`. For example, if you analyze `./curve25519-dalek`, the output will be `curve25519-dalek.json` in your current directory.
+
 ## What Happens During Execution
 
 1. **Docker Build**: Builds the analysis container with Rust toolchain, verus-analyzer, and SCIP tools
