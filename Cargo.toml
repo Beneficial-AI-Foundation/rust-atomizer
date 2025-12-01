@@ -14,6 +14,8 @@ scip = "0.6.0"
 html-escape = "0.2.13"
 chrono = { version = "0.4", features = ["serde"] }
 log = "0.4"
+verus_syn = { version = "0.0.0-2025-11-16-0050", features = ["full", "visit", "parsing"] }
+quote = "1.0"
 
 [dev-dependencies]
 tempfile = "3"
