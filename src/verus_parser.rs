@@ -7,14 +7,15 @@
 //! - `forall`, `exists` quantifiers
 //! - `==>` implications, `&&&`, `|||` operators
 //!
-//! This is much more reliable than brace-counting for extracting function bodies.
+//! Uses the visitor pattern for proper AST traversal.
 
 use log::debug;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-use verus_syn::{parse_file, parse2, File, ImplItem, Item};
 use verus_syn::spanned::Spanned;
+use verus_syn::visit::Visit;
+use verus_syn::{ImplItemFn, Item, ItemFn, ItemMacro, TraitItemFn};
 
 /// Represents a function's location in a source file
 #[derive(Debug, Clone)]
@@ -22,6 +23,116 @@ pub struct FunctionSpan {
     pub name: String,
     pub start_line: usize,  // 1-indexed
     pub end_line: usize,    // 1-indexed (inclusive)
+}
+
+/// Visitor that collects function spans from an AST
+struct FunctionSpanVisitor {
+    functions: Vec<FunctionSpan>,
+}
+
+impl FunctionSpanVisitor {
+    fn new() -> Self {
+        Self {
+            functions: Vec::new(),
+        }
+    }
+}
+
+impl<'ast> Visit<'ast> for FunctionSpanVisitor {
+    fn visit_item_fn(&mut self, node: &'ast ItemFn) {
+        let name = node.sig.ident.to_string();
+        let span = node.span();
+        let start_line = span.start().line;
+        let end_line = span.end().line;
+
+        self.functions.push(FunctionSpan {
+            name,
+            start_line,
+            end_line,
+        });
+
+        // Continue visiting nested items
+        verus_syn::visit::visit_item_fn(self, node);
+    }
+
+    fn visit_impl_item_fn(&mut self, node: &'ast ImplItemFn) {
+        let name = node.sig.ident.to_string();
+        let span = node.span();
+        let start_line = span.start().line;
+        let end_line = span.end().line;
+
+        self.functions.push(FunctionSpan {
+            name,
+            start_line,
+            end_line,
+        });
+
+        // Continue visiting nested items
+        verus_syn::visit::visit_impl_item_fn(self, node);
+    }
+
+    fn visit_trait_item_fn(&mut self, node: &'ast TraitItemFn) {
+        let name = node.sig.ident.to_string();
+        let span = node.span();
+        let start_line = span.start().line;
+        let end_line = span.end().line;
+
+        self.functions.push(FunctionSpan {
+            name,
+            start_line,
+            end_line,
+        });
+
+        // Continue visiting nested items
+        verus_syn::visit::visit_trait_item_fn(self, node);
+    }
+
+    // Ensure we traverse into impl blocks
+    fn visit_item_impl(&mut self, node: &'ast verus_syn::ItemImpl) {
+        verus_syn::visit::visit_item_impl(self, node);
+    }
+
+    // Ensure we traverse into trait definitions
+    fn visit_item_trait(&mut self, node: &'ast verus_syn::ItemTrait) {
+        verus_syn::visit::visit_item_trait(self, node);
+    }
+
+    // Ensure we traverse into modules
+    fn visit_item_mod(&mut self, node: &'ast verus_syn::ItemMod) {
+        verus_syn::visit::visit_item_mod(self, node);
+    }
+
+    // Handle verus! macro blocks by parsing their contents
+    fn visit_item_macro(&mut self, node: &'ast ItemMacro) {
+        // Check if this is a verus! macro
+        if let Some(ident) = &node.mac.path.get_ident() {
+            if *ident == "verus" {
+                // Try to parse the macro body as items
+                if let Ok(items) = verus_syn::parse2::<VerusMacroBody>(node.mac.tokens.clone()) {
+                    for item in items.items {
+                        self.visit_item(&item);
+                    }
+                }
+            }
+        }
+        // Continue with default traversal
+        verus_syn::visit::visit_item_macro(self, node);
+    }
+}
+
+/// Helper struct to parse verus! macro body as a list of items
+struct VerusMacroBody {
+    items: Vec<Item>,
+}
+
+impl verus_syn::parse::Parse for VerusMacroBody {
+    fn parse(input: verus_syn::parse::ParseStream) -> verus_syn::Result<Self> {
+        let mut items = Vec::new();
+        while !input.is_empty() {
+            items.push(input.parse()?);
+        }
+        Ok(VerusMacroBody { items })
+    }
 }
 
 /// Parse a Verus/Rust source file and extract all function spans
@@ -35,82 +146,64 @@ pub fn extract_function_spans(file_path: &str) -> Result<Vec<FunctionSpan>, Stri
 
 /// Parse content string and extract all function spans
 pub fn extract_function_spans_from_content(content: &str) -> Result<Vec<FunctionSpan>, String> {
-    let file = parse_file(content)
+    let syntax_tree = verus_syn::parse_file(content)
         .map_err(|e| format!("Failed to parse file: {}", e))?;
 
-    let mut spans = Vec::new();
-    extract_from_items(&file.items, &mut spans);
-    Ok(spans)
+    let mut visitor = FunctionSpanVisitor::new();
+    visitor.visit_file(&syntax_tree);
+
+    Ok(visitor.functions)
 }
 
-/// Recursively extract function spans from items
-fn extract_from_items(items: &[Item], spans: &mut Vec<FunctionSpan>) {
-    for item in items {
-        match item {
-            Item::Fn(func) => {
-                let name = func.sig.ident.to_string();
-                let span = func.span();
-                let start = span.start();
-                let end = span.end();
-                spans.push(FunctionSpan {
-                    name,
-                    start_line: start.line,
-                    end_line: end.line,
-                });
-            }
-            Item::Impl(impl_block) => {
-                for impl_item in &impl_block.items {
-                    if let ImplItem::Fn(method) = impl_item {
-                        let name = method.sig.ident.to_string();
-                        let span = method.span();
-                        let start = span.start();
-                        let end = span.end();
-                        spans.push(FunctionSpan {
-                            name,
-                            start_line: start.line,
-                            end_line: end.line,
-                        });
-                    }
-                }
-            }
-            Item::Mod(module) => {
-                if let Some((_, items)) = &module.content {
-                    extract_from_items(items, spans);
-                }
-            }
-            Item::Macro(mac) => {
-                // Parse contents of verus! macros
-                if mac.mac.path.is_ident("verus") {
-                    let tokens = mac.mac.tokens.clone();
-                    
-                    if let Ok(inner_file) = parse2::<File>(tokens) {
-                        // Extract functions from inside the verus! macro
-                        // Note: spans inside the macro are relative to macro start
-                        let mut inner_spans = Vec::new();
-                        extract_from_items(&inner_file.items, &mut inner_spans);
-                        
-                        // The spans from parse2 are relative to the token stream,
-                        // but verus_syn preserves the original spans, so we can use them directly
-                        spans.extend(inner_spans);
-                    }
-                }
-            }
-            _ => {}
+/// Find the best matching function span for a given function name and approximate line number.
+/// 
+/// Uses fuzzy matching with tolerance to account for doc comments which are included
+/// in the function's span by the parser, but SCIP points to the signature line.
+pub fn find_best_match<'a>(
+    spans: &'a [FunctionSpan],
+    name: &str,
+    approx_line: usize,
+) -> Option<&'a FunctionSpan> {
+    // Tolerance for fuzzy matching - accounts for doc comments
+    const TOLERANCE: usize = 15;
+    
+    // First try exact name match
+    let matching: Vec<_> = spans.iter()
+        .filter(|s| s.name == name)
+        .collect();
+    
+    if matching.is_empty() {
+        return None;
+    }
+    
+    if matching.len() == 1 {
+        return Some(matching[0]);
+    }
+    
+    // Multiple matches - find the one closest to the approximate line
+    // First try exact match
+    for span in &matching {
+        if span.start_line == approx_line {
+            return Some(span);
         }
     }
-}
-
-/// Build a map from function name to its span for quick lookups
-/// Note: If there are multiple functions with the same name, all are included
-pub fn build_function_span_map(file_path: &str) -> Result<HashMap<String, Vec<FunctionSpan>>, String> {
-    let spans = extract_function_spans(file_path)?;
-    let mut map: HashMap<String, Vec<FunctionSpan>> = HashMap::new();
     
-    for span in spans {
-        map.entry(span.name.clone()).or_default().push(span);
+    // Then try within tolerance
+    for span in &matching {
+        let diff = if span.start_line > approx_line {
+            span.start_line - approx_line
+        } else {
+            approx_line - span.start_line
+        };
+        
+        if diff <= TOLERANCE {
+            return Some(span);
+        }
     }
     
-    Ok(map)
+    // Fallback: return the closest one
+    matching.into_iter()
+        .min_by_key(|s| (s.start_line as i64 - approx_line as i64).abs())
 }
 
 /// Extract a function body given the file content and span
@@ -130,30 +223,6 @@ pub fn extract_body_from_span(content: &str, span: &FunctionSpan) -> String {
     }
     
     lines[start_idx..end_idx].join("\n")
-}
-
-/// Find the best matching function span for a given function name and approximate line number
-/// This is useful when matching SCIP occurrences to verus_syn spans
-pub fn find_best_match<'a>(
-    spans: &'a [FunctionSpan],
-    name: &str,
-    approx_line: usize,
-) -> Option<&'a FunctionSpan> {
-    let matching: Vec<_> = spans.iter()
-        .filter(|s| s.name == name)
-        .collect();
-    
-    if matching.is_empty() {
-        return None;
-    }
-    
-    if matching.len() == 1 {
-        return Some(matching[0]);
-    }
-    
-    // Multiple matches - find the one closest to the approximate line
-    matching.into_iter()
-        .min_by_key(|s| (s.start_line as i64 - approx_line as i64).abs())
 }
 
 /// Cache for parsed files to avoid re-parsing
@@ -271,4 +340,3 @@ impl Foo {
         assert!(result.is_none());
     }
 }
-
