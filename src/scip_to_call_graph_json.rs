@@ -1,3 +1,4 @@
+use crate::verus_parser::FileSpanCache;
 use log::{debug, warn};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -216,7 +217,10 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
         }
     }
 
-    // Third pass: extract function bodies from source files
+    // Third pass: extract function bodies using verus_syn parser
+    // This approach is much cleaner than brace-counting and handles all Verus syntax
+    let mut span_cache = FileSpanCache::new();
+    
     for node in call_graph.values_mut() {
         if !node.range.is_empty() {
             let file_path = &node.file_path;
@@ -228,128 +232,46 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                 file_path
             };
 
-            let abs_path = Path::new(clean_path);
-            debug!("Trying to read file: {clean_path}");
+            debug!("Extracting body for {} from {}", node.display_name, clean_path);
 
-            if let Ok(contents) = fs::read_to_string(abs_path) {
-                let lines: Vec<&str> = contents.lines().collect();
+            // SCIP gives us the line where the function name appears (0-indexed)
+            // Add 1 to convert to 1-indexed for verus_syn
+            let approx_line = if !node.range.is_empty() {
+                node.range[0] as usize + 1
+            } else {
+                0
+            };
 
-                // Debug the range
-                let display_name = &node.display_name;
-                let range = &node.range;
-                debug!("Function: {display_name}, Range: {range:?}");
-
-                // Check if range is valid - convert safely using saturating_sub
-                if !node.range.is_empty() {
-                    // Safely handle line numbers - SCIP line numbers are 0-based
-                    let start_line = node.range[0] as usize;
-
-                    if start_line < lines.len() {
-                        let mut body_lines = Vec::new();
-                        let mut open_braces: usize = 0;
-                        let mut found_body_brace = false;
-
-                        // Start with the signature line
-                        body_lines.push(lines[start_line]);
-
-                        // Track parentheses to avoid treating braces inside parens as function body
-                        // This handles Verus ensures/requires clauses like: ensures ({ ... }),
-                        let mut open_parens = 0i32;
-
-                        // Track spec block braces (those that follow ==> or similar patterns)
-                        // These are NOT part of the function body
-                        let mut spec_block_depth: usize = 0;
-
-                        // Helper to check if a line has a spec block opening (==> {)
-                        fn is_spec_block_brace(line: &str, brace_pos: usize) -> bool {
-                            // Check if this { is preceded by ==> on this line
-                            let before_brace = &line[..brace_pos];
-                            let trimmed = before_brace.trim_end();
-                            trimmed.ends_with("==>") || trimmed.ends_with("=>")
+            // Try to get body using verus_syn parser
+            match span_cache.get_function_body(clean_path, &node.display_name, approx_line) {
+                Ok(Some(body)) => {
+                    let body_len = body.len();
+                    node.body = Some(body);
+                    debug!("Extracted body for {} using verus_syn, length: {}", node.display_name, body_len);
+                }
+                Ok(None) => {
+                    // Function not found by verus_syn - this can happen for:
+                    // - External functions from dependencies
+                    // - Macro-generated functions
+                    // - Parse errors
+                    debug!("verus_syn could not find function {} in {}", node.display_name, clean_path);
+                    
+                    // Fallback: try to read a reasonable range from the source
+                    if let Ok(contents) = fs::read_to_string(clean_path) {
+                        let lines: Vec<&str> = contents.lines().collect();
+                        let start_line = node.range[0] as usize;
+                        if start_line < lines.len() {
+                            // Just take a few lines as a minimal body (signature only)
+                            let end = (start_line + 1).min(lines.len());
+                            let body = lines[start_line..end].join("\n");
+                            node.body = Some(body);
                         }
-
-                        // Count initial parens on the signature line
-                        for c in lines[start_line].chars() {
-                            match c {
-                                '(' => open_parens += 1,
-                                ')' => open_parens -= 1,
-                                _ => {}
-                            }
-                        }
-
-                        // Look for the opening brace and collect all code until matching closing brace
-                        for (line_idx, line) in lines.iter().enumerate().skip(start_line) {
-                            // Skip the first line as we've already added it
-                            if line_idx == start_line {
-                                // Check if the first line already has a function body brace (not inside parens)
-                                let mut parens = open_parens;
-                                for (i, c) in line.char_indices() {
-                                    match c {
-                                        '(' => parens += 1,
-                                        ')' => parens -= 1,
-                                        '{' if parens <= 0 => {
-                                            if is_spec_block_brace(line, i) {
-                                                spec_block_depth += 1;
-                                            } else if spec_block_depth == 0 {
-                                                found_body_brace = true;
-                                                open_braces += 1;
-                                            }
-                                        }
-                                        '}' if parens <= 0 => {
-                                            if spec_block_depth > 0 {
-                                                spec_block_depth -= 1;
-                                            } else if found_body_brace {
-                                                open_braces = open_braces.saturating_sub(1);
-                                            }
-                                        }
-                                        _ => {}
-                                    }
-                                }
-                                continue;
-                            }
-
-                            // Track parens and braces for each subsequent line
-                            for (i, c) in line.char_indices() {
-                                match c {
-                                    '(' => open_parens += 1,
-                                    ')' => open_parens -= 1,
-                                    '{' if open_parens <= 0 => {
-                                        if is_spec_block_brace(line, i) {
-                                            spec_block_depth += 1;
-                                        } else if spec_block_depth == 0 {
-                                            found_body_brace = true;
-                                            open_braces += 1;
-                                        }
-                                    }
-                                    '}' if open_parens <= 0 => {
-                                        if spec_block_depth > 0 {
-                                            spec_block_depth -= 1;
-                                        } else if found_body_brace {
-                                            open_braces = open_braces.saturating_sub(1);
-                                        }
-                                    }
-                                    _ => {}
-                                }
-                            }
-
-                            body_lines.push(line);
-
-                            // Check if we've completed the function body
-                            if found_body_brace && open_braces == 0 {
-                                break;
-                            }
-                        }
-
-                        // Set the body with the collected lines
-                        let full_body = body_lines.join("\n");
-                        let body_len = full_body.len();
-                        node.body = Some(full_body);
-                        let display_name = &node.display_name;
-                        debug!("Extracted body for {display_name}, length: {body_len}");
                     }
                 }
-            } else {
-                debug!("Failed to read file: {clean_path}");
+                Err(e) => {
+                    // Parse error - file might not be valid Verus/Rust
+                    debug!("verus_syn parse error for {}: {}", clean_path, e);
+                }
             }
         }
     }
