@@ -14,7 +14,8 @@ A tool for analyzing Rust codebases and extracting code structure information (a
 │   ├── lib.rs                 # Library root
 │   ├── bin/
 │   │   └── write_atoms.rs     # Main binary for SCIP processing
-│   └── scip_to_call_graph_json.rs  # Core SCIP parsing logic
+│   ├── scip_to_call_graph_json.rs  # Core SCIP parsing logic
+│   └── verus_parser.rs        # Verus-aware source parser using verus_syn
 ├── scripts/                   # Python scripts
 │   └── populate_atomsdeps_grouped_rust.py  # Database population script
 ├── logs/                      # Generated log files
@@ -26,8 +27,13 @@ A tool for analyzing Rust codebases and extracting code structure information (a
 
 1. **SCIP Generation**: Uses [verus-analyzer](https://github.com/verus-lang/verus-analyzer) to generate SCIP files from Rust source code
 2. **JSON Conversion**: Converts SCIP data to a structured JSON format containing atoms (code elements) and their relationships with [scip](https://github.com/sourcegraph/scip/)
-3. **Logging**: Both Rust and Python components generate detailed logs for debugging and auditing
-4. **Database Population**: Stores the extracted code structure in a MySQL database 
+3. **Function Body Extraction**: Uses [verus_syn](https://github.com/verus-lang/verus) to accurately parse Verus/Rust source files and extract complete function bodies, including:
+   - All Verus-specific syntax (`requires`, `ensures`, `decreases`, `proof { }`, etc.)
+   - Quantifiers (`forall|`, `exists|`)
+   - Implications and spec operators (`==>`, `&&&`, `|||`, `=~=`)
+   - Doc comments and attributes
+4. **Logging**: Both Rust and Python components generate detailed logs for debugging and auditing
+5. **Database Population**: Stores the extracted code structure in a MySQL database 
 
 ## Prerequisites
 
@@ -149,13 +155,19 @@ timestamp - component - level - message
 
 ## Dependencies
 
+### Rust Crates
+- **verus_syn**: Verus-extended Rust parser for accurate function body extraction
+- **scip**: SCIP protocol handling
+- **serde/serde_json**: JSON serialization
+- **regex**: Pattern matching
+- **chrono**: Timestamping for logs
+
 ### Docker Container
 - Debian bookworm-slim base
 - Rust toolchain (latest stable)
 - verus-analyzer
 - SCIP v0.5.2
 - Python 3 with mysql-connector-python
-- chrono crate for Rust timestamping
 
 ### Database Schema
 Expects MySQL tables: `atoms`, `codes`, `reposfolders`, `atomizerlogs` with specific schema for code analysis storage. All relevant tables should support user_id field for user association.
@@ -170,3 +182,16 @@ Expects MySQL tables: `atoms`, `codes`, `reposfolders`, `atomizerlogs` with spec
 - Review the `atomizerlogs` table for complete execution history filtered by repo_id and user_id
 - Enable debug mode by setting `DEBUG=true` environment variable for verbose logging
 - If using a custom user_id, ensure it's a valid numeric identifier in your system
+
+## Technical Notes
+
+### Why verus_syn?
+
+SCIP provides function locations (file and line number) but not the function body boundaries. We use `verus_syn` (a Verus-extended Rust parser) to extract accurate function spans because:
+
+1. **Verus-specific syntax**: Standard Rust parsers cannot handle Verus constructs like `ensures`, `requires`, `forall|`, `==>`, `&&&`, etc.
+2. **Accurate spans**: `verus_syn` provides exact start and end line numbers for each function, including doc comments and attributes
+3. **Macro support**: Correctly parses functions inside `verus!` macros
+4. **Maintainability**: Using a proper parser is more robust than regex/brace-counting approaches
+
+The `verus_parser` module caches parsed files to avoid re-parsing and provides efficient function body lookups.
