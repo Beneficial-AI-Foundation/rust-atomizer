@@ -246,44 +246,97 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
 
                     if start_line < lines.len() {
                         let mut body_lines = Vec::new();
-                        let mut open_braces = 0;
-                        let mut found_first_brace = false;
+                        let mut open_braces: usize = 0;
+                        let mut found_body_brace = false;
 
                         // Start with the signature line
                         body_lines.push(lines[start_line]);
+
+                        // Track parentheses to avoid treating braces inside parens as function body
+                        // This handles Verus ensures/requires clauses like: ensures ({ ... }),
+                        let mut open_parens = 0i32;
+
+                        // Track spec block braces (those that follow ==> or similar patterns)
+                        // These are NOT part of the function body
+                        let mut spec_block_depth: usize = 0;
+
+                        // Helper to check if a line has a spec block opening (==> {)
+                        fn is_spec_block_brace(line: &str, brace_pos: usize) -> bool {
+                            // Check if this { is preceded by ==> on this line
+                            let before_brace = &line[..brace_pos];
+                            let trimmed = before_brace.trim_end();
+                            trimmed.ends_with("==>") || trimmed.ends_with("=>")
+                        }
+
+                        // Count initial parens on the signature line
+                        for c in lines[start_line].chars() {
+                            match c {
+                                '(' => open_parens += 1,
+                                ')' => open_parens -= 1,
+                                _ => {}
+                            }
+                        }
 
                         // Look for the opening brace and collect all code until matching closing brace
                         for (line_idx, line) in lines.iter().enumerate().skip(start_line) {
                             // Skip the first line as we've already added it
                             if line_idx == start_line {
-                                // Check if the first line already has an opening brace
-                                if line.contains('{') {
-                                    found_first_brace = true;
-                                    open_braces = line.matches('{').count();
-                                    // Safely handle potential overflow
-                                    open_braces =
-                                        open_braces.saturating_sub(line.matches('}').count());
+                                // Check if the first line already has a function body brace (not inside parens)
+                                let mut parens = open_parens;
+                                for (i, c) in line.char_indices() {
+                                    match c {
+                                        '(' => parens += 1,
+                                        ')' => parens -= 1,
+                                        '{' if parens <= 0 => {
+                                            if is_spec_block_brace(line, i) {
+                                                spec_block_depth += 1;
+                                            } else if spec_block_depth == 0 {
+                                                found_body_brace = true;
+                                                open_braces += 1;
+                                            }
+                                        }
+                                        '}' if parens <= 0 => {
+                                            if spec_block_depth > 0 {
+                                                spec_block_depth -= 1;
+                                            } else if found_body_brace {
+                                                open_braces = open_braces.saturating_sub(1);
+                                            }
+                                        }
+                                        _ => {}
+                                    }
                                 }
                                 continue;
                             }
 
-                            if !found_first_brace {
-                                if line.contains('{') {
-                                    found_first_brace = true;
-                                    open_braces = line.matches('{').count();
-                                    // Safely handle potential overflow
-                                    open_braces =
-                                        open_braces.saturating_sub(line.matches('}').count());
+                            // Track parens and braces for each subsequent line
+                            for (i, c) in line.char_indices() {
+                                match c {
+                                    '(' => open_parens += 1,
+                                    ')' => open_parens -= 1,
+                                    '{' if open_parens <= 0 => {
+                                        if is_spec_block_brace(line, i) {
+                                            spec_block_depth += 1;
+                                        } else if spec_block_depth == 0 {
+                                            found_body_brace = true;
+                                            open_braces += 1;
+                                        }
+                                    }
+                                    '}' if open_parens <= 0 => {
+                                        if spec_block_depth > 0 {
+                                            spec_block_depth -= 1;
+                                        } else if found_body_brace {
+                                            open_braces = open_braces.saturating_sub(1);
+                                        }
+                                    }
+                                    _ => {}
                                 }
-                                body_lines.push(line);
-                            } else {
-                                open_braces += line.matches('{').count();
-                                // Safely handle potential overflow
-                                open_braces = open_braces.saturating_sub(line.matches('}').count());
-                                body_lines.push(line);
-                                if open_braces == 0 {
-                                    break;
-                                }
+                            }
+
+                            body_lines.push(line);
+
+                            // Check if we've completed the function body
+                            if found_body_brace && open_braces == 0 {
+                                break;
                             }
                         }
 
