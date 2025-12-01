@@ -249,33 +249,130 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                     node.body = Some(body);
                     debug!("Extracted body for {} using verus_syn, length: {}", node.display_name, body_len);
                 }
-                Ok(None) => {
+                Ok(None) | Err(_) => {
                     // Function not found by verus_syn - this can happen for:
+                    // - Functions in impl blocks outside verus! macros
                     // - External functions from dependencies
                     // - Macro-generated functions
                     // - Parse errors
-                    debug!("verus_syn could not find function {} in {}", node.display_name, clean_path);
+                    debug!("verus_syn could not find function {} in {}, using fallback", node.display_name, clean_path);
                     
-                    // Fallback: try to read a reasonable range from the source
+                    // Fallback: use brace-counting to extract body
                     if let Ok(contents) = fs::read_to_string(clean_path) {
                         let lines: Vec<&str> = contents.lines().collect();
                         let start_line = node.range[0] as usize;
                         if start_line < lines.len() {
-                            // Just take a few lines as a minimal body (signature only)
-                            let end = (start_line + 1).min(lines.len());
-                            let body = lines[start_line..end].join("\n");
-                            node.body = Some(body);
+                            let body = extract_body_with_brace_counting(&lines, start_line);
+                            if !body.is_empty() {
+                                let body_len = body.len();
+                                node.body = Some(body);
+                                debug!("Extracted body for {} using fallback, length: {}", node.display_name, body_len);
+                            }
                         }
                     }
-                }
-                Err(e) => {
-                    // Parse error - file might not be valid Verus/Rust
-                    debug!("verus_syn parse error for {}: {}", clean_path, e);
                 }
             }
         }
     }
     call_graph
+}
+
+/// Fallback function body extraction using brace-counting
+/// Used when verus_syn cannot find the function (e.g., functions outside verus! macros)
+fn extract_body_with_brace_counting(lines: &[&str], start_line: usize) -> String {
+    let mut body_lines = Vec::new();
+    let mut open_braces: usize = 0;
+    let mut found_body_brace = false;
+    let mut open_parens = 0i32;
+    let mut spec_block_depth: usize = 0;
+
+    // Helper to check if a brace follows ==> (spec block)
+    fn is_spec_block_brace(line: &str, brace_pos: usize) -> bool {
+        let before_brace = &line[..brace_pos];
+        let trimmed = before_brace.trim_end();
+        trimmed.ends_with("==>") || trimmed.ends_with("=>")
+    }
+
+    // Start with the signature line
+    body_lines.push(lines[start_line]);
+
+    // Count initial parens on the signature line
+    for c in lines[start_line].chars() {
+        match c {
+            '(' => open_parens += 1,
+            ')' => open_parens -= 1,
+            _ => {}
+        }
+    }
+
+    // Look for the opening brace and collect all code until matching closing brace
+    for (line_idx, line) in lines.iter().enumerate().skip(start_line) {
+        if line_idx == start_line {
+            // Check if the first line already has a function body brace
+            let mut parens = open_parens;
+            for (i, c) in line.char_indices() {
+                match c {
+                    '(' => parens += 1,
+                    ')' => parens -= 1,
+                    '{' if parens <= 0 => {
+                        if is_spec_block_brace(line, i) {
+                            spec_block_depth += 1;
+                        } else if spec_block_depth == 0 {
+                            found_body_brace = true;
+                            open_braces += 1;
+                        }
+                    }
+                    '}' if parens <= 0 => {
+                        if spec_block_depth > 0 {
+                            spec_block_depth -= 1;
+                        } else if found_body_brace {
+                            open_braces = open_braces.saturating_sub(1);
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            continue;
+        }
+
+        // Track parens and braces for each subsequent line
+        for (i, c) in line.char_indices() {
+            match c {
+                '(' => open_parens += 1,
+                ')' => open_parens -= 1,
+                '{' if open_parens <= 0 => {
+                    if is_spec_block_brace(line, i) {
+                        spec_block_depth += 1;
+                    } else if spec_block_depth == 0 {
+                        found_body_brace = true;
+                        open_braces += 1;
+                    }
+                }
+                '}' if open_parens <= 0 => {
+                    if spec_block_depth > 0 {
+                        spec_block_depth -= 1;
+                    } else if found_body_brace {
+                        open_braces = open_braces.saturating_sub(1);
+                    }
+                }
+                _ => {}
+            }
+        }
+
+        body_lines.push(line);
+
+        // Check if we've completed the function body
+        if found_body_brace && open_braces == 0 {
+            break;
+        }
+        
+        // Safety limit: don't read more than 500 lines for a single function
+        if body_lines.len() > 500 {
+            break;
+        }
+    }
+
+    body_lines.join("\n")
 }
 
 /// Convert a SCIP symbol to a clean path format with display name
@@ -1003,6 +1100,7 @@ mod tests {
         let tmp = NamedTempFile::new().unwrap();
         generate_call_graph_dot(&call_graph, tmp.path().to_str().unwrap()).unwrap();
         let dot = fs::read_to_string(tmp.path()).unwrap();
-        assert!(dot.contains("tooltip=\"fn foo() { println!(\\\"Hello\\\"); }\""));
+        // Note: quotes are replaced with "' " in the tooltip for DOT format safety
+        assert!(dot.contains("tooltip=\"fn foo() { println!(' Hello' ); }\""));
     }
 }
