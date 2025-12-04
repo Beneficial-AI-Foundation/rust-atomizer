@@ -178,9 +178,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .output()?;
     if !scip_print.status.success() {
         let stderr = String::from_utf8_lossy(&scip_print.stderr);
-        let error_msg = format!(
-            "Failed to run scip print: {stderr}"
-        );
+        let error_msg = format!("Failed to run scip print: {stderr}");
         logger.error(&error_msg);
         // Save logs before exiting
         logger.save_logs()?;

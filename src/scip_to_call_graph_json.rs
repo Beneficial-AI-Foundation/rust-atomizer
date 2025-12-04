@@ -69,6 +69,7 @@ pub struct SignatureDocumentation {
 pub struct FunctionNode {
     pub symbol: String,
     pub display_name: String,
+    pub signature_text: String, // Signature text from SCIP (for disambiguation)
     pub file_path: String,
     pub relative_path: String,    // Relative path from project root
     pub callers: HashSet<String>, // Symbols that call this function
@@ -90,6 +91,44 @@ pub struct Atom {
     pub parent_folder: String,
 }
 
+/// Create a unique key for a function by combining symbol and signature.
+/// This handles cases where multiple trait impls have the same symbol but different signatures.
+fn make_unique_key(symbol: &str, signature: &str) -> String {
+    format!("{}|{}", symbol, signature)
+}
+
+/// Extract type parameter info from a signature for trait impls.
+/// For example, from "fn mul(self, scalar: &Scalar) -> MontgomeryPoint"
+/// extracts the self type and parameter types to help distinguish impls.
+fn extract_impl_type_info(signature: &str) -> Option<String> {
+    let signature = signature.trim();
+
+    // Look for the parameter list
+    let params_start = signature.find('(')?;
+    let params_end = signature.find(')')?;
+    let params = &signature[params_start + 1..params_end];
+
+    // Split by comma and look for typed self or first param after self
+    let parts: Vec<&str> = params.split(',').map(|s| s.trim()).collect();
+
+    if parts.len() >= 2 {
+        // Get the type of the second parameter (first after self)
+        let second_param = parts[1];
+        if let Some(colon_pos) = second_param.find(':') {
+            let type_part = second_param[colon_pos + 1..].trim();
+            // Clean up the type (remove & and lifetime annotations)
+            let clean_type = type_part
+                .trim_start_matches('&')
+                .trim_start_matches("'a ")
+                .trim_start_matches("'_ ")
+                .trim();
+            return Some(clean_type.to_string());
+        }
+    }
+
+    None
+}
+
 /// Parse a SCIP JSON file
 pub fn parse_scip_json(file_path: &str) -> Result<ScipIndex, Box<dyn std::error::Error>> {
     let path = Path::new(file_path);
@@ -99,6 +138,9 @@ pub fn parse_scip_json(file_path: &str) -> Result<ScipIndex, Box<dyn std::error:
 }
 
 /// Build a call graph from SCIP JSON data
+///
+/// Note: Multiple trait implementations (e.g., `impl Mul<A> for B` and `impl Mul<B> for A`)
+/// can have the same SCIP symbol string. We use signature_documentation.text to distinguish them.
 pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> {
     let mut call_graph: HashMap<String, FunctionNode> = HashMap::new();
     let mut symbol_to_file: HashMap<String, String> = HashMap::new();
@@ -106,8 +148,9 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
     let mut function_symbols: HashSet<String> = HashSet::new();
 
     // Pre-pass: Find where each symbol is DEFINED (symbol_roles == 1)
-    // This is the authoritative source for file paths, not the symbols array
-    let mut symbol_to_def_file: HashMap<String, (String, String)> = HashMap::new(); // symbol -> (abs_path, rel_path)
+    // Collect ALL definition occurrences per symbol (there may be multiple for trait impls)
+    // Maps symbol -> Vec<(abs_path, rel_path, line_number)>
+    let mut symbol_to_definitions: HashMap<String, Vec<(String, String, i32)>> = HashMap::new();
     for doc in &scip_data.documents {
         let project_root = &scip_data.metadata.project_root;
         let rel_path = doc.relative_path.trim_start_matches('/');
@@ -115,51 +158,86 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
 
         for occurrence in &doc.occurrences {
             let is_definition = occurrence.symbol_roles.unwrap_or(0) & 1 == 1;
-            if is_definition {
-                symbol_to_def_file.insert(
-                    occurrence.symbol.clone(),
-                    (abs_path.clone(), rel_path.to_string()),
-                );
+            if is_definition && !occurrence.range.is_empty() {
+                let line = occurrence.range[0];
+                symbol_to_definitions
+                    .entry(occurrence.symbol.clone())
+                    .or_default()
+                    .push((abs_path.clone(), rel_path.to_string(), line));
             }
         }
     }
+
+    // Sort definitions by line number for consistent matching with symbol entries
+    for defs in symbol_to_definitions.values_mut() {
+        defs.sort_by_key(|(_, _, line)| *line);
+    }
+
     debug!(
-        "Pre-pass: Found {} symbol definitions",
-        symbol_to_def_file.len()
+        "Pre-pass: Found {} unique symbol definitions",
+        symbol_to_definitions.len()
     );
 
-    // First pass: identify all function symbols and their containing files
+    // Track how many times we've seen each symbol to match with definition order
+    let mut symbol_seen_count: HashMap<String, usize> = HashMap::new();
+
+    // First pass: identify all function symbols and handle duplicates
     for doc in &scip_data.documents {
         for symbol in &doc.symbols {
             // Check if this is a function-like symbol (kind 12, 17, 80 etc.)
             if is_function_like(symbol.kind) {
+                let signature = &symbol.signature_documentation.text;
+                let display_name = symbol
+                    .display_name
+                    .clone()
+                    .unwrap_or_else(|| "unknown".to_string());
+
+                // Track ALL function symbols for dependency tracking
                 function_symbols.insert(symbol.symbol.clone());
 
+                // Create unique key using signature to handle duplicate symbols
+                let unique_key = make_unique_key(&symbol.symbol, signature);
+
+                // Get the nth definition for this symbol (matching symbol entry order with def order)
+                let def_index = *symbol_seen_count.get(&symbol.symbol).unwrap_or(&0);
+                symbol_seen_count
+                    .entry(symbol.symbol.clone())
+                    .and_modify(|c| *c += 1)
+                    .or_insert(1);
+
                 // Use the DEFINITION location if available, otherwise fall back to symbols array location
-                let (abs_path, rel_path) = if let Some((def_abs, def_rel)) =
-                    symbol_to_def_file.get(&symbol.symbol)
-                {
-                    (def_abs.clone(), def_rel.clone())
-                } else {
-                    // Fallback: use the document where the symbol appears in symbols array
-                    let project_root = &scip_data.metadata.project_root;
-                    let rel_path = doc.relative_path.trim_start_matches('/');
-                    let abs_path = format!("{project_root}/{rel_path}");
-                    (abs_path, rel_path.to_string())
-                };
+                let (abs_path, rel_path) =
+                    if let Some(defs) = symbol_to_definitions.get(&symbol.symbol) {
+                        if let Some((def_abs, def_rel, _line)) = defs.get(def_index) {
+                            (def_abs.clone(), def_rel.clone())
+                        } else if let Some((def_abs, def_rel, _)) = defs.first() {
+                            // Fallback to first definition
+                            (def_abs.clone(), def_rel.clone())
+                        } else {
+                            // Fallback: use the document where the symbol appears in symbols array
+                            let project_root = &scip_data.metadata.project_root;
+                            let rel_path = doc.relative_path.trim_start_matches('/');
+                            let abs_path = format!("{project_root}/{rel_path}");
+                            (abs_path, rel_path.to_string())
+                        }
+                    } else {
+                        // Fallback: use the document where the symbol appears in symbols array
+                        let project_root = &scip_data.metadata.project_root;
+                        let rel_path = doc.relative_path.trim_start_matches('/');
+                        let abs_path = format!("{project_root}/{rel_path}");
+                        (abs_path, rel_path.to_string())
+                    };
 
                 symbol_to_file.insert(symbol.symbol.clone(), abs_path.clone());
                 symbol_to_kind.insert(symbol.symbol.clone(), symbol.kind);
 
-                // Initialize node in the call graph
+                // Initialize node in the call graph with UNIQUE KEY
                 call_graph.insert(
-                    symbol.symbol.clone(),
+                    unique_key,
                     FunctionNode {
                         symbol: symbol.symbol.clone(),
-                        display_name: symbol
-                            .display_name
-                            .clone()
-                            .unwrap_or_else(|| "unknown".to_string()),
+                        display_name,
+                        signature_text: signature.clone(),
                         file_path: abs_path,
                         relative_path: rel_path,
                         callers: HashSet::new(),
@@ -172,10 +250,36 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
         }
     }
 
+    // Build a map from (symbol, line) -> unique_key for occurrence processing
+    let mut symbol_line_to_key: HashMap<(String, i32), String> = HashMap::new();
+    let mut symbol_seen_for_lines: HashMap<String, usize> = HashMap::new();
+    for doc in &scip_data.documents {
+        for symbol in &doc.symbols {
+            if is_function_like(symbol.kind) {
+                let signature = &symbol.signature_documentation.text;
+                let unique_key = make_unique_key(&symbol.symbol, signature);
+
+                if call_graph.contains_key(&unique_key) {
+                    let def_index = *symbol_seen_for_lines.get(&symbol.symbol).unwrap_or(&0);
+                    symbol_seen_for_lines
+                        .entry(symbol.symbol.clone())
+                        .and_modify(|c| *c += 1)
+                        .or_insert(1);
+
+                    if let Some(defs) = symbol_to_definitions.get(&symbol.symbol) {
+                        if let Some((_, _, line)) = defs.get(def_index) {
+                            symbol_line_to_key.insert((symbol.symbol.clone(), *line), unique_key);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Second pass: analyze occurrences to build the call graph
     for doc in &scip_data.documents {
-        // Track the current function context we're in
-        let mut current_function: Option<String> = None;
+        // Track the current function context we're in (now using unique key)
+        let mut current_function_key: Option<String> = None;
 
         // Sort occurrences by range to process them in order of appearance
         let mut ordered_occurrences = doc.occurrences.clone();
@@ -187,29 +291,44 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
 
         for occurrence in &ordered_occurrences {
             let is_definition = occurrence.symbol_roles.unwrap_or(0) & 1 == 1;
+            let line = if !occurrence.range.is_empty() {
+                occurrence.range[0]
+            } else {
+                -1
+            };
 
-            // If this is a function definition, update the current context
+            // Track when we enter a project function definition
             if is_definition && function_symbols.contains(&occurrence.symbol) {
-                current_function = Some(occurrence.symbol.clone());
-                // Also update the range for this function node
-                if let Some(node) = call_graph.get_mut(&occurrence.symbol) {
-                    node.range = occurrence.range.clone();
+                // Look up the unique key for this (symbol, line) pair
+                if let Some(key) = symbol_line_to_key.get(&(occurrence.symbol.clone(), line)) {
+                    current_function_key = Some(key.clone());
+                    if let Some(node) = call_graph.get_mut(key) {
+                        node.range = occurrence.range.clone();
+                    }
                 }
             }
 
-            // If this is a function call and we're inside a function
+            // Track ALL function calls (including to external functions)
+            // Note: References use the base symbol, not the unique key
             if !is_definition && function_symbols.contains(&occurrence.symbol) {
-                if let Some(caller) = &current_function {
-                    if caller != &occurrence.symbol {
-                        // Avoid self-calls for recursion
-                        // Update the caller's callees
-                        if let Some(caller_node) = call_graph.get_mut(caller) {
+                if let Some(caller_key) = &current_function_key {
+                    if let Some(caller_node) = call_graph.get_mut(caller_key) {
+                        // For callees, we store the base symbol (not unique key)
+                        // since references don't have signature info
+                        if caller_node.symbol != occurrence.symbol {
                             caller_node.callees.insert(occurrence.symbol.clone());
                         }
+                    }
+                }
 
-                        // Update the callee's callers
-                        if let Some(callee_node) = call_graph.get_mut(&occurrence.symbol) {
-                            callee_node.callers.insert(caller.clone());
+                // Also update the callee's callers (find by symbol match)
+                // We need to find all nodes with this symbol
+                for (key, node) in call_graph.iter_mut() {
+                    if node.symbol == occurrence.symbol {
+                        if let Some(caller_key) = &current_function_key {
+                            if key != caller_key {
+                                node.callers.insert(caller_key.clone());
+                            }
                         }
                     }
                 }
@@ -220,7 +339,7 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
     // Third pass: extract function bodies using verus_syn parser
     // This approach is much cleaner than brace-counting and handles all Verus syntax
     let mut span_cache = FileSpanCache::new();
-    
+
     for node in call_graph.values_mut() {
         if !node.range.is_empty() {
             let file_path = &node.file_path;
@@ -232,7 +351,10 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                 file_path
             };
 
-            debug!("Extracting body for {} from {}", node.display_name, clean_path);
+            debug!(
+                "Extracting body for {} from {}",
+                node.display_name, clean_path
+            );
 
             // SCIP gives us the line where the function name appears (0-indexed)
             // Add 1 to convert to 1-indexed for verus_syn
@@ -247,7 +369,10 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                 Ok(Some(body)) => {
                     let body_len = body.len();
                     node.body = Some(body);
-                    debug!("Extracted body for {} using verus_syn, length: {}", node.display_name, body_len);
+                    debug!(
+                        "Extracted body for {} using verus_syn, length: {}",
+                        node.display_name, body_len
+                    );
                 }
                 Ok(None) | Err(_) => {
                     // Function not found by verus_syn - this can happen for:
@@ -255,8 +380,11 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                     // - External functions from dependencies
                     // - Macro-generated functions
                     // - Parse errors
-                    debug!("verus_syn could not find function {} in {}, using fallback", node.display_name, clean_path);
-                    
+                    debug!(
+                        "verus_syn could not find function {} in {}, using fallback",
+                        node.display_name, clean_path
+                    );
+
                     // Fallback: use brace-counting to extract body
                     if let Ok(contents) = fs::read_to_string(clean_path) {
                         let lines: Vec<&str> = contents.lines().collect();
@@ -266,7 +394,10 @@ pub fn build_call_graph(scip_data: &ScipIndex) -> HashMap<String, FunctionNode> 
                             if !body.is_empty() {
                                 let body_len = body.len();
                                 node.body = Some(body);
-                                debug!("Extracted body for {} using fallback, length: {}", node.display_name, body_len);
+                                debug!(
+                                    "Extracted body for {} using fallback, length: {}",
+                                    node.display_name, body_len
+                                );
                             }
                         }
                     }
@@ -365,7 +496,7 @@ fn extract_body_with_brace_counting(lines: &[&str], start_line: usize) -> String
         if found_body_brace && open_braces == 0 {
             break;
         }
-        
+
         // Safety limit: don't read more than 500 lines for a single function
         if body_lines.len() > 500 {
             break;
@@ -377,6 +508,16 @@ fn extract_body_with_brace_counting(lines: &[&str], start_line: usize) -> String
 
 /// Convert a SCIP symbol to a clean path format with display name
 pub fn symbol_to_path(symbol: &str, display_name: &str) -> String {
+    symbol_to_path_with_signature(symbol, display_name, None)
+}
+
+/// Convert a SCIP symbol to a clean path format with display name, optionally including type info
+/// for disambiguation (used for trait implementations with the same method name).
+pub fn symbol_to_path_with_signature(
+    symbol: &str,
+    display_name: &str,
+    signature: Option<&str>,
+) -> String {
     // Skip "rust-analyzer cargo " prefix if present
     let mut parts = symbol.split_whitespace();
     let mut s = symbol;
@@ -404,14 +545,44 @@ pub fn symbol_to_path(symbol: &str, display_name: &str) -> String {
     // Remove all occurrences of angle-bracketed generics, e.g., <...>
     let re = Regex::new(r"<[^>]*>").unwrap();
     clean_path = re.replace_all(&clean_path, "").to_string();
+
+    // If we have a signature, try to add type info for disambiguation
+    // This helps distinguish e.g., Mul<&Scalar>::mul vs Mul<&MontgomeryPoint>::mul
+    if let Some(sig) = signature {
+        if let Some(type_info) = extract_impl_type_info(sig) {
+            // Check if this looks like a trait method (path contains trait name like "Mul/")
+            // and insert the type parameter
+            if clean_path.contains('/') {
+                // Find the last component that looks like a trait method
+                // e.g., "crate/module/Mul/mul" -> "crate/module/Mul<Type>/mul"
+                if let Some(last_slash) = clean_path.rfind('/') {
+                    let before_method = &clean_path[..last_slash];
+                    let method = &clean_path[last_slash..];
+                    // Check if this might be a trait impl by looking for common patterns
+                    if before_method.ends_with("Mul")
+                        || before_method.ends_with("Add")
+                        || before_method.ends_with("Sub")
+                        || before_method.ends_with("Div")
+                        || before_method.ends_with("From")
+                        || before_method.ends_with("Into")
+                        || before_method.ends_with("Index")
+                        || before_method.ends_with("Deref")
+                    {
+                        clean_path = format!("{}<{}>{}", before_method, type_info, method);
+                    }
+                }
+            }
+        }
+    }
+
     // Only append display_name if it's not already in the path
     if !clean_path.ends_with(display_name) {
         clean_path = format!("{clean_path}/{display_name}")
     }
-    if clean_path.len() > 128 {
+    if clean_path.len() > 200 {
         let path_len = clean_path.len();
-        warn!("Warning: Path longer ({path_len}) than 128 chars: {clean_path}. Truncating it to 128 chars.");
-        clean_path.truncate(128);
+        warn!("Warning: Path longer ({path_len}) than 200 chars: {clean_path}. Truncating it to 200 chars.");
+        clean_path.truncate(200);
     }
     clean_path
 }
@@ -441,13 +612,23 @@ pub fn write_call_graph_as_atoms_json<P: AsRef<std::path::Path>>(
                 .to_string();
 
             Atom {
-                identifier: symbol_to_path(&node.symbol, &node.display_name),
+                // Include signature info for the identifier to disambiguate trait impls
+                identifier: symbol_to_path_with_signature(
+                    &node.symbol,
+                    &node.display_name,
+                    Some(&node.signature_text),
+                ),
                 statement_type: "function".to_string(),
                 deps: node
                     .callees
                     .iter()
-                    .filter_map(|callee| call_graph.get(callee))
+                    .filter_map(|callee_symbol| {
+                        // For callees, we need to find nodes by symbol (not unique key)
+                        // since callees are stored as base symbols
+                        call_graph.values().find(|n| n.symbol == *callee_symbol)
+                    })
                     .map(|callee_node| {
+                        // For dependencies, we don't have signature info (they're just references)
                         symbol_to_path(&callee_node.symbol, &callee_node.display_name)
                     })
                     .collect(),
@@ -508,13 +689,12 @@ pub fn generate_call_graph_dot(
         module_groups.entry(module).or_default().push(*node);
     }
 
-    let mut cluster_id = 0;
-    for (module, nodes) in &module_groups {
+    for (cluster_id, (module, nodes)) in module_groups.iter().enumerate() {
         dot.push_str(&format!("  subgraph cluster_{} {{\n    label = \"{}\";\n    style=filled;\n    color=lightgrey;\n    fontname=Helvetica;\n", cluster_id, module));
         for node in nodes {
             let label = node.display_name.clone();
             let tooltip = if let Some(body) = &node.body {
-                let plain = body.replace('\n', " ").replace('\r', " ").replace('"', "' ");
+                let plain = body.replace(['\n', '\r'], " ").replace('"', "' ");
                 if plain.len() > 200 {
                     format!("{}...", &plain[..200])
                 } else {
@@ -529,10 +709,9 @@ pub fn generate_call_graph_dot(
             ));
         }
         dot.push_str("  }\n");
-        cluster_id += 1;
     }
 
-    dot.push_str("\n");
+    dot.push('\n');
 
     // Add edges, but only for filtered nodes
     let filtered_symbols: std::collections::HashSet<_> =
@@ -627,7 +806,7 @@ pub fn generate_file_subgraph_dot(
     for node in &file_nodes {
         let label = node.display_name.clone();
         let tooltip = if let Some(body) = &node.body {
-            let plain = body.replace('\n', " ").replace('\r', " ").replace('"', "' ");
+            let plain = body.replace(['\n', '\r'], " ").replace('"', "' ");
             if plain.len() > 200 {
                 format!("{}...", &plain[..200])
             } else {
@@ -655,7 +834,7 @@ pub fn generate_file_subgraph_dot(
         }
     }
 
-    dot.push_str("\n");
+    dot.push('\n');
 
     // Draw edges from file nodes to their callees
     for node in &file_nodes {
@@ -744,7 +923,10 @@ pub fn generate_files_subgraph_dot(
         ));
     }
 
-    println!("Found {} functions in the specified files", file_nodes.len());
+    println!(
+        "Found {} functions in the specified files",
+        file_nodes.len()
+    );
 
     // Get the symbols of nodes in the files
     let file_symbols: HashSet<String> = file_nodes.iter().map(|n| n.symbol.clone()).collect();
@@ -772,8 +954,7 @@ pub fn generate_files_subgraph_dot(
     }
 
     // Draw clusters for each file with blue background nodes
-    let mut cluster_id = 0;
-    for (file_path, nodes) in &file_groups {
+    for (cluster_id, (file_path, nodes)) in file_groups.iter().enumerate() {
         let file_label = Path::new(file_path)
             .file_name()
             .and_then(|n| n.to_str())
@@ -788,7 +969,7 @@ pub fn generate_files_subgraph_dot(
         for node in nodes {
             let label = node.display_name.clone();
             let tooltip = if let Some(body) = &node.body {
-                let plain = body.replace('\n', " ").replace('\r', " ").replace('"', "' ");
+                let plain = body.replace(['\n', '\r'], " ").replace('"', "' ");
                 if plain.len() > 200 {
                     format!("{}...", &plain[..200])
                 } else {
@@ -804,7 +985,6 @@ pub fn generate_files_subgraph_dot(
         }
 
         dot.push_str("  }\n");
-        cluster_id += 1;
     }
 
     // Draw connected nodes with light gray background
@@ -820,7 +1000,7 @@ pub fn generate_files_subgraph_dot(
         }
     }
 
-    dot.push_str("\n");
+    dot.push('\n');
 
     // Draw edges
     // From file nodes to their callees
@@ -939,8 +1119,7 @@ pub fn generate_function_subgraph_dot(
     }
 
     // Create clusters for each file
-    let mut cluster_id = 0;
-    for (file_path, symbols) in &file_groups {
+    for (cluster_id, (file_path, symbols)) in file_groups.iter().enumerate() {
         let file_label = Path::new(file_path)
             .file_name()
             .and_then(|n| n.to_str())
@@ -956,7 +1135,7 @@ pub fn generate_function_subgraph_dot(
             if let Some(node) = call_graph.get(symbol) {
                 let label = node.display_name.clone();
                 let tooltip = if let Some(body) = &node.body {
-                    let plain = body.replace('\n', " ").replace('\r', " ").replace('"', "' ");
+                    let plain = body.replace(['\n', '\r'], " ").replace('"', "' ");
                     if plain.len() > 200 {
                         format!("{}...", &plain[..200])
                     } else {
@@ -981,10 +1160,9 @@ pub fn generate_function_subgraph_dot(
         }
 
         dot.push_str("  }\n");
-        cluster_id += 1;
     }
 
-    dot.push_str("\n");
+    dot.push('\n');
 
     // Draw edges between all included nodes
     for symbol in &included_symbols {
@@ -1089,6 +1267,7 @@ mod tests {
             FunctionNode {
                 symbol: "f1".to_string(),
                 display_name: "foo".to_string(),
+                signature_text: "fn foo()".to_string(),
                 file_path: "/tmp/foo.rs".to_string(),
                 relative_path: "tmp/foo.rs".to_string(),
                 callers: HashSet::new(),

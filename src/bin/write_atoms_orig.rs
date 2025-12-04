@@ -1,10 +1,12 @@
-use rust_atomizer::scip_to_call_graph_json::{parse_scip_json, build_call_graph, write_call_graph_as_atoms_json};
+use chrono::Utc;
+use rust_atomizer::scip_to_call_graph_json::{
+    build_call_graph, parse_scip_json, write_call_graph_as_atoms_json,
+};
 use std::env;
-use std::process::Command;
-use std::path::Path;
 use std::fs::{self, OpenOptions};
 use std::io::Write;
-use chrono::{Utc};
+use std::path::Path;
+use std::process::Command;
 
 struct AtomizerLogger {
     repo_id: String,
@@ -17,7 +19,7 @@ impl AtomizerLogger {
     fn new(repo_id: String, user_id: String) -> Result<Self, Box<dyn std::error::Error>> {
         // Create logs directory if it doesn't exist
         fs::create_dir_all("logs")?;
-        
+
         // Create timestamped log filename
         let timestamp = Utc::now().format("%Y%m%d_%H%M%S");
         let log_file_path = format!("logs/atomizer_{}_{}.log", repo_id, timestamp);
@@ -57,7 +59,6 @@ impl AtomizerLogger {
 
         let mut file = OpenOptions::new()
             .create(true)
-            .write(true)
             .append(true)
             .open(&self.log_file_path)?;
 
@@ -65,7 +66,11 @@ impl AtomizerLogger {
         writeln!(file, "=== Atomizer Log Session ===")?;
         writeln!(file, "Repo ID: {}", self.repo_id)?;
         writeln!(file, "User ID: {}", self.user_id)?;
-        writeln!(file, "Session Start: {}", Utc::now().format("%Y-%m-%d %H:%M:%S UTC"))?;
+        writeln!(
+            file,
+            "Session Start: {}",
+            Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+        )?;
         writeln!(file, "================================")?;
         writeln!(file)?;
 
@@ -95,41 +100,56 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let user_id = args.get(3).map(|s| s.as_str()).unwrap_or("460176");
 
     let mut logger = AtomizerLogger::new(repo_id.clone(), user_id.to_string())?;
-    logger.info(&format!("Starting atomizer for repo_id: {}, user_id: {}", repo_id, user_id));
+    logger.info(&format!(
+        "Starting atomizer for repo_id: {}, user_id: {}",
+        repo_id, user_id
+    ));
 
     // Check if Cargo.toml exists, if not create one for standalone Rust files
     let cargo_toml_path = Path::new(folder_path).join("Cargo.toml");
     if !cargo_toml_path.exists() {
-        logger.info(&format!("Creating Cargo.toml for standalone Rust files in {}...", folder_path));
-        
+        logger.info(&format!(
+            "Creating Cargo.toml for standalone Rust files in {}...",
+            folder_path
+        ));
+
         // Look for .rs files in the directory
         let entries = fs::read_dir(folder_path)?;
         let mut rust_files = Vec::new();
-        
+
         for entry in entries {
             let entry = entry?;
             let path = entry.path();
             if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("rs") {
                 if let Some(file_name) = path.file_stem().and_then(|s| s.to_str()) {
-                    rust_files.push((file_name.to_string(), path.file_name().unwrap().to_str().unwrap().to_string()));
+                    rust_files.push((
+                        file_name.to_string(),
+                        path.file_name().unwrap().to_str().unwrap().to_string(),
+                    ));
                 }
             }
         }
-        
+
         if !rust_files.is_empty() {
             // Create a basic Cargo.toml
             let package_name = rust_files[0].0.clone();
-            let mut cargo_content = format!("[package]\nname = \"{}\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n", package_name);
-            
+            let mut cargo_content = format!(
+                "[package]\nname = \"{}\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n",
+                package_name
+            );
+
             for (name, file_name) in rust_files {
-                cargo_content.push_str(&format!("[[bin]]\nname = \"{}\"\npath = \"{}\"\n\n", name, file_name));
+                cargo_content.push_str(&format!(
+                    "[[bin]]\nname = \"{}\"\npath = \"{}\"\n\n",
+                    name, file_name
+                ));
             }
-            
+
             fs::write(&cargo_toml_path, cargo_content)?;
             logger.info("Created Cargo.toml for standalone Rust files");
         }
     }
-    
+
     let folder = Path::new(folder_path)
         .file_name()
         .and_then(|name| name.to_str())
@@ -145,28 +165,37 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .arg(folder_path)
         .output()?;
     if !output.status.success() {
-        logger.warn(&format!("Errors while running verus-analyzer scip: {}", String::from_utf8_lossy(&output.stderr)));
+        logger.warn(&format!(
+            "Errors while running verus-analyzer scip: {}",
+            String::from_utf8_lossy(&output.stderr)
+        ));
     }
 
     // Run scip print --json > <folder>_scip.json
-    logger.info(&format!("Running: scip print --json {} > {}", scip_file, scip_json_file));
+    logger.info(&format!(
+        "Running: scip print --json {} > {}",
+        scip_file, scip_json_file
+    ));
     let scip_print = Command::new("scip")
         .arg("print")
         .arg("--json")
-        .arg(&scip_file)
+        .arg(scip_file)
         .output()?;
     if !scip_print.status.success() {
-        let error_msg = format!("Failed to run scip print: {}", String::from_utf8_lossy(&scip_print.stderr));
+        let error_msg = format!(
+            "Failed to run scip print: {}",
+            String::from_utf8_lossy(&scip_print.stderr)
+        );
         logger.error(&error_msg);
         // Save logs before exiting
         logger.save_logs()?;
         std::process::exit(1);
     }
-    std::fs::write(&scip_json_file, &scip_print.stdout)?;
+    std::fs::write(scip_json_file, &scip_print.stdout)?;
 
     logger.info(&format!("Parsing SCIP JSON from {}...", scip_json_file));
-    let scip_data = parse_scip_json(&scip_json_file)?;
-    
+    let scip_data = parse_scip_json(scip_json_file)?;
+
     logger.info("Building call graph...");
     let call_graph = build_call_graph(&scip_data);
 
