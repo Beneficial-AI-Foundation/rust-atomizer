@@ -21,8 +21,8 @@ use verus_syn::{ImplItemFn, Item, ItemFn, ItemMacro, TraitItemFn};
 #[derive(Debug, Clone)]
 pub struct FunctionSpan {
     pub name: String,
-    pub start_line: usize,  // 1-indexed
-    pub end_line: usize,    // 1-indexed (inclusive)
+    pub start_line: usize, // 1-indexed
+    pub end_line: usize,   // 1-indexed (inclusive)
 }
 
 /// Visitor that collects function spans from an AST
@@ -146,8 +146,8 @@ pub fn extract_function_spans(file_path: &str) -> Result<Vec<FunctionSpan>, Stri
 
 /// Parse content string and extract all function spans
 pub fn extract_function_spans_from_content(content: &str) -> Result<Vec<FunctionSpan>, String> {
-    let syntax_tree = verus_syn::parse_file(content)
-        .map_err(|e| format!("Failed to parse file: {}", e))?;
+    let syntax_tree =
+        verus_syn::parse_file(content).map_err(|e| format!("Failed to parse file: {}", e))?;
 
     let mut visitor = FunctionSpanVisitor::new();
     visitor.visit_file(&syntax_tree);
@@ -156,7 +156,7 @@ pub fn extract_function_spans_from_content(content: &str) -> Result<Vec<Function
 }
 
 /// Find the best matching function span for a given function name and approximate line number.
-/// 
+///
 /// Uses fuzzy matching with tolerance to account for doc comments which are included
 /// in the function's span by the parser, but SCIP points to the signature line.
 pub fn find_best_match<'a>(
@@ -166,20 +166,18 @@ pub fn find_best_match<'a>(
 ) -> Option<&'a FunctionSpan> {
     // Tolerance for fuzzy matching - accounts for doc comments
     const TOLERANCE: usize = 15;
-    
+
     // First try exact name match
-    let matching: Vec<_> = spans.iter()
-        .filter(|s| s.name == name)
-        .collect();
-    
+    let matching: Vec<_> = spans.iter().filter(|s| s.name == name).collect();
+
     if matching.is_empty() {
         return None;
     }
-    
+
     if matching.len() == 1 {
         return Some(matching[0]);
     }
-    
+
     // Multiple matches - find the one closest to the approximate line
     // First try exact match
     for span in &matching {
@@ -187,41 +185,38 @@ pub fn find_best_match<'a>(
             return Some(span);
         }
     }
-    
+
     // Then try within tolerance
     for span in &matching {
-        let diff = if span.start_line > approx_line {
-            span.start_line - approx_line
-        } else {
-            approx_line - span.start_line
-        };
-        
+        let diff = span.start_line.abs_diff(approx_line);
+
         if diff <= TOLERANCE {
             return Some(span);
         }
     }
-    
+
     // Fallback: return the closest one
-    matching.into_iter()
+    matching
+        .into_iter()
         .min_by_key(|s| (s.start_line as i64 - approx_line as i64).abs())
 }
 
 /// Extract a function body given the file content and span
 pub fn extract_body_from_span(content: &str, span: &FunctionSpan) -> String {
     let lines: Vec<&str> = content.lines().collect();
-    
+
     if span.start_line == 0 || span.end_line == 0 {
         return String::new();
     }
-    
+
     // Convert to 0-indexed
     let start_idx = span.start_line.saturating_sub(1);
     let end_idx = span.end_line.min(lines.len());
-    
+
     if start_idx >= lines.len() {
         return String::new();
     }
-    
+
     lines[start_idx..end_idx].join("\n")
 }
 
@@ -256,7 +251,7 @@ impl FileSpanCache {
         approx_line: usize,
     ) -> Result<Option<String>, String> {
         let spans = self.get_spans(file_path)?;
-        
+
         if let Some(span) = find_best_match(spans, function_name, approx_line) {
             let content = fs::read_to_string(file_path)
                 .map_err(|e| format!("Failed to read file {}: {}", file_path, e))?;
@@ -315,26 +310,38 @@ impl Foo {
     #[test]
     fn test_find_best_match() {
         let spans = vec![
-            FunctionSpan { name: "foo".to_string(), start_line: 10, end_line: 20 },
-            FunctionSpan { name: "foo".to_string(), start_line: 100, end_line: 110 },
-            FunctionSpan { name: "bar".to_string(), start_line: 50, end_line: 60 },
+            FunctionSpan {
+                name: "foo".to_string(),
+                start_line: 10,
+                end_line: 20,
+            },
+            FunctionSpan {
+                name: "foo".to_string(),
+                start_line: 100,
+                end_line: 110,
+            },
+            FunctionSpan {
+                name: "bar".to_string(),
+                start_line: 50,
+                end_line: 60,
+            },
         ];
-        
+
         // Should find the foo closest to line 15
         let result = find_best_match(&spans, "foo", 15);
         assert!(result.is_some());
         assert_eq!(result.unwrap().start_line, 10);
-        
+
         // Should find the foo closest to line 105
         let result = find_best_match(&spans, "foo", 105);
         assert!(result.is_some());
         assert_eq!(result.unwrap().start_line, 100);
-        
+
         // Should find bar
         let result = find_best_match(&spans, "bar", 55);
         assert!(result.is_some());
         assert_eq!(result.unwrap().start_line, 50);
-        
+
         // Should return None for non-existent function
         let result = find_best_match(&spans, "nonexistent", 50);
         assert!(result.is_none());

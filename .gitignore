@@ -3,3 +3,14 @@ logs/*log
 .cache
 .env
 Cargo.lock
+
+# Test data (generated during CI)
+data/
+
+# SCIP files (generated)
+index.scip
+*.scip.json
+curve_dalek_scip.json
+
+# Generated output files
+curve25519-dalek_fixed.json
