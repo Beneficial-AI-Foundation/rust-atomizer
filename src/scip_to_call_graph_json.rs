@@ -7,6 +7,12 @@ use std::collections::{HashMap, HashSet};
 use std::fs::{self};
 use std::path::Path;
 
+/// Expected prefix for SCIP symbols from rust-analyzer/verus-analyzer
+const SCIP_SYMBOL_PREFIX: &str = "rust-analyzer cargo ";
+
+/// Prefix for probe-style URIs
+const PROBE_URI_PREFIX: &str = "probe:";
+
 // Re-using the SCIP data structures from our JSON parser
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScipIndex {
@@ -127,6 +133,63 @@ fn extract_impl_type_info(signature: &str) -> Option<String> {
     }
 
     None
+}
+
+/// Convert a SCIP symbol to a probe-style code_name.
+///
+/// This transforms raw SCIP symbols like:
+///   `rust-analyzer cargo curve25519-dalek 4.1.3 ristretto/RistrettoPoint#Sum#sum().`
+/// Into probe-style URIs like:
+///   `probe:curve25519-dalek/4.1.3/ristretto/RistrettoPoint#Sum<I>#sum()`
+///
+/// Parameters:
+/// - `symbol`: The raw SCIP symbol string
+/// - `display_name`: The function/method name
+/// - `signature`: Optional function signature for type disambiguation
+pub fn symbol_to_code_name(symbol: &str, display_name: &str, signature: Option<&str>) -> String {
+    // Step 1: Strip "rust-analyzer cargo " prefix
+    let s = match symbol.strip_prefix(SCIP_SYMBOL_PREFIX) {
+        Some(stripped) => stripped,
+        None => {
+            // Fallback: return a probe-prefixed version of the symbol
+            return format!("{}{}", PROBE_URI_PREFIX, symbol.replace(' ', "/"));
+        }
+    };
+
+    // Step 2: Check if s ends with "display_name()."
+    let expected_suffix = format!("{}().", display_name);
+    if !s.ends_with(&expected_suffix) {
+        // Fallback: convert as-is
+        return format!("{}{}", PROBE_URI_PREFIX, s.replace(' ', "/"));
+    }
+
+    // Step 3: Remove the trailing '.' from the symbol
+    let mut result = s[..s.len() - 1].to_string();
+
+    // Step 4: If we have a signature, try to add type info for disambiguation
+    // This helps distinguish e.g., Mul<&Scalar>::mul vs Mul<&MontgomeryPoint>::mul
+    if let Some(sig) = signature {
+        if let Some(type_info) = extract_impl_type_info(sig) {
+            // Check if this looks like a trait method (contains #)
+            if result.contains('#') {
+                // Insert the type parameter before the #
+                // "montgomery/Mul#mul()" -> "montgomery/Mul<Scalar>#mul()"
+                if let Some(hash_pos) = result.rfind('#') {
+                    result = format!(
+                        "{}<{}>{}",
+                        &result[..hash_pos],
+                        type_info,
+                        &result[hash_pos..]
+                    );
+                }
+            }
+        }
+    }
+
+    // Step 5: Convert spaces to slashes and add probe: prefix
+    // "curve25519-dalek 4.1.3 montgomery/MontgomeryPoint#ct_eq()"
+    // becomes "probe:curve25519-dalek/4.1.3/montgomery/MontgomeryPoint#ct_eq()"
+    format!("{}{}", PROBE_URI_PREFIX, result.replace(' ', "/"))
 }
 
 /// Parse a SCIP JSON file
@@ -612,8 +675,8 @@ pub fn write_call_graph_as_atoms_json<P: AsRef<std::path::Path>>(
                 .to_string();
 
             Atom {
-                // Include signature info for the identifier to disambiguate trait impls
-                identifier: symbol_to_path_with_signature(
+                // Probe-style identifier: "probe:crate/version/module/Type#Trait<Param>#method()"
+                identifier: symbol_to_code_name(
                     &node.symbol,
                     &node.display_name,
                     Some(&node.signature_text),
@@ -628,8 +691,12 @@ pub fn write_call_graph_as_atoms_json<P: AsRef<std::path::Path>>(
                         call_graph.values().find(|n| n.symbol == *callee_symbol)
                     })
                     .map(|callee_node| {
-                        // For dependencies, we don't have signature info (they're just references)
-                        symbol_to_path(&callee_node.symbol, &callee_node.display_name)
+                        // Dependencies also use probe-style format
+                        symbol_to_code_name(
+                            &callee_node.symbol,
+                            &callee_node.display_name,
+                            Some(&callee_node.signature_text),
+                        )
                     })
                     .collect(),
                 body: body_content,
@@ -1281,5 +1348,31 @@ mod tests {
         let dot = fs::read_to_string(tmp.path()).unwrap();
         // Note: quotes are replaced with "' " in the tooltip for DOT format safety
         assert!(dot.contains("tooltip=\"fn foo() { println!(' Hello' ); }\""));
+    }
+
+    #[test]
+    fn test_symbol_to_code_name() {
+        // Test basic conversion
+        let symbol =
+            "rust-analyzer cargo curve25519-dalek 4.1.3 montgomery/MontgomeryPoint#ct_eq().";
+        let code_name = symbol_to_code_name(symbol, "ct_eq", None);
+        assert_eq!(
+            code_name,
+            "probe:curve25519-dalek/4.1.3/montgomery/MontgomeryPoint#ct_eq()"
+        );
+
+        // Test with trait method and type disambiguation
+        let symbol = "rust-analyzer cargo curve25519-dalek 4.1.3 montgomery/Mul#mul().";
+        let signature = "fn mul(self, scalar: &Scalar) -> MontgomeryPoint";
+        let code_name = symbol_to_code_name(symbol, "mul", Some(signature));
+        assert_eq!(
+            code_name,
+            "probe:curve25519-dalek/4.1.3/montgomery/Mul<Scalar>#mul()"
+        );
+
+        // Test simple function (no trait)
+        let symbol = "rust-analyzer cargo mylib 0.1.0 utils/helper().";
+        let code_name = symbol_to_code_name(symbol, "helper", None);
+        assert_eq!(code_name, "probe:mylib/0.1.0/utils/helper()");
     }
 }
